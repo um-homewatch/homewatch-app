@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="!loading">
+    <p> Welcome {{user.name}} </p>
+    <ion-card *ngFor="let home of homes">
+      <ion-card-header>
+        {{home.name}}
+      </ion-card-header>
+
+      <ion-card-content>
+        <div ion-item>
+          Tunnel
+          <br/> {{home.tunnel}}
+        </div>
+        <div ion-item>
+          Location
+          <br/> {{home.location}}
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <ion-spinner *ngIf="loading" text-center></ion-spinner>
+</ion-content>
