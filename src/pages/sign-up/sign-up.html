@@ -14,27 +14,43 @@
 
 
 <ion-content padding>
-  <ion-list padding-bottom>
+  <form ion-list no-lines padding-bottom [formGroup]="signUpForm">
     <ion-item>
       <ion-label floating>Name</ion-label>
-      <ion-input type="text" [(ngModel)]="name"></ion-input>
+      <ion-input type="text" formControlName="name"></ion-input>
+    </ion-item>
+
+    <ion-item no-lines *ngIf="!signUpForm.controls.name.valid  && signUpForm.controls.name.dirtyiosud">
+      <p>You must provide a name</p>
     </ion-item>
 
     <ion-item>
       <ion-label floating>Email</ion-label>
-      <ion-input type="text" [(ngModel)]="email"></ion-input>
+      <ion-input type="text" formControlName="email"></ion-input>
+    </ion-item>
+
+    <ion-item no-lines *ngIf="!signUpForm.controls.email.valid  && signUpForm.controls.email.dirty">
+      <p>You must provide a valid email</p>
     </ion-item>
 
     <ion-item>
       <ion-label floating>Password</ion-label>
-      <ion-input type="password" [(ngModel)]="password"></ion-input>
+      <ion-input type="password" formControlName="password"></ion-input>
+    </ion-item>
+
+    <ion-item no-lines *ngIf="!signUpForm.controls.password.valid  && signUpForm.controls.password.dirty">
+      <p>A password is required</p>
     </ion-item>
 
     <ion-item>
       <ion-label floating>Confirm your password</ion-label>
-      <ion-input type="password" [(ngModel)]="password_confirmation"></ion-input>
+      <ion-input type="password" formControlName="password_confirmation"></ion-input>
     </ion-item>
-  </ion-list>
+
+    <ion-item no-lines *ngIf="!signUpForm.controls.password_confirmation.valid  && signUpForm.controls.password_confirmation.dirty">
+      <p>Passwords don't match!</p>
+    </ion-item>
+  </form>
 
   <button margin-top ion-button full (click)="signUp()">Sign up</button>
 </ion-content>
