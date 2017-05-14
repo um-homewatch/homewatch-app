@@ -2,7 +2,7 @@ import { Storage } from '@ionic/storage';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { HomewatchApiService } from '../../services/homewatch_api'
-import { HomesListPage } from "../homes/list/list"
+import { ListHomesPage } from "../homes/list/list"
 import { SignUpPage } from "../sign-up/sign-up"
 
 @Component({
@@ -23,7 +23,7 @@ export class LoginPage {
     if (user) {
       this.homewatch.auth = user.jwt;
 
-      this.navCtrl.setRoot(HomesListPage, { user });
+      this.navCtrl.setRoot(ListHomesPage, { user });
     }
 
     console.log('ionViewDidLoad LoginPage');
@@ -38,7 +38,7 @@ export class LoginPage {
       this.homewatch.auth = user.jwt;
       this.storage.set("HOMEWATCH_USER", user);
 
-      this.navCtrl.setRoot(HomesListPage, { user });
+      this.navCtrl.setRoot(ListHomesPage, { user });
     } catch (error) {
       console.error(error);
     }

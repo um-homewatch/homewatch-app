@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import {HomewatchApiService} from "../../../services/homewatch_api";
+import { HomewatchApiService } from "../../../services/homewatch_api";
+import { NewHomePage } from "../new/new";
 
 @Component({
-  selector: 'homes-list',
+  selector: 'page-list-homes',
   templateUrl: 'list.html'
 })
-export class HomesListPage {
+export class ListHomesPage {
   homewatch: Homewatch
   user: Object
   homes: Array<Object>
@@ -16,14 +17,22 @@ export class HomesListPage {
     this.homewatch = homewatchApiService.getApi();
   }
 
-  async ionViewDidLoad() {
+  async ionViewWillEnter() {
     this.user = this.navParams.get("user")
     let response = await this.homewatch.homes.listHomes()
     this.homes = response.data
     this.loading = false
   }
 
-  newHome(){
-    console.log("New Home");
+  newHome() {
+    this.navCtrl.push(NewHomePage);
+  }
+
+  editHome(home: Object) {
+    this.navCtrl.push(NewHomePage, { home })
+  }
+
+  listThings(home: Object){
+    console.log("Gonna implement that later..");
   }
 }

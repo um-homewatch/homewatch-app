@@ -1,0 +1,44 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>
+      <div *ngIf="editMode; else new">Edit Home</div>
+      <ng-template #new>New Home</ng-template>
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <form ion-list no-lines padding-bottom [formGroup]="homeForm" (ngSubmit)="onSubmit(homeForm)">
+    <ion-item>
+      <ion-label floating>Name</ion-label>
+      <ion-input type="text" formControlName="name"></ion-input>
+    </ion-item>
+
+    <ion-item no-lines *ngIf="!homeForm.controls.name.valid  && homeForm.controls.name.dirty">
+      <p>You must provide a name</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Location</ion-label>
+      <ion-input type="text" formControlName="location"></ion-input>
+    </ion-item>
+
+    <ion-item no-lines *ngIf="!homeForm.controls.location.valid  && homeForm.controls.location.dirty">
+      <p>You must provide a location</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Tunnel</ion-label>
+      <ion-input formControlName="tunnel"></ion-input>
+    </ion-item>
+
+    <ion-item no-lines *ngIf="!homeForm.controls.tunnel.valid  && homeForm.controls.tunnel.dirty">
+      <p>You must provide a valid tunnel</p>
+    </ion-item>
+
+    <button margin-top ion-button full type="submit" [disabled]="!homeForm.valid">Add Home</button>
+  </form>
+</ion-content>

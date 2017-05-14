@@ -5,7 +5,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomewatchApiService } from '../services/homewatch_api'
 
-import { HomesListPage } from '../pages/homes/list/list';
+import { ListHomesPage } from '../pages/homes/list/list';
 import { LoginPage } from '../pages/login/login';
 
 @Component({
@@ -23,7 +23,7 @@ export class MyApp {
     this.initializeApp();
 
     this.pages = [
-      { title: 'Home', component: HomesListPage, icon: "home" },
+      { title: 'Home', component: ListHomesPage, icon: "home" },
       { title: 'Logout', component: LoginPage, icon: "exit" }
     ];
 

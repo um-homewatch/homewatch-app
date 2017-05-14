@@ -10,20 +10,24 @@
 <ion-content padding>
   <div *ngIf="!loading">
     <ion-card *ngFor="let home of homes">
-      <ion-card-header>
-        {{home.name}}
-      </ion-card-header>
+      <ion-card-content no-padding>
+        <ion-item>
+          <h2>Tunnel</h2>
+          <br/>
+          <p>{{home.tunnel}}</p>
+        </ion-item>
 
-      <ion-card-content>
-        <div ion-item>
-          Tunnel
-          <br/> {{home.tunnel}}
-        </div>
-        <div ion-item>
-          Location
-          <br/> {{home.location}}
-        </div>
+        <ion-item>
+          <h2>Location</h2>
+          <br/>
+          <p>{{home.location}}</p>
+        </ion-item>
       </ion-card-content>
+
+      <ion-item padding-left no-margin>
+        <a (click)="editHome(home)" item-left><ion-icon name="create"></ion-icon> EDIT</a>
+        <a (click)="listThings(home)" item-right><ion-icon name="arrow-forward"></ion-icon></a>
+      </ion-item>
     </ion-card>
 
     <p *ngIf="homes.length == 0">
