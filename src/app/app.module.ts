@@ -3,7 +3,7 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
-import { HomePage } from '../pages/home/home';
+import { HomesListPage } from '../pages/homes/list/list';
 import { LoginPage } from '../pages/login/login';
 import { SignUpPage } from '../pages/sign-up/sign-up';
 
@@ -15,7 +15,7 @@ import { HomewatchApiService } from '../services/homewatch_api';
 @NgModule({
   declarations: [
     MyApp,
-    HomePage,
+    HomesListPage,
     LoginPage,
     SignUpPage
   ],
@@ -27,7 +27,7 @@ import { HomewatchApiService } from '../services/homewatch_api';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage,
+    HomesListPage,
     LoginPage,
     SignUpPage
   ],

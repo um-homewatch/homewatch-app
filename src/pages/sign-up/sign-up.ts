@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavController, NavParams } from 'ionic-angular';
 import { HomewatchApiService } from '../../services/homewatch_api'
-import { HomePage } from "../home/home"
+import { HomesListPage } from "../homes/list/list"
 
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -38,7 +38,7 @@ export class SignUpPage {
         this.homewatch.auth = response.data.jwt;
         this.storage.set("HOMEWATCH_USER", response.data);
 
-        this.navCtrl.setRoot(HomePage, { user: response.data });
+        this.navCtrl.setRoot(HomesListPage, { user: response.data });
       } catch (error) {
         alert("Mail already in use!");
         console.error(error);

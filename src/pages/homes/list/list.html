@@ -3,13 +3,12 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Home</ion-title>
+    <ion-title>Your Homes</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <div *ngIf="!loading">
-    <p> Welcome {{user.name}} </p>
     <ion-card *ngFor="let home of homes">
       <ion-card-header>
         {{home.name}}
@@ -26,6 +25,14 @@
         </div>
       </ion-card-content>
     </ion-card>
+
+    <p *ngIf="homes.length == 0">
+      Looks like you don't have an home set up, try adding one by clicking in the add button on the bottom right corner.
+    </p>
+
+    <ion-fab bottom right>
+      <button (click)="newHome()" ion-fab mini><ion-icon name="add"></ion-icon></button>
+    </ion-fab>
   </div>
 
   <ion-spinner *ngIf="loading" text-center></ion-spinner>

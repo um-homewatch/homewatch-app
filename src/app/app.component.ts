@@ -5,7 +5,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomewatchApiService } from '../services/homewatch_api'
 
-import { HomePage } from '../pages/home/home';
+import { HomesListPage } from '../pages/homes/list/list';
 import { LoginPage } from '../pages/login/login';
 
 @Component({
@@ -17,15 +17,14 @@ export class MyApp {
 
   rootPage: any = LoginPage;
 
-  pages: Array<{ title: string, component: any }>;
+  pages: Array<{ title: string, component: any, icon: string }>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public storage: Storage) {
     this.initializeApp();
 
-    // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Home', component: HomePage },
-      { title: 'Login', component: LoginPage }
+      { title: 'Home', component: HomesListPage, icon: "home" },
+      { title: 'Logout', component: LoginPage, icon: "exit" }
     ];
 
   }
@@ -40,6 +39,7 @@ export class MyApp {
   }
 
   async openPage(page) {
+    //if logging out, clear user data
     if (page.component == LoginPage){
       console.log("meme")
       await this.storage.remove("HOMEWATCH_USER");

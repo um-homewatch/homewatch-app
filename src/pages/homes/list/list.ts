@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import {HomewatchApiService} from "../../services/homewatch_api";
+import {HomewatchApiService} from "../../../services/homewatch_api";
 
 @Component({
-  selector: 'page-home',
-  templateUrl: 'home.html'
+  selector: 'homes-list',
+  templateUrl: 'list.html'
 })
-export class HomePage {
+export class HomesListPage {
   homewatch: Homewatch
   user: Object
   homes: Array<Object>
@@ -21,5 +21,9 @@ export class HomePage {
     let response = await this.homewatch.homes.listHomes()
     this.homes = response.data
     this.loading = false
+  }
+
+  newHome(){
+    console.log("New Home");
   }
 }
