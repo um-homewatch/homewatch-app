@@ -8,19 +8,23 @@
 
 
 <ion-content padding>
-  <ion-list padding-bottom>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm)">
     <ion-item>
       <ion-label floating>Email</ion-label>
-      <ion-input type="text" [(ngModel)]="email"></ion-input>
+      <ion-input type="text" formControlName="email"></ion-input>
+    </ion-item>
+
+    <ion-item no-lines *ngIf="!loginForm.controls.email.valid  && loginForm.controls.email.touched">
+      <p>You must provide a valid email</p>
     </ion-item>
 
     <ion-item>
       <ion-label floating>Password</ion-label>
-      <ion-input type="password" [(ngModel)]="password"></ion-input>
+      <ion-input type="password" formControlName="password"></ion-input>
     </ion-item>
-  </ion-list>
 
-  <button margin-top ion-button full (click)="clicked()">Sign in</button>
+    <button margin-top ion-button full type="submit" [disabled]="!loginForm.valid">Sign in</button>
+  </form>
 
   <p padding-top text-center> Don't have an account? Sign up <a (click)="goToSignUp()"> HERE </a> </p>
 </ion-content>
