@@ -22,52 +22,54 @@ export class SignUpPage {
     this.signUpForm = formBuilder.group({
       name: ['', Validators.compose([Validators.required])],
       email: ['', Validators.compose([Validators.pattern(EMAIL_REGEX), Validators.required])],
-      password: ['', Validators.compose([Validators.required])],
-      password_confirmation: ['', Validators.compose([])]
-    }, { validator: this.equalValueValidator("password", "password_confirmation") });
+      passwords: formBuilder.group({
+        password: ['', Validators.required],
+        password_confirmation: ['', Validators.required]
+      }, { validator: this.matchPassword })
+    });
   }
 
-  async signUp() {
+  async onSubmit(form: FormGroup) {
     this.submitted = true;
-    console.log(this.signUpForm)
-    if (this.signUpForm.valid) {
-      try {
-        console.log(this.signUpForm)
-        let user = this.signUpForm.value;
-        let response = await this.homewatch.users.register(user);
-        this.homewatch.auth = response.data.jwt;
-        this.storage.set("HOMEWATCH_USER", response.data);
+    try {
+      let user = this.convertFormToUser(this.signUpForm);
+      let response = await this.homewatch.users.register(user);
+      this.homewatch.auth = response.data.jwt;
+      this.storage.set("HOMEWATCH_USER", response.data);
 
-        this.navCtrl.setRoot(ListHomesPage, { user: response.data });
-      } catch (error) {
-        alert("Mail already in use!");
-        console.error(error);
-      }
+      this.navCtrl.setRoot(ListHomesPage, { user: response.data });
+    } catch (error) {
+      alert("Mail already in use!");
+      console.error(error);
     }
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SignUpPage');
+  private convertFormToUser(form: FormGroup) {
+    return {
+      name: form.value.name,
+      email: form.value.email,
+      password: form.value.passwords.password,
+      password_confirmation: form.value.passwords.password_confirmation
+    }
   }
 
-  equalValueValidator(targetKey: string, toMatchKey: string) {
-    return (group: FormGroup): { [key: string]: any } => {
-      const target = group.controls[targetKey];
-      const toMatch = group.controls[toMatchKey];
-      if (target.touched && toMatch.touched) {
-        const isMatch = target.value === toMatch.value;
-        // set equal value error on dirty controls
-        if (!isMatch && target.valid && toMatch.valid) {
-          toMatch.setErrors({ equalValue: targetKey });
-          const message = targetKey + ' != ' + toMatchKey;
-          return { 'equalValue': message };
-        }
-        if (isMatch && toMatch.hasError('equalValue')) {
-          toMatch.setErrors(null);
-        }
-      }
+  private matchPassword(group): any {
+    let password = group.controls.password;
+    let confirm = group.controls.password_confirmation;
 
+    // Don't kick in until user touches both fields
+    if (password.pristine || confirm.pristine) {
       return null;
+    }
+
+    group.markAsTouched();
+
+    if (password.value === confirm.value) {
+      return null;
+    }
+
+    return {
+      isValid: false
     };
   }
 }
