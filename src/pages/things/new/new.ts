@@ -10,6 +10,12 @@ import { HomewatchApiService } from '../../../services/homewatch_api'
 export class NewThingPage {
   editMode: boolean = false
   thingForm: FormGroup
+  typeOptions: any = [
+    { value: "Things::Light", text: "Light", icon: "bulb" },
+    { value: "Things::Lock", text: "Lock", icon: "lock" },
+    { value: "Things::Thermostat", text: "Thermostat", icon: "thermometer" },
+    { value: "Things::Weather", text: "Weather", icon: "sunny" },
+  ]
   homewatch: Homewatch
   submitted: boolean = false
   home: any
@@ -38,7 +44,7 @@ export class NewThingPage {
         name: this.thing.name,
         type: this.thing.type,
         subtype: this.thing.subtype,
-        connection_info: [{ address: "192.168.1.200" }]
+        connection_info: { address: "192.168.1.200" }
       });
     }
   }

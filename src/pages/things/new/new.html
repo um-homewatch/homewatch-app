@@ -11,7 +11,7 @@
 <ion-content padding>
   <form ion-list no-lines padding-bottom [formGroup]="thingForm" (ngSubmit)="onSubmit(thingForm)">
     <ion-item>
-      <ion-label floating>Name</ion-label>
+      <ion-label>Name</ion-label>
       <ion-input type="text" formControlName="name"></ion-input>
     </ion-item>
 
@@ -20,8 +20,12 @@
     </ion-item>
 
     <ion-item>
-      <ion-label floating>Type</ion-label>
-      <ion-input type="text" formControlName="type"></ion-input>
+      <ion-label>Type</ion-label>
+      <ion-select type="text" formControlName="type">
+        <ion-option *ngFor="let option of typeOptions" [value]=option.value>
+          {{option.text}}
+        </ion-option>
+      </ion-select>
     </ion-item>
 
     <ion-item no-lines *ngIf="!thingForm.controls.type.valid  && thingForm.controls.type.dirty">
@@ -29,7 +33,7 @@
     </ion-item>
 
     <ion-item>
-      <ion-label floating>Subtype</ion-label>
+      <ion-label>Subtype</ion-label>
       <ion-input formControlName="subtype"></ion-input>
     </ion-item>
 

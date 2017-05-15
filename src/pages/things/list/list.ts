@@ -29,4 +29,19 @@ export class ListThingsPage {
   newThing() {
     this.navCtrl.push(NewThingPage, { home: this.home });
   }
+
+  getIconFromType(type: string){
+    switch(type){
+      case "Things::Light":
+        return "bulb"
+      case "Things::Lock":
+        return "lock"
+      case "Things::Thermostat":
+        return "thermometer"
+      case "Things::Weather":
+        return "sunny"
+      default:
+        return "help"
+    }
+  }
 }
