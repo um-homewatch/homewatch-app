@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      <div *ngIf="editMode; else new">Edit Thing</div>
+      <ng-template #new>New Thing</ng-template>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <form ion-list no-lines padding-bottom [formGroup]="thingForm" (ngSubmit)="onSubmit(thingForm)">
+    <ion-item>
+      <ion-label floating>Name</ion-label>
+      <ion-input type="text" formControlName="name"></ion-input>
+    </ion-item>
+
+    <ion-item no-lines *ngIf="!thingForm.controls.name.valid  && thingForm.controls.name.dirty">
+      <p>You must provide a name</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Type</ion-label>
+      <ion-input type="text" formControlName="type"></ion-input>
+    </ion-item>
+
+    <ion-item no-lines *ngIf="!thingForm.controls.type.valid  && thingForm.controls.type.dirty">
+      <p>You must provide a type</p>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Subtype</ion-label>
+      <ion-input formControlName="subtype"></ion-input>
+    </ion-item>
+
+    <ion-item no-lines *ngIf="!thingForm.controls.subtype.valid  && thingForm.controls.subtype.dirty">
+      <p>You must provide a valid subtype</p>
+    </ion-item>
+
+    <button margin-top ion-button full type="submit" [disabled]="!thingForm.valid">SAVE</button>
+  </form>
+</ion-content>

@@ -9,4 +9,31 @@
 
 
 <ion-content padding>
+  <ion-card *ngFor="let thing of things">
+    <ion-card-content no-padding>
+      <ion-item>
+        <h2>Name</h2>
+        <p>{{thing.name}}</p>
+      </ion-item>
+
+      <ion-item>
+        <h2>Type</h2>
+        <p>{{thing.type}}</p>
+      </ion-item>
+
+      <ion-item>
+        <h2>SubType</h2>
+        <p>{{thing.subtype}}</p>
+      </ion-item>
+    </ion-card-content>
+
+    <ion-item padding-left no-margin>
+      <a (click)="editThing(thing)" item-left>
+        <ion-icon name="create"></ion-icon> EDIT</a>
+    </ion-item>
+  </ion-card>
+
+  <ion-fab bottom right>
+    <button (click)="newThing()" ion-fab mini><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
 </ion-content>

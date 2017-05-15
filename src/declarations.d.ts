@@ -21,7 +21,7 @@ declare class Homewatch {
   scenarioThings(scenario: Object): void;
   scenarios(home: Object): void;
   status(thing: Object): void;
-  things(home: Object): void;
+  things(home: Object): Things;
 }
 
 declare class Homes {
@@ -37,4 +37,10 @@ declare class Users {
   register(user: Object): any;
   currentUser(): any;
   updateCurrentUser(): any;
+}
+
+declare class Things {
+  listThings(): any;
+  createThing(home: any): any;
+  updateThing(id: number, home: any): any;
 }

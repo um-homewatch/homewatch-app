@@ -8,6 +8,7 @@ import { SignUpPage } from '../pages/sign-up/sign-up';
 import { ListHomesPage } from '../pages/homes/list/list';
 import { NewHomePage } from '../pages/homes/new/new';
 import { ListThingsPage } from '../pages/things/list/list';
+import { NewThingPage } from '../pages/things/new/new';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -21,7 +22,8 @@ import { HomewatchApiService } from '../services/homewatch_api';
     SignUpPage,
     ListHomesPage,
     NewHomePage,
-    ListThingsPage
+    ListThingsPage,
+    NewThingPage
   ],
   imports: [
     BrowserModule,
@@ -35,7 +37,8 @@ import { HomewatchApiService } from '../services/homewatch_api';
     SignUpPage,
     ListHomesPage,
     NewHomePage,
-    ListThingsPage
+    ListThingsPage,
+    NewThingPage
   ],
   providers: [
     HomewatchApiService,
