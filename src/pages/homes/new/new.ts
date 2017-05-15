@@ -41,11 +41,11 @@ export class NewHomePage {
     }
   }
 
-  onSubmit(form: FormGroup) {
+  async onSubmit(form: FormGroup) {
     if (this.editMode)
-      this.homewatch.homes.updateHome(form.value.id, form.value);
+      await this.homewatch.homes.updateHome(form.value.id, form.value);
     else
-      this.homewatch.homes.createHome(form.value);
+      await this.homewatch.homes.createHome(form.value);
     this.navCtrl.pop();
   }
 }
