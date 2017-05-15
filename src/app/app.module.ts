@@ -3,10 +3,11 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
 import { MyApp } from './app.component';
-import { ListHomesPage } from '../pages/homes/list/list';
-import { NewHomePage } from '../pages/homes/new/new';
 import { LoginPage } from '../pages/login/login';
 import { SignUpPage } from '../pages/sign-up/sign-up';
+import { ListHomesPage } from '../pages/homes/list/list';
+import { NewHomePage } from '../pages/homes/new/new';
+import { ListThingsPage } from '../pages/things/list/list';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -16,10 +17,11 @@ import { HomewatchApiService } from '../services/homewatch_api';
 @NgModule({
   declarations: [
     MyApp,
+    LoginPage,
+    SignUpPage,
     ListHomesPage,
     NewHomePage,
-    LoginPage,
-    SignUpPage
+    ListThingsPage
   ],
   imports: [
     BrowserModule,
@@ -29,10 +31,11 @@ import { HomewatchApiService } from '../services/homewatch_api';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    NewHomePage,
-    ListHomesPage,
     LoginPage,
-    SignUpPage
+    SignUpPage,
+    ListHomesPage,
+    NewHomePage,
+    ListThingsPage
   ],
   providers: [
     HomewatchApiService,

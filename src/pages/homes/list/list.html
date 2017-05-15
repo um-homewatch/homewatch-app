@@ -12,6 +12,12 @@
     <ion-card *ngFor="let home of homes">
       <ion-card-content no-padding>
         <ion-item>
+          <h2>Name</h2>
+          <br/>
+          <p>{{home.name}}</p>
+        </ion-item>
+
+        <ion-item>
           <h2>Tunnel</h2>
           <br/>
           <p>{{home.tunnel}}</p>
@@ -25,8 +31,11 @@
       </ion-card-content>
 
       <ion-item padding-left no-margin>
-        <a (click)="editHome(home)" item-left><ion-icon name="create"></ion-icon> EDIT</a>
-        <a (click)="listThings(home)" item-right><ion-icon name="arrow-forward"></ion-icon></a>
+        <a (click)="editHome(home)" item-left>
+          <ion-icon name="create"></ion-icon> EDIT</a>
+        <a (click)="listThings(home)" item-right>
+          <ion-icon name="arrow-forward"></ion-icon>
+        </a>
       </ion-item>
     </ion-card>
 

@@ -23,7 +23,7 @@ export class MyApp {
     this.initializeApp();
 
     this.pages = [
-      { title: 'Home', component: ListHomesPage, icon: "home" },
+      { title: 'Your Homes', component: ListHomesPage, icon: "home" },
       { title: 'Logout', component: LoginPage, icon: "exit" }
     ];
 
@@ -31,8 +31,6 @@ export class MyApp {
 
   initializeApp() {
     this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });

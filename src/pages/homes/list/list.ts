@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { HomewatchApiService } from "../../../services/homewatch_api";
 import { NewHomePage } from "../new/new";
+import { ListThingsPage } from "../../things/list/list"
 
 @Component({
   selector: 'page-list-homes',
@@ -32,7 +33,7 @@ export class ListHomesPage {
     this.navCtrl.push(NewHomePage, { home })
   }
 
-  listThings(home: Object){
-    console.log("Gonna implement that later..");
+  listThings(home: Object) {
+    this.navCtrl.setRoot(ListThingsPage, { home }, {animate: true, direction: 'forward'});
   }
 }
