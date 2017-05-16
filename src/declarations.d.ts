@@ -14,10 +14,10 @@
 declare module '*';
 
 declare class Homewatch {
-  constructor(url: string, auth?: string);
-  auth: string
+  auth: string;
   homes: Homes;
   users: Users;
+  constructor(url: string, auth?: string);
   scenarioThings(scenario: Object): void;
   scenarios(home: Object): void;
   status(thing: Object): void;

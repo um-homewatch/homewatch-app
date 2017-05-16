@@ -2,8 +2,8 @@ import { Storage } from '@ionic/storage';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavController, NavParams } from 'ionic-angular';
-import { HomewatchApiService } from '../../services/homewatch_api'
-import { ListHomesPage } from "../homes/list/list"
+import { HomewatchApiService } from '../../services/homewatch_api';
+import { ListHomesPage } from '../homes/list/list';
 
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -12,10 +12,10 @@ const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"
   templateUrl: 'sign-up.html',
 })
 export class SignUpPage {
-  pageTitle: string = "Sign Up"
-  signUpForm: FormGroup
-  homewatch: Homewatch
-  submitted: boolean = false
+  pageTitle: string = 'Sign Up';
+  signUpForm: FormGroup;
+  homewatch: Homewatch;
+  submitted: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, homewatchApi: HomewatchApiService, public storage: Storage, public formBuilder: FormBuilder) {
     this.homewatch = homewatchApi.getApi();
@@ -36,11 +36,11 @@ export class SignUpPage {
       let user = this.convertFormToUser(this.signUpForm);
       let response = await this.homewatch.users.register(user);
       this.homewatch.auth = response.data.jwt;
-      this.storage.set("HOMEWATCH_USER", response.data);
+      this.storage.set('HOMEWATCH_USER', response.data);
 
       this.navCtrl.setRoot(ListHomesPage, { user: response.data });
     } catch (error) {
-      alert("Mail already in use!");
+      alert('Mail already in use!');
       console.error(error);
     }
   }
@@ -51,7 +51,7 @@ export class SignUpPage {
       email: form.value.email,
       password: form.value.passwords.password,
       password_confirmation: form.value.passwords.password_confirmation
-    }
+    };
   }
 
   private matchPassword(group): any {

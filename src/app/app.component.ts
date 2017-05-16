@@ -3,8 +3,8 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { HomewatchApiService } from '../services/homewatch_api'
-import { EditProfilePage } from '../pages/sign-up/edit'
+import { HomewatchApiService } from '../services/homewatch_api';
+import { EditProfilePage } from '../pages/sign-up/edit';
 
 import { ListHomesPage } from '../pages/homes/list/list';
 import { LoginPage } from '../pages/login/login';
@@ -24,9 +24,9 @@ export class MyApp {
     this.initializeApp();
 
     this.pages = [
-      { title: 'Your Homes', component: ListHomesPage, icon: "home", method: "setRoot" },
-      { title: 'Profile', component: EditProfilePage, icon: "person", method: "push" },
-      { title: 'Logout', component: LoginPage, icon: "exit", method: "setRoot" }
+      { title: 'Your Homes', component: ListHomesPage, icon: 'home', method: 'setRoot' },
+      { title: 'Profile', component: EditProfilePage, icon: 'person', method: 'push' },
+      { title: 'Logout', component: LoginPage, icon: 'exit', method: 'setRoot' }
     ];
   }
 
@@ -39,17 +39,17 @@ export class MyApp {
 
   async openPage(page) {
     //if logging out, clear user data
-    if (page.component == LoginPage) {
-      console.log("meme")
-      await this.storage.remove("HOMEWATCH_USER");
+    if (page.component === LoginPage) {
+      console.log('meme');
+      await this.storage.remove('HOMEWATCH_USER');
     }
 
     switch (page.method) {
-      case "push":
+      case 'push':
         this.nav.push(page.component);
         break;
-      case "setRoot":
-        this.nav.setRoot(page.component)
+      case 'setRoot':
+        this.nav.setRoot(page.component);
         break;
     }
   }
