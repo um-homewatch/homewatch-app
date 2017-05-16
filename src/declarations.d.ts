@@ -36,7 +36,7 @@ declare class Users {
   login(auth: Object): any;
   register(user: Object): any;
   currentUser(): any;
-  updateCurrentUser(): any;
+  updateCurrentUser(user: Object): any;
 }
 
 declare class Things {

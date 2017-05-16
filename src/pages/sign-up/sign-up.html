@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Sign Up</ion-title>
+    <ion-title>{{pageTitle}}</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -31,9 +31,9 @@
         <ion-input type="password" formControlName="password"></ion-input>
       </ion-item>
 
-      <!--ion-item no-lines *ngIf="!signUpForm.controls.password.valid  && signUpForm.controls.password.touched">
+      <ion-item no-lines *ngIf="!signUpForm.controls.passwords.controls.password.valid  && signUpForm.controls.passwords.controls.password.touched">
         <p>A password is required</p>
-      </ion-item-->
+      </ion-item>
 
       <ion-item>
         <ion-label floating>Confirm your password</ion-label>
@@ -45,6 +45,6 @@
       </ion-item>
     </div>
 
-    <button margin-top ion-button full type="submit" [disabled]="!signUpForm.valid">Sign up</button>
+    <button margin-top ion-button full type="submit" [disabled]="!signUpForm.valid">Save</button>
   </form>
 </ion-content>

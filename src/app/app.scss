@@ -1,4 +1,4 @@
-.inline{
+.inline {
   display: inline;
 }
 
@@ -8,4 +8,16 @@
 
 .font-small {
   font-size: 8px
+}
+
+@each $value in $colors {
+  .#{nth($value, 1)} {
+    color: nth($value, 2);
+  }
+  .bg-#{nth($value, 1)} {
+    background-color: nth($value, 2);
+  }
+  .border-#{nth($value, 1)} {
+    border-color: nth($value, 2);
+  }
 }
