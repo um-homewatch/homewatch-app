@@ -1,8 +1,8 @@
 {
   "name": "homewatch-app",
   "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "http://ionicframework.com/",
+  "author": "José Sousa",
+  "homepage": "https://github.com/zeesousa",
   "private": true,
   "scripts": {
     "clean": "ionic-app-scripts clean",
