@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { NavController, NavParams } from "ionic-angular";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { HomewatchApiService } from "../../../services/homewatch_api";
 
 @Component({

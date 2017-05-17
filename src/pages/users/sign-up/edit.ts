@@ -1,18 +1,19 @@
 import { Storage } from "@ionic/storage";
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { NavController, NavParams } from "ionic-angular";
-import { HomewatchApiService } from "../../services/homewatch_api";
-import { ListHomesPage } from "../homes/list/list";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { HomewatchApiService } from "../../../services/homewatch_api";
+import { ListHomesPage } from "../../homes/list/list";
 
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 @Component({
-  selector: "page-sign-up",
+  selector: "page-profile",
   templateUrl: "sign-up.html",
 })
-export class SignUpPage {
-  pageTitle: string = "Sign Up";
+export class EditProfilePage {
+  pageTitle: string = "Profile";
+  editMode: boolean = true;
   signUpForm: FormGroup;
   homewatch: Homewatch;
   submitted: boolean = false;
@@ -24,9 +25,21 @@ export class SignUpPage {
       name: ["", Validators.compose([Validators.required])],
       email: ["", Validators.compose([Validators.pattern(EMAIL_REGEX), Validators.required])],
       passwords: formBuilder.group({
-        password: ["", Validators.required],
-        password_confirmation: ["", Validators.required]
+        password: [""],
+        password_confirmation: [""]
       }, { validator: this.matchPassword })
+    });
+  }
+
+  async ionViewWillEnter() {
+    let user = await this.storage.get("HOMEWATCH_USER");
+    this.signUpForm.setValue({
+      name: user.name,
+      email: user.email,
+      passwords: {
+        password: "",
+        password_confirmation: ""
+      }
     });
   }
 
@@ -34,7 +47,7 @@ export class SignUpPage {
     this.submitted = true;
     try {
       let user = this.convertFormToUser(this.signUpForm);
-      let response = await this.homewatch.users.register(user);
+      let response = await this.homewatch.users.updateCurrentUser(user);
       this.homewatch.auth = response.data.jwt;
       this.storage.set("HOMEWATCH_USER", response.data);
 

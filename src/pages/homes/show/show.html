@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>{{home.name}}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="showPopover($event)">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card *ngFor="let thing of things">
+    <ion-card-header no-padding padding-left padding-top>
+      <ion-icon class="inline font-large primary" name="{{getIconFromType(thing.type)}}"></ion-icon>
+      <h2 class="inline"> {{thing.name}}</h2>
+    </ion-card-header>
+
+    <ion-card-content no-padding>
+      <ion-item>
+        <div>
+          <h3 class="inline">Type</h3>
+          <p class="inline"> {{thing.type}}</p>
+        </div>
+
+        <div>
+          <h3 class="inline">Subtype</h3>
+          <p class="inline"> {{thing.subtype}}</p>
+        </div>
+      </ion-item>
+
+      <ion-item padding-left no-margin>
+        <a (click)="editThing(thing)" item-left>
+          <ion-icon name="create"></ion-icon> EDIT
+        </a>
+        <a (click)="showThing(thing)" item-right>
+          <ion-icon name="arrow-forward"></ion-icon>
+        </a>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-fab bottom right>
+    <button (click)="newThing()" ion-fab mini><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
+</ion-content>

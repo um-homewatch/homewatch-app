@@ -1,12 +1,12 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { NavController, NavParams } from "ionic-angular";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { HomewatchApiService } from "../../../services/homewatch_api";
 
 const URL_REGEX = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)/;
 
 @Component({
-  selector: "page-new-home",
+  selector: "new-home-page",
   templateUrl: "new.html",
 })
 export class NewHomePage {

@@ -1,6 +1,6 @@
 {
-  "name": "Ionic",
-  "short_name": "Ionic",
+  "name": "Homewatch",
+  "short_name": "Homewatch",
   "start_url": "index.html",
   "display": "standalone",
   "icons": [{

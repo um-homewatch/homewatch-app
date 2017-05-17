@@ -3,12 +3,13 @@ import { ErrorHandler, NgModule } from "@angular/core";
 import { IonicApp, IonicErrorHandler, IonicModule } from "ionic-angular";
 
 import { MyApp } from "./app.component";
-import { LoginPage } from "../pages/login/login";
-import { SignUpPage } from "../pages/sign-up/sign-up";
-import { EditProfilePage } from "../pages/sign-up/edit";
+import { LoginPage } from "../pages/users/login/login";
+import { SignUpPage } from "../pages/users/sign-up/sign-up";
+import { EditProfilePage } from "../pages/users/sign-up/edit";
 import { ListHomesPage } from "../pages/homes/list/list";
 import { NewHomePage } from "../pages/homes/new/new";
-import { ListThingsPage } from "../pages/things/list/list";
+import { ShowHomePage } from "../pages/homes/show/show";
+import { ShowHomePopoverPage } from "../pages/homes/show/popover";
 import { NewThingPage } from "../pages/things/new/new";
 
 import { StatusBar } from "@ionic-native/status-bar";
@@ -23,7 +24,8 @@ import { HomewatchApiService } from "../services/homewatch_api";
     SignUpPage,
     ListHomesPage,
     NewHomePage,
-    ListThingsPage,
+    ShowHomePage,
+    ShowHomePopoverPage,
     NewThingPage,
     EditProfilePage
   ],
@@ -39,7 +41,8 @@ import { HomewatchApiService } from "../services/homewatch_api";
     SignUpPage,
     ListHomesPage,
     NewHomePage,
-    ListThingsPage,
+    ShowHomePage,
+    ShowHomePopoverPage,
     NewThingPage,
     EditProfilePage
   ],
@@ -50,4 +53,5 @@ import { HomewatchApiService } from "../services/homewatch_api";
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
+
 export class AppModule { }

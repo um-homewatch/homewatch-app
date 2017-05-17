@@ -1,18 +1,20 @@
 import { Component } from "@angular/core";
-import { NavController, NavParams } from "ionic-angular";
+import { IonicPage, NavController, NavParams, ViewController, PopoverController } from "ionic-angular";
 import { HomewatchApiService } from "../../../services/homewatch_api";
-import { NewThingPage } from "../new/new";
+import { ListHomesPage } from "../list/list";
+import { NewThingPage } from "../../things/new/new";
+import { ShowHomePopoverPage } from "./popover";
 
 @Component({
-  selector: "page-list-things",
-  templateUrl: "list.html",
+  selector: "show-home-page",
+  templateUrl: "show.html",
 })
-export class ListThingsPage {
+export class ShowHomePage {
   homewatch: Homewatch;
   home: any;
   things: Array<any>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, homewatchApiService: HomewatchApiService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public popoverCtrl: PopoverController, homewatchApiService: HomewatchApiService) {
     this.homewatch = homewatchApiService.getApi();
     this.home = this.navParams.get("home");
   }
@@ -43,5 +45,21 @@ export class ListThingsPage {
       default:
         return "help";
     }
+  }
+
+  async showPopover(myEvent) {
+    let popover = this.popoverCtrl.create(ShowHomePopoverPage, { home: this.home });
+
+    popover.onDidDismiss(async (deleted) => {
+      if (deleted) this.navCtrl.setRoot(ListHomesPage);
+    });
+
+    popover.present({
+      ev: myEvent
+    });
+  }
+
+  showThing(thing: any) {
+    console.log("showThing");
   }
 }

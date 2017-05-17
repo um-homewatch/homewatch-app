@@ -1,11 +1,12 @@
 import { Component } from "@angular/core";
 import { NavController, NavParams } from "ionic-angular";
 import { HomewatchApiService } from "../../../services/homewatch_api";
+import { AuthVerifier } from "../../../providers/auth-verifier/auth-verifier";
 import { NewHomePage } from "../new/new";
-import { ListThingsPage } from "../../things/list/list";
+import { ShowHomePage } from "../show/show";
 
 @Component({
-  selector: "page-list-homes",
+  selector: "list-homes-page",
   templateUrl: "list.html"
 })
 export class ListHomesPage {
@@ -34,6 +35,6 @@ export class ListHomesPage {
   }
 
   listThings(home: Object) {
-    this.navCtrl.setRoot(ListThingsPage, { home }, { animate: true, direction: "forward" });
+    this.navCtrl.setRoot(ShowHomePage, { home }, { animate: true, direction: "forward" });
   }
 }
