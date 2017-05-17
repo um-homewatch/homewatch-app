@@ -7,7 +7,8 @@
   "scripts": {
     "clean": "ionic-app-scripts clean",
     "build": "ionic-app-scripts build",
-    "lint": "tslint -c tslint.json --fix src/**/*.ts",
+    "lint": "tslint -c tslint.json 'src/**/**.ts'",
+    "lint-fix": "tslint -c tslint.json --fix 'src/**/**.ts'",
     "ionic:build": "ionic-app-scripts build",
     "ionic:serve": "ionic-app-scripts serve"
   },

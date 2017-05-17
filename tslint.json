@@ -1,11 +1,17 @@
 {
-  "rulesDirectory": ["node_modules/codelyzer"],
+  "rulesDirectory": [
+    "node_modules/codelyzer"
+  ],
   "rules": {
     "class-name": true,
     "curly": false,
     "eofline": true,
-    "indent": [true, "spaces"],
-    "member-ordering": [true,
+    "indent": [
+      true,
+      "spaces"
+    ],
+    "member-ordering": [
+      true,
       "public-before-private",
       "static-before-instance",
       "variables-before-functions"
@@ -17,23 +23,41 @@
     "no-eval": true,
     "no-trailing-whitespace": true,
     "no-unused-expression": true,
-    "one-line": [true,
+    "one-line": [
+      true,
       "check-open-brace",
       "check-catch",
       "check-else",
       "check-whitespace"
     ],
-    "quotemark": [true, "single"],
-    "semicolon": [true, "always"],
-    "trailing-comma": true,
+    "quotemark": [
+      true,
+      "double"
+    ],
+    "semicolon": [
+      true,
+      "always"
+    ],
+    "trailing-comma": [
+      true
+    ],
     "triple-equals": true,
     "variable-name": false,
-
-    "directive-selector": [true, ["attribute"],
-      [], "camelCase"
+    "directive-selector": [
+      true,
+      [
+        "attribute"
+      ],
+      [],
+      "camelCase"
     ],
-    "component-selector": [true, ["element"],
-      [], "kebab-case"
+    "component-selector": [
+      true,
+      [
+        "element"
+      ],
+      [],
+      "kebab-case"
     ],
     "use-input-property-decorator": true,
     "use-output-property-decorator": true,

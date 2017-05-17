@@ -1,12 +1,12 @@
-import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
-import { HomewatchApiService } from '../../../services/homewatch_api';
-import { NewHomePage } from '../new/new';
-import { ListThingsPage } from '../../things/list/list';
+import { Component } from "@angular/core";
+import { NavController, NavParams } from "ionic-angular";
+import { HomewatchApiService } from "../../../services/homewatch_api";
+import { NewHomePage } from "../new/new";
+import { ListThingsPage } from "../../things/list/list";
 
 @Component({
-  selector: 'page-list-homes',
-  templateUrl: 'list.html'
+  selector: "page-list-homes",
+  templateUrl: "list.html"
 })
 export class ListHomesPage {
   homewatch: Homewatch;
@@ -19,7 +19,7 @@ export class ListHomesPage {
   }
 
   async ionViewWillEnter() {
-    this.user = this.navParams.get('user');
+    this.user = this.navParams.get("user");
     let response = await this.homewatch.homes.listHomes();
     this.homes = response.data;
     this.loading = false;
@@ -34,6 +34,6 @@ export class ListHomesPage {
   }
 
   listThings(home: Object) {
-    this.navCtrl.setRoot(ListThingsPage, { home }, { animate: true, direction: 'forward' });
+    this.navCtrl.setRoot(ListThingsPage, { home }, { animate: true, direction: "forward" });
   }
 }

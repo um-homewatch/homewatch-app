@@ -1,13 +1,13 @@
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NavController, NavParams } from 'ionic-angular';
-import { HomewatchApiService } from '../../../services/homewatch_api';
+import { Component } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { NavController, NavParams } from "ionic-angular";
+import { HomewatchApiService } from "../../../services/homewatch_api";
 
 const URL_REGEX = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)/;
 
 @Component({
-  selector: 'page-new-home',
-  templateUrl: 'new.html',
+  selector: "page-new-home",
+  templateUrl: "new.html",
 })
 export class NewHomePage {
   editMode: boolean = false;
@@ -20,15 +20,15 @@ export class NewHomePage {
     this.homewatch = homewatchApi.getApi();
 
     this.homeForm = formBuilder.group({
-      id: [''],
-      name: ['', Validators.required],
-      location: ['', Validators.required],
-      tunnel: ['', Validators.compose([Validators.required, Validators.pattern(URL_REGEX)])]
+      id: [""],
+      name: ["", Validators.required],
+      location: ["", Validators.required],
+      tunnel: ["", Validators.compose([Validators.required, Validators.pattern(URL_REGEX)])]
     });
   }
 
   ionViewWillEnter() {
-    this.home = this.navParams.get('home');
+    this.home = this.navParams.get("home");
     if (this.home) {
       this.editMode = true;
 

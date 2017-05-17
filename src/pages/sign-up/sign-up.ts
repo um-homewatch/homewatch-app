@@ -1,18 +1,18 @@
-import { Storage } from '@ionic/storage';
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NavController, NavParams } from 'ionic-angular';
-import { HomewatchApiService } from '../../services/homewatch_api';
-import { ListHomesPage } from '../homes/list/list';
+import { Storage } from "@ionic/storage";
+import { Component } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { NavController, NavParams } from "ionic-angular";
+import { HomewatchApiService } from "../../services/homewatch_api";
+import { ListHomesPage } from "../homes/list/list";
 
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 @Component({
-  selector: 'page-sign-up',
-  templateUrl: 'sign-up.html',
+  selector: "page-sign-up",
+  templateUrl: "sign-up.html",
 })
 export class SignUpPage {
-  pageTitle: string = 'Sign Up';
+  pageTitle: string = "Sign Up";
   signUpForm: FormGroup;
   homewatch: Homewatch;
   submitted: boolean = false;
@@ -21,11 +21,11 @@ export class SignUpPage {
     this.homewatch = homewatchApi.getApi();
 
     this.signUpForm = formBuilder.group({
-      name: ['', Validators.compose([Validators.required])],
-      email: ['', Validators.compose([Validators.pattern(EMAIL_REGEX), Validators.required])],
+      name: ["", Validators.compose([Validators.required])],
+      email: ["", Validators.compose([Validators.pattern(EMAIL_REGEX), Validators.required])],
       passwords: formBuilder.group({
-        password: ['', Validators.required],
-        password_confirmation: ['', Validators.required]
+        password: ["", Validators.required],
+        password_confirmation: ["", Validators.required]
       }, { validator: this.matchPassword })
     });
   }
@@ -36,11 +36,11 @@ export class SignUpPage {
       let user = this.convertFormToUser(this.signUpForm);
       let response = await this.homewatch.users.register(user);
       this.homewatch.auth = response.data.jwt;
-      this.storage.set('HOMEWATCH_USER', response.data);
+      this.storage.set("HOMEWATCH_USER", response.data);
 
       this.navCtrl.setRoot(ListHomesPage, { user: response.data });
     } catch (error) {
-      alert('Mail already in use!');
+      alert("Mail already in use!");
       console.error(error);
     }
   }
