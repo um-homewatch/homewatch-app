@@ -11,6 +11,7 @@ import { NewHomePage } from "../pages/homes/new/new";
 import { ShowHomePage } from "../pages/homes/show/show";
 import { ShowHomePopoverPage } from "../pages/homes/show/popover";
 import { NewThingPage } from "../pages/things/new/new";
+import { ShowLightPage } from "../pages/things/light/show";
 
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
@@ -27,7 +28,8 @@ import { HomewatchApiService } from "../services/homewatch_api";
     ShowHomePage,
     ShowHomePopoverPage,
     NewThingPage,
-    EditProfilePage
+    EditProfilePage,
+    ShowLightPage
   ],
   imports: [
     BrowserModule,
@@ -44,7 +46,8 @@ import { HomewatchApiService } from "../services/homewatch_api";
     ShowHomePage,
     ShowHomePopoverPage,
     NewThingPage,
-    EditProfilePage
+    EditProfilePage,
+    ShowLightPage
   ],
   providers: [
     HomewatchApiService,

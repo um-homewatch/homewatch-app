@@ -29,7 +29,10 @@ export class NewThingPage {
       name: ["", Validators.required],
       type: ["", Validators.required],
       subtype: ["", Validators.required],
-      connection_info: [{ address: "192.168.1.200" }]
+      connection_info: formBuilder.group({
+        address: ["", Validators.required],
+        port: [""]
+      })
     });
   }
 
@@ -44,7 +47,10 @@ export class NewThingPage {
         name: this.thing.name,
         type: this.thing.type,
         subtype: this.thing.subtype,
-        connection_info: { address: "192.168.1.200" }
+        connection_info: {
+          address: this.thing.connection_info.address,
+          port: this.thing.connection_info.port || ""
+        }
       });
     }
   }

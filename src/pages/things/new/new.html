@@ -41,6 +41,23 @@
       <p>You must provide a valid subtype</p>
     </ion-item>
 
+
+    <div formGroupName="connection_info">
+      <ion-item>
+        <ion-label>Address</ion-label>
+        <ion-input type="text" formControlName="address"></ion-input>
+      </ion-item>
+
+      <ion-item no-lines *ngIf="!thingForm.controls.connection_info.controls.address.valid  && thingForm.controls.connection_info.controls.address.touched">
+        <p>A address is required</p>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Port</ion-label>
+        <ion-input type="text" formControlName="port"></ion-input>
+      </ion-item>
+    </div>
+
     <button margin-top ion-button full type="submit" [disabled]="!thingForm.valid">SAVE</button>
   </form>
 </ion-content>

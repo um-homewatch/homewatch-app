@@ -4,6 +4,7 @@ import { HomewatchApiService } from "../../../services/homewatch_api";
 import { ListHomesPage } from "../list/list";
 import { NewThingPage } from "../../things/new/new";
 import { ShowHomePopoverPage } from "./popover";
+import { ShowLightPage } from "../../things/light/show";
 
 @Component({
   selector: "show-home-page",
@@ -60,6 +61,9 @@ export class ShowHomePage {
   }
 
   showThing(thing: any) {
-    console.log("showThing");
+    switch (thing.type) {
+      case "Things::Light":
+        return this.navCtrl.push(ShowLightPage, { thing });
+    }
   }
 }

@@ -20,8 +20,8 @@ declare class Homewatch {
   constructor(url: string, auth?: string);
   scenarioThings(scenario: Object): void;
   scenarios(home: Object): void;
-  status(thing: Object): void;
-  things(home: Object): Things;
+  status(thing: Object): ThingStatus;
+  things(home: { id: number }): Things;
 }
 
 declare class Homes {
@@ -43,4 +43,9 @@ declare class Things {
   listThings(): any;
   createThing(home: any): any;
   updateThing(id: number, home: any): any;
+}
+
+declare class ThingStatus {
+  getStatus(): Promise<any>;
+  putStatus(status: Object): Promise<any>;
 }
