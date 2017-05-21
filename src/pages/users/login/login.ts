@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { IonicPage, NavController, NavParams, ToastController } from "ionic-angular";
 import { HomewatchApiService } from "../../../services/homewatch_api";
 import { ListHomesPage } from "../../homes/list/list";
+import { SignUpPage } from "../sign-up/sign-up"
 
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
@@ -51,6 +52,6 @@ export class LoginPage {
   }
 
   goToSignUp() {
-    this.navCtrl.push("sign-up-page");
+    this.navCtrl.push(SignUpPage);
   }
 }

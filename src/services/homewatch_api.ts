@@ -6,7 +6,6 @@ export class HomewatchApiService {
   homewatch: Homewatch;
 
   constructor() {
-    console.log("You done fucked it up");
     this.homewatch = new Homewatch("https://homewatch-api.herokuapp.com");
   }
 

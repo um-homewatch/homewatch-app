@@ -20,10 +20,14 @@ export class ListHomesPage {
   }
 
   async ionViewWillEnter() {
-    this.user = this.navParams.get("user");
-    let response = await this.homewatch.homes.listHomes();
-    this.homes = response.data;
-    this.loading = false;
+    try {
+      this.user = this.navParams.get("user");
+      let response = await this.homewatch.homes.listHomes();
+      this.homes = response.data;
+      this.loading = false;
+    } catch (error) {
+      console.log(error.response);
+    }
   }
 
   newHome() {

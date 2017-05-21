@@ -15,6 +15,7 @@ declare module "*";
 
 declare class Homewatch {
   auth: string;
+  axios: any;
   homes: Homes;
   users: Users;
   constructor(url: string, auth?: string);
