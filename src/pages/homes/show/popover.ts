@@ -1,21 +1,25 @@
 import { Component } from "@angular/core";
-import { IonicPage, ViewController, AlertController } from "ionic-angular";
+import { IonicPage, ViewController, AlertController, NavController } from "ionic-angular";
 import { HomewatchApiService } from "../../../services/homewatch_api";
+import { NewHomePage } from "../../homes/new/new";
 
 @Component({
   selector: "show-home-popover-page",
   template: `
     <ion-list no-margin *ngIf="!alertVisible">
+    <button ion-item (click)="editHome()">Edit Home</button>
       <button ion-item (click)="showAlert()">Delete Home</button>
     </ion-list>
   `
 })
 export class ShowHomePopoverPage {
   homewatch: Homewatch;
+  home: any;
   alertVisible: boolean = false;
 
-  constructor(public viewCtrl: ViewController, public alertCtrl: AlertController, homewatchApiService: HomewatchApiService) {
+  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public alertCtrl: AlertController, homewatchApiService: HomewatchApiService) {
     this.homewatch = homewatchApiService.getApi();
+    this.home = this.viewCtrl.data.home;
   }
 
   showAlert() {
@@ -39,8 +43,12 @@ export class ShowHomePopoverPage {
   }
 
   async deleteHome() {
-    let home = this.viewCtrl.data.home;
-    await this.homewatch.homes.deleteHome(home.id);
+    await this.homewatch.homes.deleteHome(this.home.id);
     this.viewCtrl.dismiss(true);
+  }
+
+  editHome() {
+    this.navCtrl.push(NewHomePage, { home: this.home });
+    this.viewCtrl.dismiss();
   }
 }
