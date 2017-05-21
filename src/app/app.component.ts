@@ -38,8 +38,6 @@ export class MyApp {
         await this.storage.remove("HOMEWATCH_USER");
         this.nav.setRoot(LoginPage);
         this.toastCtrl.create({ message: "Unauthorized access!", showCloseButton: true }).present();
-      } else if (error.response.status === 500) {
-        this.toastCtrl.create({ message: "Internal Server Error!", showCloseButton: true }).present();
       }
       return Promise.reject(error);
     });
