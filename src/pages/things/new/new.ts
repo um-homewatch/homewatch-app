@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { HomewatchApiService } from "../../../services/homewatch_api";
+import { ThingsInfo } from "../../../services/things_info";
 
 @Component({
   selector: "page-new-thing",
@@ -10,19 +11,16 @@ import { HomewatchApiService } from "../../../services/homewatch_api";
 export class NewThingPage {
   editMode: boolean = false;
   thingForm: FormGroup;
-  typeOptions: any = [
-    { value: "Things::Light", text: "Light", icon: "bulb" },
-    { value: "Things::Lock", text: "Lock", icon: "lock" },
-    { value: "Things::Thermostat", text: "Thermostat", icon: "thermometer" },
-    { value: "Things::Weather", text: "Weather", icon: "sunny" },
-  ];
+  typeOptions: Array<Object>;
   homewatch: Homewatch;
   submitted: boolean = false;
   home: any;
   thing: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, homewatchApi: HomewatchApiService, public formBuilder: FormBuilder) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, homewatchApi: HomewatchApiService, thingsInfo: ThingsInfo, public formBuilder: FormBuilder) {
     this.homewatch = homewatchApi.getApi();
+    this.typeOptions = thingsInfo.getOptions();
+    console.log(this.typeOptions);
 
     this.thingForm = formBuilder.group({
       id: [""],

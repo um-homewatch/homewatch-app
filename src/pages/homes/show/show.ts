@@ -4,7 +4,9 @@ import { HomewatchApiService } from "../../../services/homewatch_api";
 import { ListHomesPage } from "../list/list";
 import { NewThingPage } from "../../things/new/new";
 import { ShowHomePopoverPage } from "./popover";
-import { ShowLightPage } from "../../things/light/show";
+import { ShowLightPage } from "../../things/devices/light/show";
+import { ShowLockPage } from "../../things/devices/lock/show";
+import { ThingsInfo } from "../../../services/things_info";
 
 @Component({
   selector: "show-home-page",
@@ -15,7 +17,7 @@ export class ShowHomePage {
   home: any;
   things: Array<any>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public popoverCtrl: PopoverController, homewatchApiService: HomewatchApiService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public popoverCtrl: PopoverController, homewatchApiService: HomewatchApiService, public thingsInfo: ThingsInfo) {
     this.homewatch = homewatchApiService.getApi();
     this.home = this.navParams.get("home");
   }
@@ -34,18 +36,7 @@ export class ShowHomePage {
   }
 
   getIconFromType(type: string) {
-    switch (type) {
-      case "Things::Light":
-        return "bulb";
-      case "Things::Lock":
-        return "lock";
-      case "Things::Thermostat":
-        return "thermometer";
-      case "Things::Weather":
-        return "sunny";
-      default:
-        return "help";
-    }
+    return this.thingsInfo.getThingInfo(type).icon;
   }
 
   async showPopover(myEvent) {
@@ -61,9 +52,6 @@ export class ShowHomePage {
   }
 
   showThing(thing: any) {
-    switch (thing.type) {
-      case "Things::Light":
-        return this.navCtrl.push(ShowLightPage, { thing });
-    }
+    this.navCtrl.push(this.thingsInfo.getThingInfo(thing.type).showPage, { thing });
   }
 }

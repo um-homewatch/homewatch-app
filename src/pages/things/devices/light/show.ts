@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { ToastController, NavController, NavParams } from "ionic-angular";
-import { HomewatchApiService } from "../../../services/homewatch_api";
+import { HomewatchApiService } from "../../../../services/homewatch_api";
 
 @Component({
   selector: "page-show-light",
@@ -20,7 +20,9 @@ export class ShowLightPage {
     try {
       let response = await this.homewatch.status(this.light).getStatus();
       this.status = response.data;
-    } catch (error) { console.log(error); }
+    } catch (error) {
+      this.showErrorToast("Coudn't reach this device!");
+    }
   }
 
   async onStatusChange(newStatus) {
@@ -29,13 +31,13 @@ export class ShowLightPage {
       this.status = response.data;
     } catch (error) {
       this.status.on = !this.status.on;
-      this.showErrorToast();
+      this.showErrorToast("Couldn't change the light status");
     }
   }
 
-  showErrorToast() {
+  showErrorToast(message: string) {
     this.toastCtrl.create({
-      message: "Couldn't change the light status",
+      message: message,
       duration: 3000,
       showCloseButton: true,
     }).present();

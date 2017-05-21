@@ -22,7 +22,7 @@
     <ion-item>
       <ion-label>Type</ion-label>
       <ion-select type="text" formControlName="type">
-        <ion-option *ngFor="let option of typeOptions" [value]=option.value>
+        <ion-option *ngFor="let option of typeOptions" [value]=option.type>
           {{option.text}}
         </ion-option>
       </ion-select>

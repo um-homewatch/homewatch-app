@@ -11,12 +11,15 @@ import { NewHomePage } from "../pages/homes/new/new";
 import { ShowHomePage } from "../pages/homes/show/show";
 import { ShowHomePopoverPage } from "../pages/homes/show/popover";
 import { NewThingPage } from "../pages/things/new/new";
-import { ShowLightPage } from "../pages/things/light/show";
+import { ShowThingPage } from "../pages/things/show/show";
+import { ShowLightPage } from "../pages/things/devices/light/show";
+import { ShowLockPage } from "../pages/things/devices/lock/show";
 
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { IonicStorageModule } from "@ionic/storage";
 import { HomewatchApiService } from "../services/homewatch_api";
+import { ThingsInfo } from "../services/things_info";
 
 @NgModule({
   declarations: [
@@ -29,7 +32,9 @@ import { HomewatchApiService } from "../services/homewatch_api";
     ShowHomePopoverPage,
     NewThingPage,
     EditProfilePage,
-    ShowLightPage
+    ShowLightPage,
+    ShowThingPage,
+    ShowLockPage
   ],
   imports: [
     BrowserModule,
@@ -47,13 +52,15 @@ import { HomewatchApiService } from "../services/homewatch_api";
     ShowHomePopoverPage,
     NewThingPage,
     EditProfilePage,
-    ShowLightPage
+    ShowLightPage,
+    ShowLockPage
   ],
   providers: [
-    HomewatchApiService,
     StatusBar,
     SplashScreen,
-    { provide: ErrorHandler, useClass: IonicErrorHandler }
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    HomewatchApiService,
+    ThingsInfo
   ]
 })
 

@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{lock.name}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <show-thing [thing]="lock"></show-thing>
+
+  <ion-card *ngIf="status" [class.fade-in]="status">
+    <ion-card-header>
+      Status
+    </ion-card-header>
+    <ion-card-content no-padding>
+      <ion-item>
+        <ion-label>Locked</ion-label>
+        <ion-toggle [(ngModel)]="status.locked" (ngModelChange)="onStatusChange($event)"></ion-toggle>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
