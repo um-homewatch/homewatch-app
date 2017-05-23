@@ -4,8 +4,7 @@ import { HomewatchApiService } from "../../../services/homewatch_api";
 import { ListHomesPage } from "../list/list";
 import { NewThingPage } from "../../things/new/new";
 import { ShowHomePopoverPage } from "./popover";
-import { ShowLightPage } from "../../things/devices/light/show";
-import { ShowLockPage } from "../../things/devices/lock/show";
+import { ShowThingPage } from "../../things/show/show";
 import { ThingsInfo } from "../../../services/things_info";
 
 @Component({
@@ -52,6 +51,6 @@ export class ShowHomePage {
   }
 
   showThing(thing: any) {
-    this.navCtrl.push(this.thingsInfo.getThingInfo(thing.type).showPage, { thing });
+    this.navCtrl.push(ShowThingPage, { thing });
   }
 }

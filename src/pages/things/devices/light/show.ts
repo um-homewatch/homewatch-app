@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { ToastController, NavController, NavParams } from "ionic-angular";
 import { HomewatchApiService } from "../../../../services/homewatch_api";
+import { ThingStatusService } from "../../../../services/thing_status";
 
 @Component({
   selector: "page-show-light",
@@ -11,12 +12,12 @@ export class ShowLightPage {
   light: any;
   status: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController, homewatchApiService: HomewatchApiService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController, homewatchApiService: HomewatchApiService, public thingStatus: ThingStatusService) {
     this.homewatch = homewatchApiService.getApi();
     this.light = this.navParams.data.thing;
   }
 
-  async ionViewDidLoad() {
+  async ngAfterContentInit() {
     try {
       let response = await this.homewatch.status(this.light).getStatus();
       this.status = response.data;
@@ -26,13 +27,7 @@ export class ShowLightPage {
   }
 
   async onStatusChange(newStatus) {
-    try {
-      let response = await this.homewatch.status(this.light).putStatus({ on: newStatus });
-      this.status = response.data;
-    } catch (error) {
-      this.status.on = !this.status.on;
-      this.showErrorToast("Couldn't change the light status");
-    }
+    this.thingStatus.announceStatus({ on: newStatus });
   }
 
   showErrorToast(message: string) {

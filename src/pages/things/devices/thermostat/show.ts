@@ -1,22 +1,24 @@
-import { Component } from "@angular/core";
+import { Component, EventEmitter, Output } from "@angular/core";
 import { ToastController, NavController, NavParams } from "ionic-angular";
 import { HomewatchApiService } from "../../../../services/homewatch_api";
+import { ThingStatusService } from "../../../../services/thing_status";
 
 @Component({
   selector: "page-show-lock",
   templateUrl: "show.html",
 })
 export class ShowThermostatPage {
+  @Output() onChange = new EventEmitter<any>();
   homewatch: Homewatch;
   thermostat: any;
   status: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController, homewatchApiService: HomewatchApiService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController, homewatchApiService: HomewatchApiService, public thingStatus: ThingStatusService) {
     this.homewatch = homewatchApiService.getApi();
     this.thermostat = this.navParams.data.thing;
   }
 
-  async ionViewDidLoad() {
+  async ngAfterContentInit() {
     try {
       let response = await this.homewatch.status(this.thermostat).getStatus();
       this.status = response.data;
@@ -32,13 +34,7 @@ export class ShowThermostatPage {
   }
 
   async onStatusChange(newStatus) {
-    try {
-      let response = await this.homewatch.status(this.thermostat).putStatus({ targetTemperature: newStatus });
-      this.status = response.data;
-    } catch (error) {
-      this.status.targetTemperature = !this.status.targetTemperature;
-      this.showErrorToast("Couldn't change the thermostat status");
-    }
+    this.thingStatus.announceStatus({ targetTemperature: newStatus });
   }
 
   showErrorToast(message: string) {

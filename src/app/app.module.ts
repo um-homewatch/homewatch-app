@@ -22,6 +22,7 @@ import { SplashScreen } from "@ionic-native/splash-screen";
 import { IonicStorageModule } from "@ionic/storage";
 import { HomewatchApiService } from "../services/homewatch_api";
 import { ThingsInfo } from "../services/things_info";
+import { ThingStatusService } from "../services/thing_status";
 
 @NgModule({
   declarations: [
@@ -34,8 +35,8 @@ import { ThingsInfo } from "../services/things_info";
     ShowHomePopoverPage,
     NewThingPage,
     EditProfilePage,
-    ShowLightPage,
     ShowThingPage,
+    ShowLightPage,
     ShowLockPage,
     ShowThermostatPage,
     ShowWeatherPage
@@ -56,6 +57,7 @@ import { ThingsInfo } from "../services/things_info";
     ShowHomePopoverPage,
     NewThingPage,
     EditProfilePage,
+    ShowThingPage,
     ShowLightPage,
     ShowLockPage,
     ShowThermostatPage,
@@ -66,7 +68,8 @@ import { ThingsInfo } from "../services/things_info";
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     HomewatchApiService,
-    ThingsInfo
+    ThingsInfo,
+    ThingStatusService
   ]
 })
 

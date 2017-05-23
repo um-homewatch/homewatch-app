@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { ToastController, NavController, NavParams } from "ionic-angular";
 import { HomewatchApiService } from "../../../../services/homewatch_api";
+import { ThingStatusService } from "../../../../services/thing_status";
 
 @Component({
   selector: "page-show-lock",
@@ -11,12 +12,12 @@ export class ShowLockPage {
   lock: any;
   status: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController, homewatchApiService: HomewatchApiService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController, homewatchApiService: HomewatchApiService, public thingStatus: ThingStatusService) {
     this.homewatch = homewatchApiService.getApi();
     this.lock = this.navParams.data.thing;
   }
 
-  async ionViewDidLoad() {
+  async ngAfterContentInit() {
     try {
       let response = await this.homewatch.status(this.lock).getStatus();
       this.status = response.data;
@@ -26,13 +27,7 @@ export class ShowLockPage {
   }
 
   async onStatusChange(newStatus) {
-    try {
-      let response = await this.homewatch.status(this.lock).putStatus({ locked: newStatus });
-      this.status = response.data;
-    } catch (error) {
-      this.status.locked = !this.status.locked;
-      this.showErrorToast("Couldn't change the lock status");
-    }
+    this.thingStatus.announceStatus({ locked: newStatus });
   }
 
   showErrorToast(message: string) {

@@ -1,3 +1,10 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{thing.name}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
   <ion-card>
     <ion-card-content no-padding>
       <ion-item>
@@ -31,3 +38,6 @@
       </ion-item>
     </ion-card-content>
   </ion-card>
+
+  <div #thingStatus (onChange)="onStatusChange($event)"></div>
+</ion-content>
