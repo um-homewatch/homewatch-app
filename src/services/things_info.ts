@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { Page } from "ionic";
 import { ShowLightPage } from "../pages/things/devices/light/show";
 import { ShowLockPage } from "../pages/things/devices/lock/show";
+import { ShowThermostatPage } from "../pages/things/devices/thermostat/show";
 import { ShowWeatherPage } from "../pages/things/devices/weather/show";
 
 @Injectable()
@@ -18,6 +19,7 @@ export class ThingsInfo {
       icon: "lock"
     },
     "Things::Thermostat": {
+      showPage: ShowThermostatPage,
       text: "Thermostat",
       icon: "thermometer"
     },

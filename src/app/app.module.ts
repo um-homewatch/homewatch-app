@@ -14,6 +14,7 @@ import { NewThingPage } from "../pages/things/new/new";
 import { ShowThingPage } from "../pages/things/show/show";
 import { ShowLightPage } from "../pages/things/devices/light/show";
 import { ShowLockPage } from "../pages/things/devices/lock/show";
+import { ShowThermostatPage } from "../pages/things/devices/thermostat/show";
 import { ShowWeatherPage } from "../pages/things/devices/weather/show";
 
 import { StatusBar } from "@ionic-native/status-bar";
@@ -36,6 +37,7 @@ import { ThingsInfo } from "../services/things_info";
     ShowLightPage,
     ShowThingPage,
     ShowLockPage,
+    ShowThermostatPage,
     ShowWeatherPage
   ],
   imports: [
@@ -56,6 +58,7 @@ import { ThingsInfo } from "../services/things_info";
     EditProfilePage,
     ShowLightPage,
     ShowLockPage,
+    ShowThermostatPage,
     ShowWeatherPage
   ],
   providers: [
