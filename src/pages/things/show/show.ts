@@ -9,7 +9,7 @@ import { Subscription } from "rxjs";
   selector: "show-thing",
   templateUrl: "show.html",
 })
-export class ShowThingPage implements AfterContentInit {
+export class ShowThingPage {
   @ViewChild("thingStatus", { read: ViewContainerRef }) thingStatus: ViewContainerRef;
   homewatch: Homewatch;
   thing: any;
@@ -21,12 +21,9 @@ export class ShowThingPage implements AfterContentInit {
     this.thing = this.navParams.data.thing;
   }
 
-  ngAfterContentInit() {
+  ionViewWillEnter() {
     let compFactory = this.compFactoryResolver.resolveComponentFactory(this.thingsInfo.getThingInfo(this.thing.type).showPage);
     this.thingStatus.createComponent(compFactory);
-  }
-
-  ionViewWillEnter() {
     this.subscription = this.thingStatusService.statusAnnounced$.subscribe(status => { this.onStatusChange(status); });
   }
 
