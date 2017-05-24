@@ -20,7 +20,6 @@ export class NewThingPage {
   constructor(public navCtrl: NavController, public navParams: NavParams, homewatchApi: HomewatchApiService, thingsInfo: ThingsInfo, public formBuilder: FormBuilder) {
     this.homewatch = homewatchApi.getApi();
     this.typeOptions = thingsInfo.getOptions();
-    console.log(this.typeOptions);
 
     this.thingForm = formBuilder.group({
       id: [""],

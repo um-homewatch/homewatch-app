@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from "@angular/core";
+import { Component, EventEmitter, Output, AfterContentInit } from "@angular/core";
 import { ToastController, NavController, NavParams } from "ionic-angular";
 import { HomewatchApiService } from "../../../../services/homewatch_api";
 import { ThingStatusService } from "../../../../services/thing_status";
@@ -7,7 +7,7 @@ import { ThingStatusService } from "../../../../services/thing_status";
   selector: "page-show-lock",
   templateUrl: "show.html",
 })
-export class ShowThermostatPage {
+export class ShowThermostatPage implements AfterContentInit {
   @Output() onChange = new EventEmitter<any>();
   homewatch: Homewatch;
   thermostat: any;

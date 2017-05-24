@@ -1,11 +1,14 @@
 import { Injectable } from "@angular/core";
-import { Subject } from "rxjs/Subject";
+import { Subject, Observable } from "rxjs";
 
 @Injectable()
 export class ThingStatusService {
-  private statusAnnouncedSource = new Subject<any>();
+  public statusAnnounced$: Observable<Object>;
+  private statusAnnouncedSource = new Subject<Object>();
 
-  statusAnnounced$ = this.statusAnnouncedSource.asObservable();
+  constructor() {
+    this.statusAnnounced$ = this.statusAnnouncedSource.asObservable();
+  }
 
   announceStatus(status) {
     this.statusAnnouncedSource.next(status);

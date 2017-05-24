@@ -1,23 +1,24 @@
-import { Component, Input, ViewChild, ComponentFactoryResolver, ViewContainerRef } from "@angular/core";
+import { Component, Input, ViewChild, ComponentFactoryResolver, ViewContainerRef, AfterContentInit } from "@angular/core";
 import { ToastController, NavController, NavParams } from "ionic-angular";
 import { HomewatchApiService } from "../../../services/homewatch_api";
 import { ThingsInfo } from "../../../services/things_info";
 import { ThingStatusService } from "../../../services/thing_status";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "show-thing",
   templateUrl: "show.html",
 })
-export class ShowThingPage {
+export class ShowThingPage implements AfterContentInit {
   @ViewChild("thingStatus", { read: ViewContainerRef }) thingStatus: ViewContainerRef;
   homewatch: Homewatch;
   thing: any;
   status: any;
+  subscription: Subscription;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController, homewatchApiService: HomewatchApiService, public compFactoryResolver: ComponentFactoryResolver, public thingsInfo: ThingsInfo, public thingStatusService: ThingStatusService) {
     this.homewatch = homewatchApiService.getApi();
     this.thing = this.navParams.data.thing;
-    this.thingStatusService.statusAnnounced$.subscribe(status => { this.onStatusChange(status); });
   }
 
   ngAfterContentInit() {
@@ -25,9 +26,16 @@ export class ShowThingPage {
     this.thingStatus.createComponent(compFactory);
   }
 
+  ionViewWillEnter() {
+    this.subscription = this.thingStatusService.statusAnnounced$.subscribe(status => { this.onStatusChange(status); });
+  }
+
+  ionViewWillLeave() {
+    this.subscription.unsubscribe();
+  }
+
   async onStatusChange(newStatus) {
     try {
-      console.log(newStatus);
       let response = await this.homewatch.status(this.thing).putStatus(newStatus);
       this.status = response.data;
     } catch (error) {

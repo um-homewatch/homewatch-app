@@ -26,7 +26,7 @@ export class ListHomesPage {
       this.homes = response.data;
       this.loading = false;
     } catch (error) {
-      console.log(error.response);
+      //
     }
   }
 

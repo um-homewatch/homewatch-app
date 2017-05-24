@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, AfterContentInit } from "@angular/core";
 import { ToastController, NavController, NavParams } from "ionic-angular";
 import { HomewatchApiService } from "../../../../services/homewatch_api";
 import { ThingStatusService } from "../../../../services/thing_status";
@@ -7,7 +7,7 @@ import { ThingStatusService } from "../../../../services/thing_status";
   selector: "page-show-lock",
   templateUrl: "show.html",
 })
-export class ShowLockPage {
+export class ShowLockPage implements AfterContentInit {
   homewatch: Homewatch;
   lock: any;
   status: any;
