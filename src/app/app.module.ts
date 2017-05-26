@@ -17,6 +17,8 @@ import { ShowLightPage } from "../pages/things/devices/light/show";
 import { ShowLockPage } from "../pages/things/devices/lock/show";
 import { ShowThermostatPage } from "../pages/things/devices/thermostat/show";
 import { ShowWeatherPage } from "../pages/things/devices/weather/show";
+import { ListScenariosPage } from "../pages/scenarios/list/list";
+import { NewScenarioPage } from "../pages/scenarios/new/new";
 
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
@@ -41,7 +43,9 @@ import { ThingStatusService } from "../services/thing_status";
     ShowLightPage,
     ShowLockPage,
     ShowThermostatPage,
-    ShowWeatherPage
+    ShowWeatherPage,
+    ListScenariosPage,
+    NewScenarioPage
   ],
   imports: [
     BrowserModule,
@@ -64,7 +68,9 @@ import { ThingStatusService } from "../services/thing_status";
     ShowLightPage,
     ShowLockPage,
     ShowThermostatPage,
-    ShowWeatherPage
+    ShowWeatherPage,
+    ListScenariosPage,
+    NewScenarioPage
   ],
   providers: [
     StatusBar,

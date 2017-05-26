@@ -29,6 +29,7 @@ export class ShowThingPage {
   }
 
   ionViewWillEnter() {
+    this.thingStatus.clear();
     let compFactory = this.compFactoryResolver.resolveComponentFactory(this.thingsInfo.getThingInfo(this.thing.type).showPage);
     this.thingStatus.createComponent(compFactory);
     this.subscription = this.thingStatusService.statusAnnounced$.subscribe(status => { this.onStatusChange(status); });

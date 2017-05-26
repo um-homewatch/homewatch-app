@@ -1,13 +1,15 @@
 import { Component } from "@angular/core";
-import { IonicPage, ViewController, AlertController, NavController } from "ionic-angular";
+import { App, IonicPage, ViewController, AlertController, NavController } from "ionic-angular";
 import { HomewatchApiService } from "../../../services/homewatch_api";
 import { NewHomePage } from "../../homes/new/new";
+import { ListScenariosPage } from "../../scenarios/list/list";
 
 @Component({
   selector: "show-home-popover-page",
   template: `
     <ion-list no-margin *ngIf="!alertVisible">
-    <button ion-item (click)="editHome()">Edit Home</button>
+    <button ion-item (click)="listScenarios()">Scenarios</button>
+      <button ion-item (click)="editHome()">Edit Home</button>
       <button ion-item (click)="showAlert()">Delete Home</button>
     </ion-list>
   `
@@ -17,7 +19,7 @@ export class ShowHomePopoverPage {
   home: any;
   alertVisible: boolean = false;
 
-  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public alertCtrl: AlertController, homewatchApiService: HomewatchApiService) {
+  constructor(public app: App, public viewCtrl: ViewController, public alertCtrl: AlertController, public navCtrl:NavController, homewatchApiService: HomewatchApiService) {
     this.homewatch = homewatchApiService.getApi();
     this.home = this.viewCtrl.data.home;
   }
@@ -49,6 +51,11 @@ export class ShowHomePopoverPage {
 
   editHome() {
     this.navCtrl.push(NewHomePage, { home: this.home });
+    this.viewCtrl.dismiss();
+  }
+
+  async listScenarios() {
+    this.app.getRootNav().push(ListScenariosPage, { home: this.home });
     this.viewCtrl.dismiss();
   }
 }

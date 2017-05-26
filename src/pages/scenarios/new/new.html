@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      <div *ngIf="editMode; else new">Edit Scenario</div>
+      <ng-template #new>New Scenario</ng-template>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <form ion-list no-lines padding-bottom [formGroup]="scenarioForm" (ngSubmit)="onSubmit(scenarioForm)">
+    <ion-item>
+      <ion-label>Name</ion-label>
+      <ion-input type="text" formControlName="name"></ion-input>
+    </ion-item>
+
+    <button margin-top ion-button full type="submit" [disabled]="!scenarioForm.valid">SAVE</button>
+  </form>
+</ion-content>

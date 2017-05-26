@@ -50,7 +50,7 @@ declare namespace Homewatch {
     createScenario(scenario: { name: string }): Promise<any>;
     deleteScenario(id: number): Promise<any>;
     getScenario(id: number): Promise<any>;
-    listScenario(): Promise<any>;
+    listScenarios(): Promise<any>;
     updateScenario(id: number, scenario: { name: string }): Promise<any>;
   }
 }

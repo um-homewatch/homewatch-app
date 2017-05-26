@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Scenarios</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div *ngIf="!loading">
+    <ion-card *ngFor="let scenario of scenarios">
+      <ion-card-content no-padding>
+        <ion-item>
+          <h2 class="inline">Name</h2>
+          <p class="inline">{{scenario.name}}</p>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <p *ngIf="scenarios.length == 0">
+      Looks like you don't have a scenario set up, try adding one by clicking in the add button on the bottom right corner.
+    </p>
+
+    <ion-fab bottom right>
+      <button (click)="newScenario()" ion-fab mini><ion-icon name="add"></ion-icon></button>
+    </ion-fab>
+  </div>
+
+  <ion-spinner *ngIf="loading" text-center></ion-spinner>
+</ion-content>
