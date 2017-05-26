@@ -1,0 +1,56 @@
+import { Component } from "@angular/core";
+import { IonicPage, ViewController, AlertController, NavController } from "ionic-angular";
+import { HomewatchApiService } from "../../../services/homewatch_api";
+import { NewThingPage } from "../../things/new/new";
+
+@Component({
+  selector: "show-home-popover-page",
+  template: `
+    <ion-list no-margin *ngIf="!alertVisible">
+    <button ion-item (click)="editThing()">Edit Thing</button>
+      <button ion-item (click)="showAlert()">Delete Thing</button>
+    </ion-list>
+  `
+})
+export class ShowThingPopoverPage {
+  homewatch: Homewatch;
+  home: any;
+  thing: any;
+  alertVisible: boolean = false;
+
+  constructor(public navCtrl: NavController, public viewCtrl: ViewController, public alertCtrl: AlertController, homewatchApiService: HomewatchApiService) {
+    this.homewatch = homewatchApiService.getApi();
+    this.home = this.viewCtrl.data.home;
+    this.thing = this.viewCtrl.data.thing;
+  }
+
+  showAlert() {
+    this.alertVisible = true;
+    let alert = this.alertCtrl.create({
+      title: "Warning",
+      message: "Do you really want to delete this thing?",
+      buttons: [
+        {
+          text: "Cancel",
+          role: "cancel",
+          handler: () => { this.viewCtrl.dismiss(); }
+        },
+        {
+          text: "Yes",
+          handler: () => { this.deleteThing(); }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  async deleteThing() {
+    await this.homewatch.things(this.home).deleteThing(this.thing.id);
+    this.viewCtrl.dismiss(true);
+  }
+
+  editThing() {
+    this.navCtrl.push(NewThingPage, { thing: this.thing, home: this.home });
+    this.viewCtrl.dismiss();
+  }
+}

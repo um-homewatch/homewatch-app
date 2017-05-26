@@ -51,6 +51,6 @@ export class ShowHomePage {
   }
 
   showThing(thing: any) {
-    this.navCtrl.push(ShowThingPage, { thing });
+    this.navCtrl.push(ShowThingPage, { thing, home: this.home });
   }
 }

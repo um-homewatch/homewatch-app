@@ -1,8 +1,10 @@
 import { Component, Input, ViewChild, ComponentFactoryResolver, ViewContainerRef, AfterContentInit } from "@angular/core";
-import { ToastController, NavController, NavParams } from "ionic-angular";
+import { ToastController, NavController, NavParams, PopoverController, Events } from "ionic-angular";
 import { HomewatchApiService } from "../../../services/homewatch_api";
 import { ThingsInfo } from "../../../services/things_info";
 import { ThingStatusService } from "../../../services/thing_status";
+import { ShowThingPopoverPage } from "../show/popover";
+import { ShowHomePage } from "../../homes/show/show";
 import { Subscription } from "rxjs";
 
 @Component({
@@ -12,13 +14,18 @@ import { Subscription } from "rxjs";
 export class ShowThingPage {
   @ViewChild("thingStatus", { read: ViewContainerRef }) thingStatus: ViewContainerRef;
   homewatch: Homewatch;
+  home: any;
   thing: any;
   status: any;
   subscription: Subscription;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController, homewatchApiService: HomewatchApiService, public compFactoryResolver: ComponentFactoryResolver, public thingsInfo: ThingsInfo, public thingStatusService: ThingStatusService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController, homewatchApiService: HomewatchApiService, public compFactoryResolver: ComponentFactoryResolver, public thingsInfo: ThingsInfo, public thingStatusService: ThingStatusService, public popoverCtrl: PopoverController, public events: Events) {
     this.homewatch = homewatchApiService.getApi();
     this.thing = this.navParams.data.thing;
+    this.home = this.navParams.data.home;
+    this.events.subscribe("things:updated", (thing) => {
+      this.thing = thing;
+    });
   }
 
   ionViewWillEnter() {
@@ -47,5 +54,15 @@ export class ShowThingPage {
       duration: 3000,
       showCloseButton: true,
     }).present();
+  }
+
+  async showPopover(myEvent) {
+    let popover = this.popoverCtrl.create(ShowThingPopoverPage, { home: this.home, thing: this.thing });
+
+    popover.onDidDismiss(async (deleted) => {
+      if (deleted) this.navCtrl.setRoot(ShowHomePage, { home: this.home });
+    });
+
+    popover.present({ ev: myEvent });
   }
 }

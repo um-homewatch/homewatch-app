@@ -44,6 +44,8 @@ declare class Things {
   listThings(): any;
   createThing(home: any): any;
   updateThing(id: number, home: any): any;
+  deleteThing(id: number): any;
+  getThing(id: number): any;
 }
 
 declare class ThingStatus {

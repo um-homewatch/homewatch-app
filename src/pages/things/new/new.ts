@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { IonicPage, NavController, NavParams, Events } from "ionic-angular";
 import { HomewatchApiService } from "../../../services/homewatch_api";
 import { ThingsInfo } from "../../../services/things_info";
 
@@ -17,7 +17,7 @@ export class NewThingPage {
   home: any;
   thing: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, homewatchApi: HomewatchApiService, thingsInfo: ThingsInfo, public formBuilder: FormBuilder) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, homewatchApi: HomewatchApiService, thingsInfo: ThingsInfo, public formBuilder: FormBuilder, public events: Events) {
     this.homewatch = homewatchApi.getApi();
     this.typeOptions = thingsInfo.getOptions();
 
@@ -53,10 +53,12 @@ export class NewThingPage {
   }
 
   async onSubmit(form: FormGroup) {
-    if (this.editMode)
-      await this.homewatch.things(this.home).updateThing(form.value.id, form.value);
-    else
+    if (this.editMode) {
+      let response = await this.homewatch.things(this.home).updateThing(form.value.id, form.value);
+      this.events.publish("things:updated", response.data);
+    } else {
       await this.homewatch.things(this.home).createThing(form.value);
+    }
     this.navCtrl.pop();
   }
 }

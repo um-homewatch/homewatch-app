@@ -10,6 +10,7 @@ import { ListHomesPage } from "../pages/homes/list/list";
 import { NewHomePage } from "../pages/homes/new/new";
 import { ShowHomePage } from "../pages/homes/show/show";
 import { ShowHomePopoverPage } from "../pages/homes/show/popover";
+import { ShowThingPopoverPage } from "../pages/things/show/popover";
 import { NewThingPage } from "../pages/things/new/new";
 import { ShowThingPage } from "../pages/things/show/show";
 import { ShowLightPage } from "../pages/things/devices/light/show";
@@ -36,6 +37,7 @@ import { ThingStatusService } from "../services/thing_status";
     NewThingPage,
     EditProfilePage,
     ShowThingPage,
+    ShowThingPopoverPage,
     ShowLightPage,
     ShowLockPage,
     ShowThermostatPage,
@@ -58,6 +60,7 @@ import { ThingStatusService } from "../services/thing_status";
     NewThingPage,
     EditProfilePage,
     ShowThingPage,
+    ShowThingPopoverPage,
     ShowLightPage,
     ShowLockPage,
     ShowThermostatPage,
