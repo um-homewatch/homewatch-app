@@ -13,7 +13,6 @@ export class ListScenariosPage {
   scenarios: Array<any> = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, homewatchApiService: HomewatchApiService) {
-    console.log(this.navCtrl);
     this.homewatch = homewatchApiService.getApi();
     this.home = this.navParams.get("home");
   }
