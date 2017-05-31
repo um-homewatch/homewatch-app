@@ -33,8 +33,12 @@
     </ion-item>
 
     <ion-item>
-      <ion-label>Subtype</ion-label>
-      <ion-input formControlName="subtype"></ion-input>
+      <ion-label>Type</ion-label>
+      <ion-select type="text" formControlName="subtype">
+        <ion-option *ngFor="let option of subTypeOptions" [value]=option>
+          {{option}}
+        </ion-option>
+      </ion-select>
     </ion-item>
 
     <ion-item no-lines *ngIf="!thingForm.controls.subtype.valid  && thingForm.controls.subtype.dirty">

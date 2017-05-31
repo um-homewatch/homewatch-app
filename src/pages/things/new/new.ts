@@ -12,6 +12,7 @@ export class NewThingPage {
   editMode: boolean = false;
   thingForm: FormGroup;
   typeOptions: Array<Object>;
+  subTypeOptions: Array<string> = [];
   homewatch: Homewatch;
   submitted: boolean = false;
   home: any;
@@ -19,7 +20,7 @@ export class NewThingPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, homewatchApi: HomewatchApiService, thingsInfo: ThingsInfo, public formBuilder: FormBuilder, public events: Events) {
     this.homewatch = homewatchApi.getApi();
-    this.typeOptions = thingsInfo.getOptions();
+    this.typeOptions = thingsInfo.getTypeOptions();
 
     this.thingForm = formBuilder.group({
       id: [""],
@@ -31,6 +32,10 @@ export class NewThingPage {
         port: [""]
       })
     });
+
+    this.thingForm.valueChanges.subscribe(data => {
+      if (data.type) this.subTypeOptions = thingsInfo.getThingInfo(data.type).subTypes;
+    })
   }
 
   ionViewWillEnter() {

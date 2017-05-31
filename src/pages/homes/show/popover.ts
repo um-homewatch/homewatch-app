@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { App, IonicPage, ViewController, AlertController, NavController } from "ionic-angular";
+import { App, IonicPage, ViewController, AlertController } from "ionic-angular";
 import { HomewatchApiService } from "../../../services/homewatch_api";
 import { NewHomePage } from "../../homes/new/new";
 import { ListScenariosPage } from "../../scenarios/list/list";
@@ -19,7 +19,7 @@ export class ShowHomePopoverPage {
   home: any;
   alertVisible: boolean = false;
 
-  constructor(public app: App, public viewCtrl: ViewController, public alertCtrl: AlertController, public navCtrl:NavController, homewatchApiService: HomewatchApiService) {
+  constructor(public app: App, public viewCtrl: ViewController, public alertCtrl: AlertController, homewatchApiService: HomewatchApiService) {
     this.homewatch = homewatchApiService.getApi();
     this.home = this.viewCtrl.data.home;
   }
@@ -50,7 +50,7 @@ export class ShowHomePopoverPage {
   }
 
   editHome() {
-    this.navCtrl.push(NewHomePage, { home: this.home });
+    this.app.getRootNav().push(NewHomePage, { home: this.home });
     this.viewCtrl.dismiss();
   }
 

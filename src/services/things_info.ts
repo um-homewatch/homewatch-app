@@ -9,32 +9,36 @@ import { ShowWeatherPage } from "../pages/things/devices/weather/show";
 export class ThingsInfo {
   things: Object = {
     "Things::Light": {
+      subTypes: ["rest", "hue"],
       showPage: ShowLightPage,
       text: "Light",
       icon: "bulb"
     },
     "Things::Lock": {
+      subTypes: ["rest"],
       showPage: ShowLockPage,
       text: "Lock",
       icon: "lock"
     },
     "Things::Thermostat": {
+      subTypes: ["rest"],
       showPage: ShowThermostatPage,
       text: "Thermostat",
       icon: "thermometer"
     },
     "Things::Weather": {
+      subTypes: ["rest", "owm"],
       showPage: ShowWeatherPage,
       text: "Weather",
       icon: "sunny"
     }
   };
 
-  getOptions(): Array<Object> {
+  getTypeOptions(): Array<Object> {
     return Object.keys(this.things).map(key => Object.assign(this.things[key], { type: key }));
   }
 
-  getThingInfo(type: string): { showPage: any, text: string, icon: string } {
+  getThingInfo(type: string): { subTypes: Array<string>, showPage: any, text: string, icon: string } {
     return this.things[type];
   }
 }
