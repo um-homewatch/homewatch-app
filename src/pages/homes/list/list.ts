@@ -1,5 +1,5 @@
 import { Component } from "@angular/core";
-import { NavController, NavParams } from "ionic-angular";
+import { NavController, NavParams, LoadingController } from "ionic-angular";
 import { HomewatchApiService } from "../../../services/homewatch_api";
 import { AuthVerifier } from "../../../providers/auth-verifier/auth-verifier";
 import { NewHomePage } from "../new/new";
@@ -12,22 +12,27 @@ import { ShowHomePage } from "../show/show";
 export class ListHomesPage {
   homewatch: Homewatch;
   user: Object;
-  homes: Array<Object>;
-  loading = true;
+  homes: Array<Object> = [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, homewatchApiService: HomewatchApiService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController, homewatchApiService: HomewatchApiService) {
     this.homewatch = homewatchApiService.getApi();
   }
 
   async ionViewWillEnter() {
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    });
+    loading.present();
+
     try {
       this.user = this.navParams.get("user");
       let response = await this.homewatch.homes.listHomes();
       this.homes = response.data;
-      this.loading = false;
     } catch (error) {
       //
     }
+
+    loading.dismiss();
   }
 
   newHome() {
