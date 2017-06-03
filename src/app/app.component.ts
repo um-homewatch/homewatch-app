@@ -1,6 +1,6 @@
 import { Storage } from "@ionic/storage";
 import { Component, ViewChild } from "@angular/core";
-import { Nav, Platform, ToastController } from "ionic-angular";
+import { Nav, Platform, ToastController, LoadingController } from "ionic-angular";
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { HomewatchApiService } from "../services/homewatch_api";
@@ -20,7 +20,7 @@ export class MyApp {
 
   pages: Array<{ title: string, component: any, icon: string, method: string }>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public storage: Storage, homewatchApiService: HomewatchApiService, public toastCtrl: ToastController) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public storage: Storage, homewatchApiService: HomewatchApiService, public toastCtrl: ToastController, public loadingCtrl: LoadingController) {
     this.homewatch = homewatchApiService.getApi();
     this.setInterceptors();
     this.initializeApp();
@@ -33,7 +33,23 @@ export class MyApp {
   }
 
   setInterceptors() {
-    this.homewatch.axios.interceptors.response.use({}, async (error) => {
+    let loadingCtrl = this.loadingCtrl;
+
+    this.homewatch.axios.interceptors.request.use(async function (config) {
+      config.loading = loadingCtrl.create({
+        content: "Please wait..."
+      });
+      config.loading.present();
+
+      return config;
+    });
+
+    this.homewatch.axios.interceptors.response.use(function (response) {
+      response.config.loading.dismiss();
+
+      return response;
+    }, async function (error) {
+      console.log(error);
       if (error.response.status === 401) {
         await this.storage.remove("HOMEWATCH_USER");
         this.nav.setRoot(LoginPage);

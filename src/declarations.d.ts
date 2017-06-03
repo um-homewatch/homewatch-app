@@ -5,7 +5,7 @@ declare class Homewatch {
   axios: any;
   homes: Homewatch.Homes;
   users: Homewatch.Users;
-  constructor(url: string, auth?: string);
+  constructor(url: string, cache?: boolean);
   scenarioThings(scenario: { id: number }): void;
   scenarios(home: { id: number }): Homewatch.Scenarios;
   status(thing: { id: number }): Homewatch.ThingStatus;
