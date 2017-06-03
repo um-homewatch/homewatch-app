@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { Component } from "@angular/core";
+import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { NewScenarioPage } from "../new/new";
-import { HomewatchApiService } from '../../../services/homewatch_api';
+import { HomewatchApiService } from "../../../services/homewatch_api";
 
 @Component({
-  selector: 'page-list-scenarios',
-  templateUrl: 'list.html',
+  selector: "page-list-scenarios",
+  templateUrl: "list.html",
 })
 export class ListScenariosPage {
   homewatch: Homewatch;

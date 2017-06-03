@@ -35,7 +35,7 @@ export class NewThingPage {
 
     this.thingForm.valueChanges.subscribe(data => {
       if (data.type) this.subTypeOptions = thingsInfo.getThingInfo(data.type).subTypes;
-    })
+    });
   }
 
   ionViewWillEnter() {
