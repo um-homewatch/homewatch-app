@@ -1,3 +1,4 @@
+import { CloudSettings, CloudModule } from "@ionic/cloud-angular";
 import { BrowserModule } from "@angular/platform-browser";
 import { ErrorHandler, NgModule } from "@angular/core";
 import { IonicApp, IonicErrorHandler, IonicModule } from "ionic-angular";
@@ -27,6 +28,12 @@ import { HomewatchApiService } from "../services/homewatch_api";
 import { ThingsInfo } from "../services/things_info";
 import { ThingStatusService } from "../services/thing_status";
 
+const cloudSettings: CloudSettings = {
+  "core": {
+    "app_id": "b14588ff"
+  }
+};
+
 @NgModule({
   declarations: [
     MyApp,
@@ -49,8 +56,9 @@ import { ThingStatusService } from "../services/thing_status";
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp),    
     IonicStorageModule.forRoot(),
+    CloudModule.forRoot(cloudSettings)
   ],
   bootstrap: [IonicApp],
   entryComponents: [

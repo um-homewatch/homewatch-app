@@ -20,7 +20,7 @@ export class ListHomesPage {
 
   async ionViewWillEnter() {
     let loading = this.loadingCtrl.create({
-      content: 'Please wait...'
+      content: "Please wait..."
     });
     loading.present();
 

@@ -1,4 +1,5 @@
 import { Storage } from "@ionic/storage";
+import { Deploy } from '@ionic/cloud-angular';
 import { Component, ViewChild } from "@angular/core";
 import { Nav, Platform, ToastController, LoadingController } from "ionic-angular";
 import { StatusBar } from "@ionic-native/status-bar";
@@ -20,7 +21,17 @@ export class MyApp {
 
   pages: Array<{ title: string, component: any, icon: string, method: string }>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public storage: Storage, homewatchApiService: HomewatchApiService, public toastCtrl: ToastController, public loadingCtrl: LoadingController) {
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public storage: Storage, homewatchApiService: HomewatchApiService, public toastCtrl: ToastController, public loadingCtrl: LoadingController, public deploy: Deploy) {
+    this.deploy.check().then((snapshotAvailable: boolean) => {
+      if (snapshotAvailable) {
+        this.deploy.download().then(() => {
+          return this.deploy.extract();
+        }).then(() => {
+          return this.deploy.load();
+        });
+      }
+    });
+
     this.homewatch = homewatchApiService.getApi();
     this.setInterceptors();
     this.initializeApp();
