@@ -22,16 +22,7 @@ export class MyApp {
   pages: Array<{ title: string, component: any, icon: string, method: string }>;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public storage: Storage, homewatchApiService: HomewatchApiService, public toastCtrl: ToastController, public loadingCtrl: LoadingController, public deploy: Deploy) {
-    this.deploy.check().then((snapshotAvailable: boolean) => {
-      if (snapshotAvailable) {
-        this.deploy.download().then(() => {
-          return this.deploy.extract();
-        }).then(() => {
-          return this.deploy.load();
-        });
-      }
-    });
-
+    if (this.platform.is("cordova")) this.updateApp();
     this.homewatch = homewatchApiService.getApi();
     this.setInterceptors();
     this.initializeApp();
@@ -41,6 +32,23 @@ export class MyApp {
       { title: "Profile", component: EditProfilePage, icon: "person", method: "push" },
       { title: "Logout", component: LoginPage, icon: "exit", method: "setRoot" }
     ];
+  }
+
+  updateApp() {
+    let loading = this.loadingCtrl.create({
+      content: "Updating the app, please wait..."
+    });
+
+    this.deploy.check().then((snapshotAvailable: boolean) => {
+      if (snapshotAvailable) {
+        loading.present();
+        this.deploy.download().then(() => {
+          return this.deploy.extract();
+        }).then(() => {
+          return this.deploy.load();
+        }).then(() => loading.dismiss());
+      }
+    });
   }
 
   setInterceptors() {
