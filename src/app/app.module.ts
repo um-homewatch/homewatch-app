@@ -56,8 +56,11 @@ const cloudSettings: CloudSettings = {
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),    
-    IonicStorageModule.forRoot(),
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot({
+      name: "__homewatchdb",
+      driverOrder: ["sqlite", "indexeddb", "websql"]
+    }),
     CloudModule.forRoot(cloudSettings)
   ],
   bootstrap: [IonicApp],
