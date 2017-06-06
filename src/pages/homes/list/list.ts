@@ -12,6 +12,7 @@ import { ShowHomePage } from "../show/show";
 export class ListHomesPage {
   homewatch: Homewatch;
   user: Object;
+  loading: boolean = true;
   homes: Array<Object> = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController, homewatchApiService: HomewatchApiService) {
@@ -19,20 +20,14 @@ export class ListHomesPage {
   }
 
   async ionViewWillEnter() {
-    let loading = this.loadingCtrl.create({
-      content: "Please wait..."
-    });
-    loading.present();
-
     try {
       this.user = this.navParams.get("user");
       let response = await this.homewatch.homes.listHomes();
       this.homes = response.data;
+      this.loading = false;
     } catch (error) {
       //
     }
-
-    loading.dismiss();
   }
 
   newHome() {

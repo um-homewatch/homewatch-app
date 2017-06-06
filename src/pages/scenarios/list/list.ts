@@ -10,6 +10,7 @@ import { HomewatchApiService } from "../../../services/homewatch_api";
 export class ListScenariosPage {
   homewatch: Homewatch;
   home: any;
+  loading: boolean = true;
   scenarios: Array<any> = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, homewatchApiService: HomewatchApiService) {
@@ -18,8 +19,13 @@ export class ListScenariosPage {
   }
 
   async ionViewWillEnter() {
-    let response = await this.homewatch.scenarios(this.home).listScenarios();
-    this.scenarios = response.data;
+    try {
+      let response = await this.homewatch.scenarios(this.home).listScenarios();
+      this.scenarios = response.data;
+      this.loading = false;
+    } catch (error) {
+      //
+    }
   }
 
   newScenario() {
