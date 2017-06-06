@@ -45,11 +45,12 @@ export class MyApp {
     });
 
     this.homewatch.axios.interceptors.response.use(function (response) {
-      response.config.loading.dismiss();
+      if (response.config.loading) response.config.loading.dismiss();
 
       return response;
     }, async function (error) {
-      console.log(error);
+      if (error.config.loading) error.config.loading.dismiss();
+
       if (error.response.status === 401) {
         await this.storage.remove("HOMEWATCH_USER");
         this.nav.setRoot(LoginPage);
