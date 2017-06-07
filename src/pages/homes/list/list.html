@@ -10,29 +10,36 @@
 <ion-content padding>
   <div *ngIf="!loading">
     <ion-card *ngFor="let home of homes">
-      <ion-card-content no-padding>
+      <ion-card-content no-padding (tap)="listThings(home)">
         <ion-item>
-          <h2 class="inline">Name</h2>
-          <p class="inline">{{home.name}}</p>
-        </ion-item>
-
-        <ion-item>
-          <h2 class="inline">Tunnel</h2>
-          <p class="inline">{{home.tunnel}}</p>
-        </ion-item>
-
-        <ion-item>
-          <h2 class="inline">Location</h2>
-          <p class="inline">{{home.location}}</p>
+          <div>
+            <h2 class="inline">Name </h2>
+            <p class="inline">{{home.name}}</p>
+          </div>
+          <div>
+            <h2 class="inline">Tunnel </h2>
+            <p class="inline">{{home.tunnel}}</p>
+          </div>
+          <div>
+            <h2 class="inline">Location </h2>
+            <p class="inline">{{home.location}}</p>
+          </div>
         </ion-item>
       </ion-card-content>
 
       <ion-item padding-left no-margin>
-        <a (click)="editHome(home)" item-left>
-          <ion-icon name="create"></ion-icon> EDIT</a>
-        <a (click)="listThings(home)" item-right>
-          <ion-icon name="arrow-forward"></ion-icon>
-        </a>
+        <ion-row no-padding no-margin>
+          <ion-col col-2 no-padding no-margin>
+            <a (click)="editHome(home)" item-left>
+              <ion-icon name="create"></ion-icon> EDIT
+            </a>
+          </ion-col>
+          <ion-col (click)="listThings(home)" col-10 text-right no-padding no-margin>
+            <a item-right>
+              <ion-icon name="arrow-forward"></ion-icon>
+            </a>
+          </ion-col>
+        </ion-row>
       </ion-item>
     </ion-card>
 
