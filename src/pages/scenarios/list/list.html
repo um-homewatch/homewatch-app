@@ -12,6 +12,21 @@
           <h2 class="inline">Name</h2>
           <p class="inline">{{scenario.name}}</p>
         </ion-item>
+
+        <ion-item padding-left no-margin>
+          <ion-row no-padding no-margin>
+            <ion-col col-2 no-padding no-margin>
+              <a (click)="editScenario(scenario)" item-left>
+                <ion-icon name="create"></ion-icon> EDIT
+              </a>
+            </ion-col>
+            <ion-col (click)="showScenario(scenario)" col-10 text-right no-padding no-margin>
+              <a item-right>
+                <ion-icon name="arrow-forward"></ion-icon>
+              </a>
+            </ion-col>
+          </ion-row>
+        </ion-item>
       </ion-card-content>
     </ion-card>
 

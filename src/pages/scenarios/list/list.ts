@@ -1,7 +1,8 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
-import { NewScenarioPage } from "../new/new";
 import { HomewatchApiService } from "../../../services/homewatch_api";
+import { NewScenarioPage } from "../new/new";
+import { ShowScenarioPage } from "../show/show";
 
 @Component({
   selector: "page-list-scenarios",
@@ -30,5 +31,13 @@ export class ListScenariosPage {
 
   newScenario() {
     this.navCtrl.push(NewScenarioPage, { home: this.home });
+  }
+
+  showScenario(scenario: any) {
+    this.navCtrl.push(ShowScenarioPage, { scenario })
+  }
+
+  editScenario(scenario: any) {
+    this.navCtrl.push(NewScenarioPage, { home: this.home, scenario })
   }
 }

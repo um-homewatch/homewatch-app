@@ -20,6 +20,7 @@ import { ShowThermostatPage } from "../pages/things/devices/thermostat/show";
 import { ShowWeatherPage } from "../pages/things/devices/weather/show";
 import { ListScenariosPage } from "../pages/scenarios/list/list";
 import { NewScenarioPage } from "../pages/scenarios/new/new";
+import { ShowScenarioPage } from "../pages/scenarios/show/show";
 
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
@@ -52,7 +53,8 @@ const cloudSettings: CloudSettings = {
     ShowThermostatPage,
     ShowWeatherPage,
     ListScenariosPage,
-    NewScenarioPage
+    NewScenarioPage,
+    ShowScenarioPage
   ],
   imports: [
     BrowserModule,
@@ -81,7 +83,8 @@ const cloudSettings: CloudSettings = {
     ShowThermostatPage,
     ShowWeatherPage,
     ListScenariosPage,
-    NewScenarioPage
+    NewScenarioPage,
+    ShowScenarioPage
   ],
   providers: [
     StatusBar,
