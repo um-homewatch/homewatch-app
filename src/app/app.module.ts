@@ -18,6 +18,7 @@ import { ShowLightPage } from "../pages/things/devices/light/show";
 import { ShowLockPage } from "../pages/things/devices/lock/show";
 import { ShowThermostatPage } from "../pages/things/devices/thermostat/show";
 import { ShowWeatherPage } from "../pages/things/devices/weather/show";
+import { ShowMotionSensorPage } from "../pages/things/devices/motion_sensor/show";
 import { ListScenariosPage } from "../pages/scenarios/list/list";
 import { NewScenarioPage } from "../pages/scenarios/new/new";
 import { ShowScenarioPage } from "../pages/scenarios/show/show";
@@ -52,6 +53,7 @@ const cloudSettings: CloudSettings = {
     ShowLockPage,
     ShowThermostatPage,
     ShowWeatherPage,
+    ShowMotionSensorPage,
     ListScenariosPage,
     NewScenarioPage,
     ShowScenarioPage
@@ -82,6 +84,7 @@ const cloudSettings: CloudSettings = {
     ShowLockPage,
     ShowThermostatPage,
     ShowWeatherPage,
+    ShowMotionSensorPage,
     ListScenariosPage,
     NewScenarioPage,
     ShowScenarioPage

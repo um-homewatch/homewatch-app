@@ -4,6 +4,7 @@ import { ShowLightPage } from "../pages/things/devices/light/show";
 import { ShowLockPage } from "../pages/things/devices/lock/show";
 import { ShowThermostatPage } from "../pages/things/devices/thermostat/show";
 import { ShowWeatherPage } from "../pages/things/devices/weather/show";
+import { ShowMotionSensorPage } from "../pages/things/devices/motion_sensor/show";
 
 @Injectable()
 export class ThingsInfo {
@@ -31,6 +32,12 @@ export class ThingsInfo {
       showPage: ShowWeatherPage,
       text: "Weather",
       icon: "sunny"
+    },
+    "Things::MotionSensor": {
+      subTypes: ["rest"],
+      showPage: ShowMotionSensorPage,
+      text: "Motion Sensor",
+      icon: "eye"
     }
   };
 

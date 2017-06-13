@@ -6,7 +6,7 @@ export class HomewatchApiService {
   homewatch: Homewatch;
 
   constructor() {
-    this.homewatch = new Homewatch("https://homewatch-api.herokuapp.com", true);
+    this.homewatch = new Homewatch("https://homewatch-api.herokuapp.com", false);
   }
 
   getApi(): Homewatch {
