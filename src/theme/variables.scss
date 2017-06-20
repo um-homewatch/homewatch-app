@@ -4,5 +4,5 @@ $font-path: "../assets/fonts";
 @import "ionic.ionicons";
 @import "roboto";
 @import "noto-sans";
-$colors: ( primary: #488aff, secondary: #3ea350, danger: #f53d3d, light: #f4f4f4, dark: #222);
+$colors: ( primary: #488aff, secondary: #3ea350, danger: #f53d3d, light: #d3d3d3, dark: #222);
 $toolbar-md-background: map-get($colors, primary);
