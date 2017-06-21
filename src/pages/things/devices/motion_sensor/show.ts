@@ -1,36 +1,14 @@
-import { Component, AfterContentInit } from "@angular/core";
-import { ToastController, NavController, NavParams } from "ionic-angular";
-import { HomewatchApiService } from "../../../../services/homewatch_api";
+import { Component } from "@angular/core";
+import { NavParams } from "ionic-angular";
 import { ThingStatusService } from "../../../../services/thing_status";
+import { DevicePage } from "../device";
 
 @Component({
   selector: "page-show-motion-sensor",
   templateUrl: "show.html",
 })
-export class ShowMotionSensorPage implements AfterContentInit {
-  homewatch: Homewatch;
-  motionSensor: any;
-  status: any;
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController, homewatchApiService: HomewatchApiService, public thingStatus: ThingStatusService) {
-    this.homewatch = homewatchApiService.getApi();
-    this.motionSensor = this.navParams.data.thing;
-  }
-
-  async ngAfterContentInit() {
-    try {
-      let response = await this.homewatch.status(this.motionSensor).getStatus();
-      this.status = response.data;
-    } catch (error) {
-      this.showErrorToast("Coudn't reach this device!");
-    }
-  }
-
-  showErrorToast(message: string) {
-    this.toastCtrl.create({
-      message: message,
-      duration: 3000,
-      showCloseButton: true,
-    }).present();
+export class ShowMotionSensorPage extends DevicePage {
+  constructor(public navParams: NavParams, public thingStatusService: ThingStatusService) {
+    super(navParams, thingStatusService);
   }
 }

@@ -29,10 +29,18 @@ export class ShowThingPage {
   }
 
   ionViewWillEnter() {
+    this.loadThingStatus();
+    this.subscription = this.thingStatusService.statusAnnounced$.subscribe(status => { this.onStatusChange(status); });
+  }
+
+  async loadThingStatus() {
+    let response = await this.homewatch.status(this.thing).getStatus();
+    this.status = response.data;
+    this.navParams.data.status = this.status;
+
     this.thingStatus.clear();
     let compFactory = this.compFactoryResolver.resolveComponentFactory(this.thingsInfo.getThingInfo(this.thing.type).showPage);
     this.thingStatus.createComponent(compFactory);
-    this.subscription = this.thingStatusService.statusAnnounced$.subscribe(status => { this.onStatusChange(status); });
   }
 
   ionViewWillLeave() {

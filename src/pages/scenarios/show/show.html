@@ -8,7 +8,7 @@
 <ion-content padding>
   <ion-card>
     <ion-card-content>
-      <ion-item>
+      <ion-item no-padding>
         <div>
           <h3>Name</h3>
           <p>{{scenario.name}}</p>
@@ -16,4 +16,16 @@
       </ion-item>
     </ion-card-content>
   </ion-card>
+
+  <h2 padding-left> Things </h2>
+
+  <ion-list>
+    <ion-card no-padding *ngFor="let scenarioThing of scenario.scenario_things">
+      <ion-card-content>
+        <ion-icon class="inline font-large primary" name="{{getIconFromType(scenarioThing.thing.type)}}"></ion-icon>
+        <p class="inline">{{scenarioThing.thing.name}}</p>
+        <p>{{this.stringify(scenarioThing.status)}}</p>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
 </ion-content>

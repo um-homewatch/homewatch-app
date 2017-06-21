@@ -1,11 +1,4 @@
-<ion-card *ngIf="status" [class.fade-in]="status">
-  <ion-card-header>
-    Status
-  </ion-card-header>
-  <ion-card-content no-padding>
-    <ion-item>
-      <ion-label>On</ion-label>
-      <ion-toggle [(ngModel)]="status.on" (ngModelChange)="onStatusChange($event)"></ion-toggle>
-    </ion-item>
-  </ion-card-content>
-</ion-card>
+<ion-item>
+  <ion-label>On</ion-label>
+  <ion-toggle [(ngModel)]="status.on" (ngModelChange)="onStatusChange($event)"></ion-toggle>
+</ion-item>

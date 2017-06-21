@@ -1,36 +1,14 @@
-import { Component, AfterContentInit } from "@angular/core";
-import { ToastController, NavController, NavParams } from "ionic-angular";
-import { HomewatchApiService } from "../../../../services/homewatch_api";
+import { Component } from "@angular/core";
+import { NavParams } from "ionic-angular";
 import { ThingStatusService } from "../../../../services/thing_status";
+import { DevicePage } from "../device";
 
 @Component({
   selector: "page-show-weather",
   templateUrl: "show.html",
 })
-export class ShowWeatherPage implements AfterContentInit {
-  homewatch: Homewatch;
-  weather: any;
-  status: any;
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController, homewatchApiService: HomewatchApiService, public thingStatus: ThingStatusService) {
-    this.homewatch = homewatchApiService.getApi();
-    this.weather = this.navParams.data.thing;
-  }
-
-  async ngAfterContentInit() {
-    try {
-      let response = await this.homewatch.status(this.weather).getStatus();
-      this.status = response.data;
-    } catch (error) {
-      this.showErrorToast("Coudn't reach this device!");
-    }
-  }
-
-  showErrorToast(message: string) {
-    this.toastCtrl.create({
-      message: message,
-      duration: 3000,
-      showCloseButton: true,
-    }).present();
+export class ShowWeatherPage extends DevicePage {
+  constructor(public navParams: NavParams, public thingStatusService: ThingStatusService) {
+    super(navParams, thingStatusService);
   }
 }

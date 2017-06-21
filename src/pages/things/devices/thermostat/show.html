@@ -1,13 +1,6 @@
-<ion-card *ngIf="status" [class.fade-in]="status">
-  <ion-card-header>
-    Status
-  </ion-card-header>
-  <ion-card-content no-padding>
-    <ion-item>
-      <ion-label>Target Temperature</ion-label>
-      <ion-select [(ngModel)]="status.targetTemperature" (ngModelChange)="onStatusChange($event)">
-        <ion-option *ngFor="let n of range(10, 36)">{{n}}</ion-option>
-      </ion-select>
-    </ion-item>
-  </ion-card-content>
-</ion-card>
+<ion-item>
+  <ion-label>Target Temperature</ion-label>
+  <ion-select [(ngModel)]="status.targetTemperature" (ngModelChange)="onStatusChange($event)">
+    <ion-option *ngFor="let n of range(10, 36)">{{n}}</ion-option>
+  </ion-select>
+</ion-item>

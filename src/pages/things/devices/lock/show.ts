@@ -1,40 +1,14 @@
-import { Component, AfterContentInit } from "@angular/core";
-import { ToastController, NavController, NavParams } from "ionic-angular";
-import { HomewatchApiService } from "../../../../services/homewatch_api";
+import { Component } from "@angular/core";
+import { NavParams } from "ionic-angular";
 import { ThingStatusService } from "../../../../services/thing_status";
+import { DevicePage } from "../device";
 
 @Component({
   selector: "page-show-lock",
   templateUrl: "show.html",
 })
-export class ShowLockPage implements AfterContentInit {
-  homewatch: Homewatch;
-  lock: any;
-  status: any;
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController, homewatchApiService: HomewatchApiService, public thingStatus: ThingStatusService) {
-    this.homewatch = homewatchApiService.getApi();
-    this.lock = this.navParams.data.thing;
-  }
-
-  async ngAfterContentInit() {
-    try {
-      let response = await this.homewatch.status(this.lock).getStatus();
-      this.status = response.data;
-    } catch (error) {
-      this.showErrorToast("Coudn't reach this device!");
-    }
-  }
-
-  async onStatusChange(newStatus) {
-    this.thingStatus.announceStatus({ locked: newStatus });
-  }
-
-  showErrorToast(message: string) {
-    this.toastCtrl.create({
-      message: message,
-      duration: 3000,
-      showCloseButton: true,
-    }).present();
+export class ShowLockPage extends DevicePage {
+  constructor(public navParams: NavParams, public thingStatusService: ThingStatusService) {
+    super(navParams, thingStatusService);
   }
 }
