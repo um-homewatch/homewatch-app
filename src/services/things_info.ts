@@ -10,7 +10,7 @@ import { ShowMotionSensorPage } from "../pages/things/devices/motion_sensor/show
 export class ThingsInfo {
   things: Object = {
     "Things::Light": {
-      subTypes: ["rest", "hue"],
+      subTypes: ["rest", "coap", "hue"],
       showPage: ShowLightPage,
       text: "Light",
       icon: "bulb"

@@ -5,6 +5,11 @@
       <div *ngIf="editMode; else new">Edit Home</div>
       <ng-template #new>New Home</ng-template>
     </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="showPopover($event)">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>

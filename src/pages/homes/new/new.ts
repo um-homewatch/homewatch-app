@@ -1,7 +1,8 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { IonicPage, NavController, NavParams, PopoverController } from "ionic-angular";
 import { HomewatchApiService } from "../../../services/homewatch_api";
+import { NewHomePopoverPage } from "./popover"
 
 const URL_REGEX = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)/;
 
@@ -16,7 +17,7 @@ export class NewHomePage {
   submitted: boolean = false;
   home: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, homewatchApi: HomewatchApiService, public formBuilder: FormBuilder) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, homewatchApi: HomewatchApiService, public formBuilder: FormBuilder, public popoverCtrl: PopoverController) {
     this.homewatch = homewatchApi.getApi();
 
     this.homeForm = formBuilder.group({
@@ -47,5 +48,17 @@ export class NewHomePage {
     else
       await this.homewatch.homes.createHome(form.value);
     this.navCtrl.pop();
+  }
+
+  private popoverCallback = (data, error) => {
+    if (data) this.homeForm.get("tunnel").setValue(data.url);
+  }
+
+  async showPopover(myEvent) {
+    let popover = this.popoverCtrl.create(NewHomePopoverPage, { callback: this.popoverCallback });
+
+    popover.present({
+      ev: myEvent
+    });
   }
 }

@@ -9,6 +9,7 @@ import { SignUpPage } from "../pages/users/sign-up/sign-up";
 import { EditProfilePage } from "../pages/users/sign-up/edit";
 import { ListHomesPage } from "../pages/homes/list/list";
 import { NewHomePage } from "../pages/homes/new/new";
+import { NewHomePopoverPage } from "../pages/homes/new/popover";
 import { ShowHomePage } from "../pages/homes/show/show";
 import { ShowHomePopoverPage } from "../pages/homes/show/popover";
 import { ShowThingPopoverPage } from "../pages/things/show/popover";
@@ -43,6 +44,7 @@ const cloudSettings: CloudSettings = {
     SignUpPage,
     ListHomesPage,
     NewHomePage,
+    NewHomePopoverPage,
     ShowHomePage,
     ShowHomePopoverPage,
     NewThingPage,
@@ -74,6 +76,7 @@ const cloudSettings: CloudSettings = {
     SignUpPage,
     ListHomesPage,
     NewHomePage,
+    NewHomePopoverPage,
     ShowHomePage,
     ShowHomePopoverPage,
     NewThingPage,

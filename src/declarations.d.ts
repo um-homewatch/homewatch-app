@@ -5,6 +5,7 @@ declare class Homewatch {
   axios: any;
   homes: Homewatch.Homes;
   users: Homewatch.Users;
+  hub: Homewatch.Hub;
   constructor(url: string, cache?: boolean);
   scenarioThings(scenario: { id: number }): void;
   scenarios(home: { id: number }): Homewatch.Scenarios;
@@ -51,6 +52,11 @@ declare namespace Homewatch {
     getScenario(id: number): Promise<any>;
     listScenarios(): Promise<any>;
     updateScenario(id: number, scenario: { name: string }): Promise<any>;
+    private constructor();
+  }
+
+  class Hub {
+    getTunnel(): Promise<any>;
     private constructor();
   }
 }
