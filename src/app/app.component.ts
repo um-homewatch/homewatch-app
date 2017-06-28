@@ -48,7 +48,7 @@ export class MyApp {
       if (response.config.loading) response.config.loading.dismiss();
 
       return response;
-    }, async function (error) {
+    }, async (error) => {
       if (error.config.loading) error.config.loading.dismiss();
 
       if (error.response.status === 401) {
