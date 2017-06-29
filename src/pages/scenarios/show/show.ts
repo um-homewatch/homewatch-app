@@ -17,7 +17,7 @@ export class ShowScenarioPage {
     return this.thingsInfo.getThingInfo(type).icon;
   }
 
-  stringify(status: Object) {
-    return JSON.stringify(status);
+  statusKeys(status: Object) {
+    return Object.keys(status);
   }
 }
