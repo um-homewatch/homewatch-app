@@ -28,8 +28,7 @@ export class NewHomePopoverPage {
       buttons: [
         {
           text: "OK",
-          role: "ok",
-          handler: () => { this.viewCtrl.dismiss(); }
+          role: "cancel"
         },
       ]
     });
@@ -38,6 +37,8 @@ export class NewHomePopoverPage {
   }
 
   async findHub() {
+    this.viewCtrl.dismiss();
+    
     try {
       let response = await this.homewatch.hub.getTunnel();
 

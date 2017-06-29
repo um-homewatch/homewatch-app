@@ -1,21 +1,55 @@
 <ion-header>
   <ion-navbar>
     <ion-title>{{scenario.name}}</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="showPopover($event)">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
-  <ion-list>
-    <ion-card no-padding *ngFor="let scenarioThing of scenario.scenario_things">
+  <ion-list class="scenario-things-list">
+    <ion-card no-padding>
       <ion-card-content>
-        <ion-icon class="inline font-large primary" name="{{getIconFromType(scenarioThing.thing.type)}}"></ion-icon>
-        <p class="inline">{{scenarioThing.thing.name}}</p>
-        <div *ngFor="let key of statusKeys(scenarioThing.status)">
-          <p class="capitalize inline">{{key}}:  </p> 
+        <a (click)="applyScenario()">
+          <ion-icon name="checkmark"></ion-icon> Apply Scenario
+        </a>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card no-padding *ngFor="let scenarioThing of scenarioThings; let index = index" [attr.data-index]="i">
+      <ion-card-content>
+        <div padding-bottom>
+          <ion-icon class="inline font-large primary" name="{{getIconFromType(scenarioThing.thing.type)}}"></ion-icon>
+          <h4 class="inline" item-left>{{scenarioThing.thing.name}}</h4>
+        </div>
+
+        <div *ngFor="let key of statusKeys(scenarioThing.status)" padding-bottom>
+          <p class="capitalize inline">{{key}}: </p>
           <p class="capitalize inline">{{scenarioThing.status[key]}}</p>
         </div>
+
+        <ion-row no-padding no-margin>
+          <ion-col col-2 no-padding no-margin>
+            <a (click)="editScenarioThing(scenarioThing)" item-left>
+              <ion-icon name="create"></ion-icon> EDIT
+            </a>
+          </ion-col>
+          <ion-col (click)="deleteScenarioThing(scenarioThing, index)" col-10 text-right no-padding no-margin>
+            <a item-right>
+              <ion-icon name="trash"></ion-icon>
+            </a>
+          </ion-col>
+        </ion-row>
+
       </ion-card-content>
     </ion-card>
   </ion-list>
+
+  <ion-fab bottom right>
+    <button (click)="newScenarioThing()" ion-fab mini><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
 </ion-content>

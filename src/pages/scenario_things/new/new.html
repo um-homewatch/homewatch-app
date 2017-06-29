@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      <div *ngIf="editMode; else new">Edit Thing</div>
+      <ng-template #new>New Scenario Thing</ng-template>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <form ion-list no-lines padding-bottom [formGroup]="scenarioThingForm" (ngSubmit)="onSubmit(scenarioThingForm)">
+    <ion-item>
+      <ion-label>Type</ion-label>
+      <ion-select type="text" formControlName="thing">
+        <ion-option *ngFor="let thing of things" [value]=thing>
+          {{thing.name}}
+        </ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-card [hidden]="!scenarioThingForm.value.thing" [class.fade-in]="scenarioThingForm.value.thing">
+      <ion-card-content no-padding>
+        <div #thingStatus></div>
+      </ion-card-content>
+    </ion-card>
+
+    <button margin-top ion-button full type="submit" [disabled]="!scenarioThingForm.valid">SAVE</button>
+  </form>
+</ion-content>

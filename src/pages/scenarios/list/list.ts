@@ -28,13 +28,13 @@ export class ListScenariosPage {
       //
     }
   }
-
+  
   newScenario() {
     this.navCtrl.push(NewScenarioPage, { home: this.home });
   }
 
   showScenario(scenario: any) {
-    this.navCtrl.push(ShowScenarioPage, { scenario })
+    this.navCtrl.push(ShowScenarioPage, { home: this.home, scenario })
   }
 
   editScenario(scenario: any) {

@@ -10,5 +10,6 @@ import { DevicePage } from "../device";
 export class ShowLockPage extends DevicePage {
   constructor(public navParams: NavParams, public thingStatusService: ThingStatusService) {
     super(navParams, thingStatusService);
+    if (this.status == undefined) this.status = { locked: false };
   }
 }

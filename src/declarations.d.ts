@@ -7,7 +7,8 @@ declare class Homewatch {
   users: Homewatch.Users;
   hub: Homewatch.Hub;
   constructor(url: string, cache?: boolean);
-  scenarioThings(scenario: { id: number }): void;
+  scenarioThings(scenario: { id: number }): Homewatch.ScenarioThings;
+  scenarioApplier(scenario: {id: number}): Homewatch.ScenarioApplier;
   scenarios(home: { id: number }): Homewatch.Scenarios;
   status(thing: { id: number }): Homewatch.ThingStatus;
   things(home: { id: number }): Homewatch.Things;
@@ -52,6 +53,20 @@ declare namespace Homewatch {
     getScenario(id: number): Promise<any>;
     listScenarios(): Promise<any>;
     updateScenario(id: number, scenario: { name: string }): Promise<any>;
+    private constructor();
+  }
+
+  class ScenarioThings {
+    createScenarioThing(scenarioThing: { thing_id: number, status: any }): Promise<any>;
+    deleteScenarioThing(id: number): Promise<any>;
+    getScenarioThing(id: number): Promise<any>;
+    listScenarioThings(): Promise<any>;
+    updateScenarioThing(id: number, scenarioThing: { thing_id: number, status: any }): Promise<any>;
+    private constructor();
+  }
+
+  class ScenarioApplier {
+    applyScenario(): Promise<any>;
     private constructor();
   }
 
