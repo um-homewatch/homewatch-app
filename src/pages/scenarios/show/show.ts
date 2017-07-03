@@ -36,7 +36,9 @@ export class ShowScenarioPage {
         showCloseButton: true,
         duration: 2000,
       }).present();
-    } catch (error) { }
+    } catch (error) {
+      console.log(error);
+     }
   }
 
 

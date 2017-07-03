@@ -12,13 +12,9 @@
 
 <ion-content padding>
   <ion-list class="scenario-things-list">
-    <ion-card no-padding>
-      <ion-card-content>
-        <a (click)="applyScenario()">
-          <ion-icon name="checkmark"></ion-icon> Apply Scenario
-        </a>
-      </ion-card-content>
-    </ion-card>
+    <button ion-button full (click)="applyScenario()">
+      <ion-icon name="checkmark"></ion-icon> Apply Scenario
+    </button>
 
     <ion-card no-padding *ngFor="let scenarioThing of scenarioThings; let index = index" [attr.data-index]="i">
       <ion-card-content>
