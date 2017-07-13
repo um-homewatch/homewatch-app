@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { App, IonicPage, ViewController, AlertController, NavParams } from "ionic-angular";
 import { HomewatchApiService } from "../../../services/homewatch_api";
+import { HomewatchApi } from "homewatch-js"
 import { NewHomePage } from "../../homes/new/new";
 import { ListScenariosPage } from "../../scenarios/list/list";
 
@@ -13,7 +14,7 @@ import { ListScenariosPage } from "../../scenarios/list/list";
   `
 })
 export class NewHomePopoverPage {
-  homewatch: Homewatch;
+  homewatch: HomewatchApi;
   callback: Function;
 
   constructor(public app: App, public navParams: NavParams, public viewCtrl: ViewController, public alertCtrl: AlertController, homewatchApiService: HomewatchApiService) {

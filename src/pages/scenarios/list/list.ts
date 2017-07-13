@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { HomewatchApiService } from "../../../services/homewatch_api";
+import { HomewatchApi } from "homewatch-js"
 import { NewScenarioPage } from "../new/new";
 import { ShowScenarioPage } from "../show/show";
 
@@ -9,7 +10,7 @@ import { ShowScenarioPage } from "../show/show";
   templateUrl: "list.html",
 })
 export class ListScenariosPage {
-  homewatch: Homewatch;
+  homewatch: HomewatchApi;
   home: any;
   loading: boolean = true;
   scenarios: Array<any> = [];

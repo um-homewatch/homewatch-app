@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { IonicPage, NavController, NavParams, Events } from "ionic-angular";
 import { HomewatchApiService } from "../../../services/homewatch_api";
+import { HomewatchApi } from "homewatch-js"
 
 @Component({
   selector: "page-new-scenario",
@@ -10,7 +11,7 @@ import { HomewatchApiService } from "../../../services/homewatch_api";
 export class NewScenarioPage {
   editMode: boolean = false;
   scenarioForm: FormGroup;
-  homewatch: Homewatch;
+  homewatch: HomewatchApi;
   submitted: boolean = false;
   home: any;
   scenario: any;

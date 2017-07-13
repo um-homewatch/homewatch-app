@@ -3,6 +3,7 @@ import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { HomewatchApiService } from "../../../services/homewatch_api";
+import { HomewatchApi } from "homewatch-js"
 import { ListHomesPage } from "../../homes/list/list";
 
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -14,7 +15,7 @@ const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"
 export class SignUpPage {
   pageTitle: string = "Sign Up";
   signUpForm: FormGroup;
-  homewatch: Homewatch;
+  homewatch: HomewatchApi;
   submitted: boolean = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, homewatchApi: HomewatchApiService, public storage: Storage, public formBuilder: FormBuilder) {

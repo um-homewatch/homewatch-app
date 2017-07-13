@@ -4,6 +4,7 @@ import { Nav, Platform, ToastController, LoadingController } from "ionic-angular
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { HomewatchApiService } from "../services/homewatch_api";
+import { HomewatchApi } from "homewatch-js"
 import { LoginPage } from "../pages/users/login/login";
 import { SignUpPage } from "../pages/users/sign-up/sign-up";
 import { EditProfilePage } from "../pages/users/sign-up/edit";
@@ -15,7 +16,7 @@ import { ListHomesPage } from "../pages/homes/list/list";
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  homewatch: Homewatch;
+  homewatch: HomewatchApi;
   rootPage: any = LoginPage;
 
   pages: Array<{ title: string, component: any, icon: string, method: string }>;

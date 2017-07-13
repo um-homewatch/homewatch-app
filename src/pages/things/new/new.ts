@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { IonicPage, NavController, NavParams, Events } from "ionic-angular";
 import { HomewatchApiService } from "../../../services/homewatch_api";
+import { HomewatchApi } from "homewatch-js"
 import { ThingsInfo } from "../../../services/things_info";
 
 @Component({
@@ -13,7 +14,7 @@ export class NewThingPage {
   thingForm: FormGroup;
   typeOptions: Array<Object>;
   subTypeOptions: Array<string> = [];
-  homewatch: Homewatch;
+  homewatch: HomewatchApi;
   submitted: boolean = false;
   home: any;
   thing: any;

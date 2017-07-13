@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, PopoverController } from 'ionic-angular';
 import { ThingsInfo } from "../../../services/things_info";
 import { HomewatchApiService } from "../../../services/homewatch_api";
+import { HomewatchApi } from "homewatch-js"
 import { NewScenarioThingPage } from "../../scenario_things/new/new";
 import { ListScenariosPage } from "../list/list"
 import { ShowScenarioPopoverPage } from "./popover"
@@ -11,7 +12,7 @@ import { ShowScenarioPopoverPage } from "./popover"
   templateUrl: 'show.html',
 })
 export class ShowScenarioPage {
-  homewatch: Homewatch;
+  homewatch: HomewatchApi;
   scenario: any;
   scenarioThings: any;
   home: any;

@@ -1,15 +1,15 @@
 import { Injectable } from "@angular/core";
-import * as Homewatch from "homewatch-js";
+import { HomewatchApi } from "homewatch-js"
 
 @Injectable()
 export class HomewatchApiService {
-  homewatch: Homewatch;
+  homewatch: HomewatchApi;
 
   constructor() {
-    this.homewatch = new Homewatch("https://homewatch-api.herokuapp.com", false);
+    this.homewatch = new HomewatchApi("https://homewatch-api.herokuapp.com", false);
   }
 
-  getApi(): Homewatch {
+  getApi(): HomewatchApi {
     return this.homewatch;
   }
 }

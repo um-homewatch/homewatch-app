@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { IonicPage, NavController, NavParams, PopoverController } from "ionic-angular";
 import { HomewatchApiService } from "../../../services/homewatch_api";
+import { HomewatchApi } from "homewatch-js"
 import { NewHomePopoverPage } from "./popover"
 
 const URL_REGEX = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)/;
@@ -13,7 +14,7 @@ const URL_REGEX = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.
 export class NewHomePage {
   editMode: boolean = false;
   homeForm: FormGroup;
-  homewatch: Homewatch;
+  homewatch: HomewatchApi;
   submitted: boolean = false;
   home: any;
 

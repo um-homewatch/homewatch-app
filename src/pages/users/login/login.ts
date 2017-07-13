@@ -3,6 +3,7 @@ import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { IonicPage, NavController, NavParams, ToastController } from "ionic-angular";
 import { HomewatchApiService } from "../../../services/homewatch_api";
+import { HomewatchApi } from "homewatch-js"
 import { ListHomesPage } from "../../homes/list/list";
 import { SignUpPage } from "../sign-up/sign-up";
 
@@ -13,7 +14,7 @@ const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"
   templateUrl: "login.html",
 })
 export class LoginPage {
-  homewatch: Homewatch;
+  homewatch: HomewatchApi;
   loginForm: FormGroup;
   submitted: boolean = false;
 

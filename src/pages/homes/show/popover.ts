@@ -1,6 +1,7 @@
 import { Component } from "@angular/core";
 import { App, IonicPage, ViewController, AlertController } from "ionic-angular";
 import { HomewatchApiService } from "../../../services/homewatch_api";
+import { HomewatchApi } from "homewatch-js"
 import { NewHomePage } from "../../homes/new/new";
 import { ListScenariosPage } from "../../scenarios/list/list";
 
@@ -15,7 +16,7 @@ import { ListScenariosPage } from "../../scenarios/list/list";
   `
 })
 export class ShowHomePopoverPage {
-  homewatch: Homewatch;
+  homewatch: HomewatchApi;
   home: any;
   alertVisible: boolean = false;
 
