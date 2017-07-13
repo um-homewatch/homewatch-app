@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams } from "ionic-angular";
 import { HomewatchApiService } from "../../../services/homewatch_api";
-import { HomewatchApi } from "homewatch-js"
+import { HomewatchApi } from "homewatch-js";
 import { NewScenarioPage } from "../new/new";
 import { ShowScenarioPage } from "../show/show";
 
@@ -26,19 +26,19 @@ export class ListScenariosPage {
       this.scenarios = response.data;
       this.loading = false;
     } catch (error) {
-      //
+      console.error(error);
     }
   }
-  
+
   newScenario() {
     this.navCtrl.push(NewScenarioPage, { home: this.home });
   }
 
   showScenario(scenario: any) {
-    this.navCtrl.push(ShowScenarioPage, { home: this.home, scenario })
+    this.navCtrl.push(ShowScenarioPage, { home: this.home, scenario });
   }
 
   editScenario(scenario: any) {
-    this.navCtrl.push(NewScenarioPage, { home: this.home, scenario })
+    this.navCtrl.push(NewScenarioPage, { home: this.home, scenario });
   }
 }

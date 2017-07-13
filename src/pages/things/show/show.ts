@@ -1,7 +1,7 @@
 import { Component, Input, ViewChild, ComponentFactoryResolver, ViewContainerRef, AfterContentInit } from "@angular/core";
 import { ToastController, NavController, NavParams, PopoverController, Events } from "ionic-angular";
 import { HomewatchApiService } from "../../../services/homewatch_api";
-import { HomewatchApi } from "homewatch-js"
+import { HomewatchApi } from "homewatch-js";
 import { ThingsInfo } from "../../../services/things_info";
 import { ThingStatusService } from "../../../services/thing_status";
 import { ShowThingPopoverPage } from "../show/popover";

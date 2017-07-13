@@ -3,7 +3,7 @@ import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { IonicPage, NavController, NavParams, ToastController } from "ionic-angular";
 import { HomewatchApiService } from "../../../services/homewatch_api";
-import { HomewatchApi } from "homewatch-js"
+import { HomewatchApi } from "homewatch-js";
 import { ListHomesPage } from "../../homes/list/list";
 import { SignUpPage } from "../sign-up/sign-up";
 

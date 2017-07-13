@@ -1,15 +1,15 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, PopoverController } from 'ionic-angular';
+import { Component } from "@angular/core";
+import { IonicPage, NavController, NavParams, ToastController, PopoverController } from "ionic-angular";
 import { ThingsInfo } from "../../../services/things_info";
 import { HomewatchApiService } from "../../../services/homewatch_api";
-import { HomewatchApi } from "homewatch-js"
+import { HomewatchApi } from "homewatch-js";
 import { NewScenarioThingPage } from "../../scenario_things/new/new";
-import { ListScenariosPage } from "../list/list"
-import { ShowScenarioPopoverPage } from "./popover"
+import { ListScenariosPage } from "../list/list";
+import { ShowScenarioPopoverPage } from "./popover";
 
 @Component({
-  selector: 'show-scenario-page',
-  templateUrl: 'show.html',
+  selector: "show-scenario-page",
+  templateUrl: "show.html",
 })
 export class ShowScenarioPage {
   homewatch: HomewatchApi;
@@ -39,9 +39,12 @@ export class ShowScenarioPage {
       }).present();
     } catch (error) {
       console.log(error);
-     }
+    }
   }
 
+  async editScenarioThing(scenarioThing: any) {
+    //
+  }
 
   getIconFromType(type: string) {
     return this.thingsInfo.getThingInfo(type).icon;
@@ -52,14 +55,14 @@ export class ShowScenarioPage {
   }
 
   newScenarioThing() {
-    this.navCtrl.push(NewScenarioThingPage, { home: this.home, scenario: this.scenario })
+    this.navCtrl.push(NewScenarioThingPage, { home: this.home, scenario: this.scenario });
   }
 
   async showPopover(myEvent) {
     let popover = this.popoverCtrl.create(ShowScenarioPopoverPage, { scenario: this.scenario, home: this.home });
 
-    popover.onDidDismiss(async (deleted) => {
-      if (deleted) this.navCtrl.setRoot(ListScenariosPage);
+    popover.onDidDismiss(async (info) => {
+      if (info && info.deleted) this.navCtrl.setRoot(ListScenariosPage, { home: this.home });
     });
 
     popover.present({

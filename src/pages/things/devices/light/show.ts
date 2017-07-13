@@ -8,8 +8,13 @@ import { DevicePage } from "../device";
   templateUrl: "show.html",
 })
 export class ShowLightPage extends DevicePage {
+  status: { on: boolean };
+
   constructor(public navParams: NavParams, public thingStatusService: ThingStatusService) {
     super(navParams, thingStatusService);
-    if (this.status == undefined) this.status = { on: false };
+  }
+
+  defaultStatus() {
+    this.status = { on: false };
   }
 }

@@ -4,7 +4,7 @@ import { Nav, Platform, ToastController, LoadingController } from "ionic-angular
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { HomewatchApiService } from "../services/homewatch_api";
-import { HomewatchApi } from "homewatch-js"
+import { HomewatchApi } from "homewatch-js";
 import { LoginPage } from "../pages/users/login/login";
 import { SignUpPage } from "../pages/users/sign-up/sign-up";
 import { EditProfilePage } from "../pages/users/sign-up/edit";
@@ -55,7 +55,9 @@ export class MyApp {
       if (error.response.status === 401) {
         await this.storage.remove("HOMEWATCH_USER");
         this.nav.setRoot(LoginPage);
-        this.toastCtrl.create({ message: "Unauthorized access!", showCloseButton: true }).present();
+        this.toastCtrl.create({ message: "Unauthorized access!", showCloseButton: true, duration: 5000 }).present();
+      } else {
+        this.toastCtrl.create({ message: "Couldn't reach the servers!", showCloseButton: true, duration: 5000 }).present();
       }
       return Promise.reject(error);
     });

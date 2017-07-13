@@ -8,9 +8,14 @@ import { DevicePage } from "../device";
   templateUrl: "show.html",
 })
 export class ShowThermostatPage extends DevicePage {
+  status: { targetTemperature: number };
+
   constructor(public navParams: NavParams, public thingStatusService: ThingStatusService) {
     super(navParams, thingStatusService);
-    if (this.status == undefined) this.status = { targetTemperature: 16 };
+  }
+
+  defaultStatus() {
+    this.status = { targetTemperature: 16 };
   }
 
   range(j, k) {

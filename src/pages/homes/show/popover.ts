@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { App, IonicPage, ViewController, AlertController } from "ionic-angular";
 import { HomewatchApiService } from "../../../services/homewatch_api";
-import { HomewatchApi } from "homewatch-js"
+import { HomewatchApi } from "homewatch-js";
 import { NewHomePage } from "../../homes/new/new";
 import { ListScenariosPage } from "../../scenarios/list/list";
 

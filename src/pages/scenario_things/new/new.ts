@@ -2,7 +2,7 @@ import { Component, Input, ViewChild, ComponentFactoryResolver, ViewContainerRef
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { IonicPage, NavController, NavParams, PopoverController } from "ionic-angular";
 import { HomewatchApiService } from "../../../services/homewatch_api";
-import { HomewatchApi } from "homewatch-js"
+import { HomewatchApi } from "homewatch-js";
 import { Subscription } from "rxjs";
 import { ThingStatusService } from "../../../services/thing_status";
 import { ThingsInfo } from "../../../services/things_info";

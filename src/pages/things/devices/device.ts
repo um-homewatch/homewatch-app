@@ -7,9 +7,15 @@ export abstract class DevicePage {
 
   constructor(public navParams: NavParams, public thingStatusService: ThingStatusService) {
     this.status = this.navParams.data.status;
+    if (this.status === undefined) {
+      this.defaultStatus();
+      this.onStatusChange();
+    }
   }
 
   async onStatusChange() {
     this.thingStatusService.announceStatus(this.status);
   }
+
+  abstract defaultStatus();
 }

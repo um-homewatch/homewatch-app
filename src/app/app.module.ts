@@ -23,6 +23,7 @@ import { ShowMotionSensorPage } from "../pages/things/devices/motion_sensor/show
 import { ListScenariosPage } from "../pages/scenarios/list/list";
 import { NewScenarioPage } from "../pages/scenarios/new/new";
 import { ShowScenarioPage } from "../pages/scenarios/show/show";
+import { ShowScenarioPopoverPage } from "../pages/scenarios/show/popover";
 import { NewScenarioThingPage } from "../pages/scenario_things/new/new";
 
 import { StatusBar } from "@ionic-native/status-bar";
@@ -60,6 +61,7 @@ const cloudSettings: CloudSettings = {
     ListScenariosPage,
     NewScenarioPage,
     ShowScenarioPage,
+    ShowScenarioPopoverPage,
     NewScenarioThingPage
   ],
   imports: [
@@ -93,6 +95,7 @@ const cloudSettings: CloudSettings = {
     ListScenariosPage,
     NewScenarioPage,
     ShowScenarioPage,
+    ShowScenarioPopoverPage,
     NewScenarioThingPage
   ],
   providers: [

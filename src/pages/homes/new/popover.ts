@@ -1,14 +1,14 @@
 import { Component } from "@angular/core";
 import { App, IonicPage, ViewController, AlertController, NavParams } from "ionic-angular";
 import { HomewatchApiService } from "../../../services/homewatch_api";
-import { HomewatchApi } from "homewatch-js"
+import { HomewatchApi } from "homewatch-js";
 import { NewHomePage } from "../../homes/new/new";
 import { ListScenariosPage } from "../../scenarios/list/list";
 
 @Component({
   selector: "new-home-popover-page",
   template: `
-    <ion-list no-margin *ngIf="!alertVisible">
+    <ion-list no-margin>
       <button ion-item (click)="findHub()">Find Hub</button>
     </ion-list>
   `
@@ -39,7 +39,7 @@ export class NewHomePopoverPage {
 
   async findHub() {
     this.viewCtrl.dismiss();
-    
+
     try {
       let response = await this.homewatch.hub.getTunnel();
 

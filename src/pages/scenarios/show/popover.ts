@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { App, IonicPage, ViewController, AlertController } from "ionic-angular";
 import { HomewatchApiService } from "../../../services/homewatch_api";
-import { HomewatchApi } from "homewatch-js"
+import { HomewatchApi } from "homewatch-js";
 import { NewHomePage } from "../../homes/new/new";
 import { ListScenariosPage } from "../../scenarios/list/list";
 
@@ -9,9 +9,7 @@ import { ListScenariosPage } from "../../scenarios/list/list";
   selector: "show-home-popover-page",
   template: `
     <ion-list no-margin *ngIf="!alertVisible">
-    <button ion-item (click)="listScenarios()">Scenarios</button>
-      <button ion-item (click)="editScenarioThing()">Edit Home</button>
-      <button ion-item (click)="showAlert()">Delete Home</button>
+      <button ion-item (click)="showAlert()">Delete Scenario</button>
     </ion-list>
   `
 })
@@ -31,7 +29,7 @@ export class ShowScenarioPopoverPage {
     this.alertVisible = true;
     let alert = this.alertCtrl.create({
       title: "Warning",
-      message: "Do you really want to delete this scenario thing?",
+      message: "Do you really want to delete this scenario?",
       buttons: [
         {
           text: "Cancel",
@@ -40,14 +38,15 @@ export class ShowScenarioPopoverPage {
         },
         {
           text: "Yes",
-          handler: () => { this.deleteScenarioThing(); }
+          handler: () => { this.deleteScenario(); }
         }
       ]
     });
     alert.present();
   }
 
-  async deleteScenarioThing() {
+  async deleteScenario() {
     await this.homewatch.scenarios(this.home).deleteScenario(this.scenario.id);
+    this.viewCtrl.dismiss({ deleted: true });
   }
 }

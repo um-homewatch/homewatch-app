@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { NavController, NavParams, LoadingController } from "ionic-angular";
 import { HomewatchApiService } from "../../../services/homewatch_api";
-import { HomewatchApi } from "homewatch-js"
+import { HomewatchApi } from "homewatch-js";
 import { AuthVerifier } from "../../../providers/auth-verifier/auth-verifier";
 import { NewHomePage } from "../new/new";
 import { ShowHomePage } from "../show/show";
@@ -12,9 +12,9 @@ import { ShowHomePage } from "../show/show";
 })
 export class ListHomesPage {
   homewatch: HomewatchApi;
-  user: Object;
+  user: any;
   loading: boolean = true;
-  homes: Array<Object> = [];
+  homes: Array<any> = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController, homewatchApiService: HomewatchApiService) {
     this.homewatch = homewatchApiService.getApi();

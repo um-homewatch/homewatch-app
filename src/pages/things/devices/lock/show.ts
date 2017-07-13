@@ -8,8 +8,13 @@ import { DevicePage } from "../device";
   templateUrl: "show.html",
 })
 export class ShowLockPage extends DevicePage {
+  status: { locked: boolean };
+
   constructor(public navParams: NavParams, public thingStatusService: ThingStatusService) {
     super(navParams, thingStatusService);
-    if (this.status == undefined) this.status = { locked: false };
+  }
+
+  defaultStatus() {
+    this.status = { locked: false };
   }
 }

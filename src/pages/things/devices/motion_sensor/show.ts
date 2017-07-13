@@ -8,8 +8,13 @@ import { DevicePage } from "../device";
   templateUrl: "show.html",
 })
 export class ShowMotionSensorPage extends DevicePage {
+  status: { movement: boolean };
+
   constructor(public navParams: NavParams, public thingStatusService: ThingStatusService) {
     super(navParams, thingStatusService);
-    if (this.status == undefined) this.status = { movement: false };
+  }
+
+  defaultStatus() {
+    this.status = { movement: false };
   }
 }

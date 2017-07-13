@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams, ViewController, PopoverController } from "ionic-angular";
 import { HomewatchApiService } from "../../../services/homewatch_api";
-import { HomewatchApi } from "homewatch-js"
+import { HomewatchApi } from "homewatch-js";
 import { ListHomesPage } from "../list/list";
 import { NewThingPage } from "../../things/new/new";
 import { ShowHomePopoverPage } from "./popover";

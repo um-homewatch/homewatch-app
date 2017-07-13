@@ -16,7 +16,7 @@
       <ion-icon name="checkmark"></ion-icon> Apply Scenario
     </button>
 
-    <ion-card no-padding *ngFor="let scenarioThing of scenarioThings; let index = index" [attr.data-index]="i">
+    <ion-card no-padding *ngFor="let scenarioThing of scenarioThings; let index = index">
       <ion-card-content>
         <div padding-bottom>
           <ion-icon class="inline font-large primary" name="{{getIconFromType(scenarioThing.thing.type)}}"></ion-icon>

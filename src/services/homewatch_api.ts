@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HomewatchApi } from "homewatch-js"
+import { HomewatchApi } from "homewatch-js";
 
 @Injectable()
 export class HomewatchApiService {
