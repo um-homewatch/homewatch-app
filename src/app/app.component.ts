@@ -52,12 +52,14 @@ export class MyApp {
     }, async (error) => {
       if (error.config.loading) error.config.loading.dismiss();
 
-      if (error.response.status === 401) {
+      if (!error.response) {
+        this.toastCtrl.create({ message: "Couldn't reach the servers!", showCloseButton: true, duration: 5000 }).present();
+      } else if (error.response.status === 401) {
         await this.storage.remove("HOMEWATCH_USER");
         this.nav.setRoot(LoginPage);
         this.toastCtrl.create({ message: "Unauthorized access!", showCloseButton: true, duration: 5000 }).present();
-      } else {
-        this.toastCtrl.create({ message: "Couldn't reach the servers!", showCloseButton: true, duration: 5000 }).present();
+      } else if (error.response.status === 500) {
+        this.toastCtrl.create({ message: "Internal server error!", showCloseButton: true, duration: 5000 }).present();
       }
       return Promise.reject(error);
     });

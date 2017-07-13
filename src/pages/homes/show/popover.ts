@@ -3,13 +3,11 @@ import { App, IonicPage, ViewController, AlertController } from "ionic-angular";
 import { HomewatchApiService } from "../../../services/homewatch_api";
 import { HomewatchApi } from "homewatch-js";
 import { NewHomePage } from "../../homes/new/new";
-import { ListScenariosPage } from "../../scenarios/list/list";
 
 @Component({
   selector: "show-home-popover-page",
   template: `
     <ion-list no-margin *ngIf="!alertVisible">
-    <button ion-item (click)="listScenarios()">Scenarios</button>
       <button ion-item (click)="editHome()">Edit Home</button>
       <button ion-item (click)="showAlert()">Delete Home</button>
     </ion-list>
@@ -52,11 +50,6 @@ export class ShowHomePopoverPage {
 
   editHome() {
     this.app.getRootNav().push(NewHomePage, { home: this.home });
-    this.viewCtrl.dismiss();
-  }
-
-  async listScenarios() {
-    this.app.getRootNav().push(ListScenariosPage, { home: this.home });
     this.viewCtrl.dismiss();
   }
 }

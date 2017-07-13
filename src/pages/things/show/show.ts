@@ -35,13 +35,17 @@ export class ShowThingPage {
   }
 
   async loadThingStatus() {
-    let response = await this.homewatch.status(this.thing).getStatus();
-    this.status = response.data;
-    this.navParams.data.status = this.status;
+    try {
+      let response = await this.homewatch.status(this.thing).getStatus();
+      this.status = response.data;
+      this.navParams.data.status = this.status;
 
-    this.thingStatus.clear();
-    let compFactory = this.compFactoryResolver.resolveComponentFactory(this.thingsInfo.getThingInfo(this.thing.type).showPage);
-    this.thingStatus.createComponent(compFactory);
+      this.thingStatus.clear();
+      let compFactory = this.compFactoryResolver.resolveComponentFactory(this.thingsInfo.getThingInfo(this.thing.type).showPage);
+      this.thingStatus.createComponent(compFactory);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   ionViewWillLeave() {

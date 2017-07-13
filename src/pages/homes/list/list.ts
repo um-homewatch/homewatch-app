@@ -4,7 +4,7 @@ import { HomewatchApiService } from "../../../services/homewatch_api";
 import { HomewatchApi } from "homewatch-js";
 import { AuthVerifier } from "../../../providers/auth-verifier/auth-verifier";
 import { NewHomePage } from "../new/new";
-import { ShowHomePage } from "../show/show";
+import { HomeTabsPage } from "../tabs/tabs";
 
 @Component({
   selector: "list-homes-page",
@@ -40,6 +40,6 @@ export class ListHomesPage {
   }
 
   listThings(home: Object) {
-    this.navCtrl.setRoot(ShowHomePage, { home }, { animate: true, direction: "forward" });
+    this.navCtrl.setRoot(HomeTabsPage, { home }, { animate: true, direction: "forward" });
   }
 }

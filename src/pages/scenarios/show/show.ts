@@ -38,7 +38,7 @@ export class ShowScenarioPage {
         duration: 2000,
       }).present();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 

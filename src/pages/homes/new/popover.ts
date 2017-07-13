@@ -47,7 +47,7 @@ export class NewHomePopoverPage {
 
       this.callback(response.data, null);
     } catch (error) {
-      console.log(error);
+      console.error(error);
 
       this.showAlert("Error", "Couldn't find a hub in your network!");
 
