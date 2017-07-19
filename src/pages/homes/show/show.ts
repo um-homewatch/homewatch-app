@@ -17,7 +17,7 @@ export class ShowHomePage {
   home: any;
   things: Array<any>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public popoverCtrl: PopoverController, homewatchApiService: HomewatchApiService, public thingsInfo: ThingsInfo) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public popoverCtrl: PopoverController, homewatchApiService: HomewatchApiService) {
     this.homewatch = homewatchApiService.getApi();
     this.home = this.navParams.get("home");
   }
@@ -33,10 +33,6 @@ export class ShowHomePage {
 
   newThing() {
     this.navCtrl.push(NewThingPage, { home: this.home });
-  }
-
-  getIconFromType(type: string) {
-    return this.thingsInfo.getThingInfo(type).icon;
   }
 
   async showPopover(myEvent) {

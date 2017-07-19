@@ -1,0 +1,60 @@
+<div>
+  <div *ngIf="!loading">
+    <ion-card *ngFor="let timed_task of timed_tasks">
+      <ion-card-content no-padding (tap)="showTimedTask(timed_task)">
+        <ion-item>
+
+          <div *ngIf="timed_task.thing">
+            <div>
+              <h2 class="inline">Thing </h2>
+              <thing-name [thing]="timed_task.thing"></thing-name>
+            </div>
+
+            <div>
+              <h2>Status</h2>
+              <div padding-left>
+                <thing-status [status]=timed_task.status></thing-status>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="timed_task.scenario">
+            <div>
+              <h2 class="inline">Scenario </h2>
+              <p padding-left>{{timed_task.scenario.name}}</p>
+            </div>
+          </div>
+
+          <div>
+            <h2 class="inline">Next Run </h2>
+            <p padding-left>{{formatDate(timed_task.next_run)}}</p>
+          </div>
+
+          <div>
+            <h2 class="inline">Cron </h2>
+            <p padding-left>{{timed_task.cron}}</p>
+          </div>
+        </ion-item>
+      </ion-card-content>
+
+      <ion-item padding-left no-margin>
+        <ion-row no-padding no-margin>
+          <ion-col col-2 no-padding no-margin>
+            <a (click)="editTimedTask(timed_task)" item-left>
+              <ion-icon name="create"></ion-icon> EDIT
+            </a>
+          </ion-col>
+          <ion-col (click)="showTimedTask(timed_task)" col-10 text-right no-padding no-margin>
+            <a item-right>
+              <ion-icon name="arrow-forward"></ion-icon>
+            </a>
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ion-card>
+
+    <ion-fab bottom right>
+      <button (click)="newTimedTask()" ion-fab mini><ion-icon name="add"></ion-icon></button>
+    </ion-fab>
+  </div>
+</div>

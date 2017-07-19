@@ -17,8 +17,7 @@
   <div class="things-list">
     <ion-card *ngFor="let thing of things">
       <ion-card-header no-padding padding-left padding-top (tap)="showThing(thing)">
-        <ion-icon class="inline font-large primary" name="{{getIconFromType(thing.type)}}"></ion-icon>
-        <h2 class="inline"> {{thing.name}}</h2>
+        <thing-name [thing]="thing"></thing-name>
       </ion-card-header>
 
       <ion-card-content no-padding>

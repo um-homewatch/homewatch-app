@@ -1,0 +1,32 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Your Tasks</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding-left padding-right padding-bottom>
+  <div padding>
+    <ion-segment [(ngModel)]="tasks_type">
+      <ion-segment-button value="timed">
+        Timed
+      </ion-segment-button>
+      <ion-segment-button value="triggered">
+        Triggered
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div [ngSwitch]="tasks_type">
+    <div *ngSwitchCase="'timed'">
+      <list-timed-tasks-page></list-timed-tasks-page>
+    </div>
+
+
+    <div *ngSwitchCase="'triggered'">
+      <list-triggered-tasks-page></list-triggered-tasks-page>
+    </div>
+  </div>
+</ion-content>

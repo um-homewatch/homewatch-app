@@ -1,6 +1,5 @@
 import { Component } from "@angular/core";
 import { IonicPage, NavController, NavParams, ToastController, PopoverController } from "ionic-angular";
-import { ThingsInfo } from "../../../services/things_info";
 import { HomewatchApiService } from "../../../services/homewatch_api";
 import { HomewatchApi } from "homewatch-js";
 import { NewScenarioThingPage } from "../../scenario_things/new/new";
@@ -17,7 +16,7 @@ export class ShowScenarioPage {
   scenarioThings: any;
   home: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public thingsInfo: ThingsInfo, public toastCtrl: ToastController, public homewatchApi: HomewatchApiService, public popoverCtrl: PopoverController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController, public homewatchApi: HomewatchApiService, public popoverCtrl: PopoverController) {
     this.homewatch = homewatchApi.getApi();
     this.scenario = this.navParams.get("scenario");
     this.home = this.navParams.get("home");
@@ -44,14 +43,6 @@ export class ShowScenarioPage {
 
   async editScenarioThing(scenarioThing: any) {
     //
-  }
-
-  getIconFromType(type: string) {
-    return this.thingsInfo.getThingInfo(type).icon;
-  }
-
-  statusKeys(status: Object) {
-    return Object.keys(status);
   }
 
   newScenarioThing() {

@@ -26,6 +26,9 @@ import { NewScenarioPage } from "../pages/scenarios/new/new";
 import { ShowScenarioPage } from "../pages/scenarios/show/show";
 import { ShowScenarioPopoverPage } from "../pages/scenarios/show/popover";
 import { NewScenarioThingPage } from "../pages/scenario_things/new/new";
+import { ListTasksPage } from "../pages/tasks/list/list";
+import { ListTimedTasksPage } from "../pages/tasks/timed/list/list";
+import { ListTriggeredTasksPage } from "../pages/tasks/triggered/list/list";
 
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
@@ -33,6 +36,8 @@ import { IonicStorageModule } from "@ionic/storage";
 import { HomewatchApiService } from "../services/homewatch_api";
 import { ThingsInfo } from "../services/things_info";
 import { ThingStatusService } from "../services/thing_status";
+import { ThingStatusComponent } from "../components/thing-status/thing-status";
+import { ThingNameComponent } from "../components/thing-name/thing-name";
 
 const cloudSettings: CloudSettings = {
   "core": {
@@ -43,6 +48,7 @@ const cloudSettings: CloudSettings = {
 @NgModule({
   declarations: [
     MyApp,
+    ThingStatusComponent,
     LoginPage,
     SignUpPage,
     ListHomesPage,
@@ -64,7 +70,11 @@ const cloudSettings: CloudSettings = {
     NewScenarioPage,
     ShowScenarioPage,
     ShowScenarioPopoverPage,
-    NewScenarioThingPage
+    NewScenarioThingPage,
+    ListTasksPage,
+    ListTimedTasksPage,
+    ListTriggeredTasksPage,
+    ThingNameComponent
   ],
   imports: [
     BrowserModule,
@@ -78,6 +88,7 @@ const cloudSettings: CloudSettings = {
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    ThingStatusComponent,
     LoginPage,
     SignUpPage,
     ListHomesPage,
@@ -99,7 +110,10 @@ const cloudSettings: CloudSettings = {
     NewScenarioPage,
     ShowScenarioPage,
     ShowScenarioPopoverPage,
-    NewScenarioThingPage
+    NewScenarioThingPage,
+    ListTasksPage,
+    ListTimedTasksPage,
+    ListTriggeredTasksPage
   ],
   providers: [
     StatusBar,
