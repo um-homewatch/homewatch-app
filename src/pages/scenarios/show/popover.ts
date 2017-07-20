@@ -1,9 +1,7 @@
 import { Component } from "@angular/core";
-import { App, IonicPage, ViewController, AlertController } from "ionic-angular";
+import { AlertController, App, ViewController } from "ionic-angular";
 import { HomewatchApiService } from "../../../services/homewatch_api";
 import { HomewatchApi } from "homewatch-js";
-import { NewHomePage } from "../../homes/new/new";
-import { ListScenariosPage } from "../../scenarios/list/list";
 
 @Component({
   selector: "show-home-popover-page",
@@ -17,7 +15,7 @@ export class ShowScenarioPopoverPage {
   homewatch: HomewatchApi;
   scenario: any;
   home: any;
-  alertVisible: boolean = false;
+  alertVisible = false;
 
   constructor(public app: App, public viewCtrl: ViewController, public alertCtrl: AlertController, homewatchApiService: HomewatchApiService) {
     this.homewatch = homewatchApiService.getApi();
@@ -27,7 +25,7 @@ export class ShowScenarioPopoverPage {
 
   showAlert() {
     this.alertVisible = true;
-    let alert = this.alertCtrl.create({
+    const alert = this.alertCtrl.create({
       title: "Warning",
       message: "Do you really want to delete this scenario?",
       buttons: [

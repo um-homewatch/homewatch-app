@@ -1,49 +1,38 @@
-import { Component, OnInit } from "@angular/core";
-import { NavController, NavParams, LoadingController } from "ionic-angular";
-import { HomewatchApiService } from "../../../../services/homewatch_api";
+import { Component, Input, OnChanges } from "@angular/core";
 import { HomewatchApi } from "homewatch-js";
-import { AuthVerifier } from "../../../providers/auth-verifier/auth-verifier";
-import { NewHomePage } from "../new/new";
-import { HomeTabsPage } from "../tabs/tabs";
+import { LoadingController, NavController, NavParams } from "ionic-angular";
+
+import { HomewatchApiService } from "../../../../services/homewatch_api";
 
 @Component({
   selector: "list-triggered-tasks-page",
   templateUrl: "list.html"
 })
-export class ListTriggeredTasksPage implements OnInit {
+export class ListTriggeredTasksPage implements OnChanges {
+  @Input() tasks: Array<any>;
+  triggered_tasks: Array<any> = [];
+
   homewatch: HomewatchApi;
   user: any;
-  loading: boolean = true;
   home: any;
-  triggered_tasks: Array<any> = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController, homewatchApiService: HomewatchApiService) {
     this.homewatch = homewatchApiService.getApi();
     this.home = this.navParams.get("home");
-    console.log(this.home);
   }
 
-  async ngOnInit() {
-    try {
-      let response = await this.homewatch.triggeredTasks(this.home).listTriggeredTasks();
-      console.log(response.data);
-      this.triggered_tasks = response.data;
-      this.loading = false;
-    } catch (error) {
-      //
+  ngOnChanges(changes: any): void {
+    if (changes.tasks.currentValue) {
+      this.triggered_tasks = changes.tasks.currentValue;
     }
   }
 
-  showTriggeredTask(triggered_task: any) {
-    //this.navCtrl.push(ShowTriggeredTaskPage);
-  }
-
   newTriggeredTask() {
-    //this.navCtrl.push(NewTriggeredTaskPage);
+    // this.navCtrl.push(NewTriggeredTaskPage);
   }
 
-  editTriggeredTask(triggered_task: any) {
-    //this.navCtrl.push(NewTriggeredTaskPage, { home, triggered_task });
+  editTriggeredTask(_triggered_task: any) {
+    // this.navCtrl.push(NewTriggeredTaskPage, { home, triggered_task });
   }
 
   formatDate(date_string: string) {

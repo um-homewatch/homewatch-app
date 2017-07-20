@@ -1,17 +1,17 @@
 import { Component } from "@angular/core";
-import { NavParams } from "ionic-angular";
-import { ThingStatusService } from "../../../../services/thing_status";
+import { Events, NavParams } from "ionic-angular";
+
 import { DevicePage } from "../device";
 
 @Component({
   selector: "page-show-thermostat",
-  templateUrl: "show.html",
+  templateUrl: "show.html"
 })
 export class ShowThermostatPage extends DevicePage {
   status: { targetTemperature: number };
 
-  constructor(public navParams: NavParams, public thingStatusService: ThingStatusService) {
-    super(navParams, thingStatusService);
+  constructor(public navParams: NavParams, public events: Events) {
+    super(navParams, events);
   }
 
   defaultStatus() {
@@ -20,10 +20,7 @@ export class ShowThermostatPage extends DevicePage {
 
   range(j, k) {
     return Array
-      .apply(null, Array((k - j) + 1))
-      .map(function (discard, n) { return n + j; });
+      .apply(undefined, Array((k - j) + 1))
+      .map((_discard, n) => (n + j));
   }
 }
-
-
-

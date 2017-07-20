@@ -1,9 +1,10 @@
-import { Storage } from "@ionic/storage";
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { IonicPage, NavController, NavParams, ToastController } from "ionic-angular";
-import { HomewatchApiService } from "../../../services/homewatch_api";
+import { Storage } from "@ionic/storage";
 import { HomewatchApi } from "homewatch-js";
+import { NavController, NavParams, ToastController } from "ionic-angular";
+
+import { HomewatchApiService } from "../../../services/homewatch_api";
 import { ListHomesPage } from "../../homes/list/list";
 import { SignUpPage } from "../sign-up/sign-up";
 
@@ -11,12 +12,12 @@ const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"
 
 @Component({
   selector: "page-login",
-  templateUrl: "login.html",
+  templateUrl: "login.html"
 })
 export class LoginPage {
   homewatch: HomewatchApi;
   loginForm: FormGroup;
-  submitted: boolean = false;
+  submitted = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, homewatchApi: HomewatchApiService, public storage: Storage, public formBuilder: FormBuilder, public toastController: ToastController) {
     this.homewatch = homewatchApi.getApi();
@@ -28,7 +29,7 @@ export class LoginPage {
   }
 
   async ionViewDidLoad() {
-    let user = await this.storage.get("HOMEWATCH_USER");
+    const user = await this.storage.get("HOMEWATCH_USER");
     if (user) {
       this.homewatch.auth = user.jwt;
       this.navCtrl.setRoot(ListHomesPage, { user });
@@ -38,7 +39,7 @@ export class LoginPage {
   async onSubmit(form: FormGroup) {
     try {
       this.submitted = true;
-      let response = await this.homewatch.users.login(form.value);
+      const response = await this.homewatch.users.login(form.value);
       this.homewatch.auth = response.data.jwt;
       this.storage.set("HOMEWATCH_USER", response.data);
       this.navCtrl.setRoot(ListHomesPage, { user: response.data });

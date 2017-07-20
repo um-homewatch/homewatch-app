@@ -3,7 +3,6 @@ import { NavParams } from "ionic-angular";
 import { ShowHomePage } from "../show/show";
 import { ListScenariosPage } from "../../scenarios/list/list";
 import { ListTasksPage } from "../../tasks/list/list";
-import { ListTimedTasksPage } from "../../tasks/timed/list/list";
 
 @Component({
   selector: "home-tabs-page",

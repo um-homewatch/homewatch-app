@@ -1,23 +1,24 @@
-import { Storage } from "@ionic/storage";
 import { Component, ViewChild } from "@angular/core";
-import { Nav, Platform, ToastController, LoadingController } from "ionic-angular";
-import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
-import { HomewatchApiService } from "../services/homewatch_api";
+import { StatusBar } from "@ionic-native/status-bar";
+import { Storage } from "@ionic/storage";
 import { HomewatchApi } from "homewatch-js";
-import { LoginPage } from "../pages/users/login/login";
-import { SignUpPage } from "../pages/users/sign-up/sign-up";
-import { EditProfilePage } from "../pages/users/sign-up/edit";
+import { Loading, LoadingController, Nav, Platform, ToastController } from "ionic-angular";
+
 import { ListHomesPage } from "../pages/homes/list/list";
+import { LoginPage } from "../pages/users/login/login";
+import { EditProfilePage } from "../pages/users/sign-up/edit";
+import { HomewatchApiService } from "../services/homewatch_api";
 
 @Component({
   templateUrl: "app.html"
 })
-export class MyApp {
+export class MyAppComponent {
   @ViewChild(Nav) nav: Nav;
 
   homewatch: HomewatchApi;
   rootPage: any = LoginPage;
+  loading: Loading;
 
   pages: Array<{ title: string, component: any, icon: string, method: string }>;
 
@@ -34,23 +35,19 @@ export class MyApp {
   }
 
   setInterceptors() {
-    let loadingCtrl = this.loadingCtrl;
-
-    this.homewatch.axios.interceptors.request.use(async function (config) {
-      config.loading = loadingCtrl.create({
-        content: "Please wait..."
-      });
-      config.loading.present();
+    this.homewatch.axios.interceptors.request.use(async config => {
+      this.dismissLoadingSpinner();
+      this.presentLoadingSpinner();
 
       return config;
     });
 
-    this.homewatch.axios.interceptors.response.use(function (response) {
-      if (response.config.loading) response.config.loading.dismiss();
+    this.homewatch.axios.interceptors.response.use(response => {
+      this.dismissLoadingSpinner();
 
       return response;
-    }, async (error) => {
-      if (error.config.loading) error.config.loading.dismiss();
+    }, async error => {
+      this.dismissLoadingSpinner();
 
       if (!error.response) {
         this.toastCtrl.create({ message: "Couldn't reach the servers!", showCloseButton: true, duration: 5000 }).present();
@@ -61,6 +58,7 @@ export class MyApp {
       } else if (error.response.status === 500) {
         this.toastCtrl.create({ message: "Internal server error!", showCloseButton: true, duration: 5000 }).present();
       }
+
       return Promise.reject(error);
     });
   }
@@ -73,7 +71,7 @@ export class MyApp {
   }
 
   async openPage(page) {
-    //if logging out, clear user data
+    // if logging out, clear user data
     if (page.component === LoginPage) {
       await this.storage.remove("HOMEWATCH_USER");
     }
@@ -86,5 +84,18 @@ export class MyApp {
         this.nav.setRoot(page.component);
         break;
     }
+  }
+
+  private presentLoadingSpinner() {
+    this.loading = this.loadingCtrl.create({
+      content: "Please wait..."
+    });
+
+    this.loading.present();
+  }
+
+  private dismissLoadingSpinner() {
+    if (this.loading) this.loading.dismiss();
+    this.loading = undefined;
   }
 }

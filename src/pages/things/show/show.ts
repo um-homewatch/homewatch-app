@@ -1,16 +1,15 @@
-import { Component, Input, ViewChild, ComponentFactoryResolver, ViewContainerRef, AfterContentInit } from "@angular/core";
-import { ToastController, NavController, NavParams, PopoverController, Events } from "ionic-angular";
-import { HomewatchApiService } from "../../../services/homewatch_api";
+import { Component, ComponentFactoryResolver, ViewChild, ViewContainerRef } from "@angular/core";
 import { HomewatchApi } from "homewatch-js";
-import { ThingsInfo } from "../../../services/things_info";
-import { ThingStatusService } from "../../../services/thing_status";
-import { ShowThingPopoverPage } from "../show/popover";
+import { Events, NavController, NavParams, PopoverController, ToastController } from "ionic-angular";
+
+import { ThingsInfoHelper } from "../../../helpers/things_info";
+import { HomewatchApiService } from "../../../services/homewatch_api";
 import { ShowHomePage } from "../../homes/show/show";
-import { Subscription } from "rxjs";
+import { ShowThingPopoverPage } from "../show/popover";
 
 @Component({
   selector: "show-thing",
-  templateUrl: "show.html",
+  templateUrl: "show.html"
 })
 export class ShowThingPage {
   @ViewChild("thingStatus", { read: ViewContainerRef }) thingStatus: ViewContainerRef;
@@ -18,43 +17,46 @@ export class ShowThingPage {
   home: any;
   thing: any;
   status: any;
-  subscription: Subscription;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController, homewatchApiService: HomewatchApiService, public compFactoryResolver: ComponentFactoryResolver, public thingsInfo: ThingsInfo, public thingStatusService: ThingStatusService, public popoverCtrl: PopoverController, public events: Events) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController, homewatchApiService: HomewatchApiService, public compFactoryResolver: ComponentFactoryResolver, public popoverCtrl: PopoverController, public events: Events) {
     this.homewatch = homewatchApiService.getApi();
     this.thing = this.navParams.data.thing;
     this.home = this.navParams.data.home;
-    this.events.subscribe("things:updated", (thing) => {
+
+    this.events.subscribe("things:updated", thing => {
       this.thing = thing;
+      this.loadThingStatus();
     });
   }
 
   ionViewWillEnter() {
+    this.events.subscribe(`thing:status:update:${this.thing.id}`, status => { this.onStatusChange(status); });
+
     this.loadThingStatus();
-    this.subscription = this.thingStatusService.statusAnnounced$.subscribe(status => { this.onStatusChange(status); });
+  }
+
+  ionViewWillLeave() {
+    this.events.unsubscribe(`thing:status:update:${this.thing.id}`);
+    this.events.unsubscribe("things:updated");
   }
 
   async loadThingStatus() {
     try {
-      let response = await this.homewatch.status(this.thing).getStatus();
+      const response = await this.homewatch.status(this.thing).getStatus();
       this.status = response.data;
       this.navParams.data.status = this.status;
 
       this.thingStatus.clear();
-      let compFactory = this.compFactoryResolver.resolveComponentFactory(this.thingsInfo.getThingInfo(this.thing.type).showPage);
+      const compFactory = this.compFactoryResolver.resolveComponentFactory(ThingsInfoHelper.getThingInfo(this.thing.type).showPage);
       this.thingStatus.createComponent(compFactory);
     } catch (error) {
-      console.error(error);
+      this.status = undefined;
     }
-  }
-
-  ionViewWillLeave() {
-    this.subscription.unsubscribe();
   }
 
   async onStatusChange(newStatus) {
     try {
-      let response = await this.homewatch.status(this.thing).putStatus(newStatus);
+      const response = await this.homewatch.status(this.thing).putStatus(newStatus);
       this.status = response.data;
     } catch (error) {
       this.status.locked = !this.status.locked;
@@ -64,16 +66,16 @@ export class ShowThingPage {
 
   showErrorToast(message: string) {
     this.toastCtrl.create({
-      message: message,
+      message,
       duration: 3000,
-      showCloseButton: true,
+      showCloseButton: true
     }).present();
   }
 
   async showPopover(myEvent) {
-    let popover = this.popoverCtrl.create(ShowThingPopoverPage, { home: this.home, thing: this.thing });
+    const popover = this.popoverCtrl.create(ShowThingPopoverPage, { home: this.home, thing: this.thing });
 
-    popover.onDidDismiss(async (deleted) => {
+    popover.onDidDismiss(async deleted => {
       if (deleted) this.navCtrl.setRoot(ShowHomePage, { home: this.home });
     });
 

@@ -1,27 +1,28 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { IonicPage, NavController, NavParams, Events } from "ionic-angular";
-import { HomewatchApiService } from "../../../services/homewatch_api";
 import { HomewatchApi } from "homewatch-js";
-import { ThingsInfo } from "../../../services/things_info";
+import { Events, NavController, NavParams } from "ionic-angular";
+
+import { ThingsInfoHelper } from "../../../helpers/things_info";
+import { HomewatchApiService } from "../../../services/homewatch_api";
 
 @Component({
   selector: "page-new-thing",
-  templateUrl: "new.html",
+  templateUrl: "new.html"
 })
 export class NewThingPage {
-  editMode: boolean = false;
+  editMode = false;
   thingForm: FormGroup;
   typeOptions: Array<Object>;
   subTypeOptions: Array<string> = [];
   homewatch: HomewatchApi;
-  submitted: boolean = false;
+  submitted = false;
   home: any;
   thing: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, homewatchApi: HomewatchApiService, thingsInfo: ThingsInfo, public formBuilder: FormBuilder, public events: Events) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, homewatchApi: HomewatchApiService, public formBuilder: FormBuilder, public events: Events) {
     this.homewatch = homewatchApi.getApi();
-    this.typeOptions = thingsInfo.getTypeOptions();
+    this.typeOptions = ThingsInfoHelper.getTypeOptions();
 
     this.thingForm = formBuilder.group({
       id: [""],
@@ -35,7 +36,7 @@ export class NewThingPage {
     });
 
     this.thingForm.valueChanges.subscribe(data => {
-      if (data.type) this.subTypeOptions = thingsInfo.getThingInfo(data.type).subTypes;
+      if (data.type) this.subTypeOptions = ThingsInfoHelper.getThingInfo(data.type).subTypes;
     });
   }
 
@@ -60,7 +61,7 @@ export class NewThingPage {
 
   async onSubmit(form: FormGroup) {
     if (this.editMode) {
-      let response = await this.homewatch.things(this.home).updateThing(form.value.id, form.value);
+      const response = await this.homewatch.things(this.home).updateThing(form.value.id, form.value);
       this.events.publish("things:updated", response.data);
     } else {
       await this.homewatch.things(this.home).createThing(form.value);

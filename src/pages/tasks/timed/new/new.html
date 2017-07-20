@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      <div *ngIf="editMode; else new">Edit Thing</div>
+      <ng-template #new>New Scenario Thing</ng-template>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <form ion-list no-lines padding-bottom [formGroup]="timedTaskForm" (ngSubmit)="onSubmit(timedTaskForm)">
+    <ion-item>
+      <ion-label>Cron</ion-label>
+      <ion-input formControlName="cron"></ion-input>
+    </ion-item>
+
+    <div>
+      <ion-segment [(ngModel)]="toApply" (ngModelChange)="onToApplyChange($event)" [ngModelOptions]="{standalone: true}">
+        <ion-segment-button value="thing">
+          Thing
+        </ion-segment-button>
+        <ion-segment-button value="scenario">
+          Scenario
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+
+    <div [ngSwitch]="toApply">
+      <ion-list *ngSwitchCase="'thing'">
+        <ion-item>
+          <ion-label>Thing</ion-label>
+          <ion-select type="text" formControlName="thing_id">
+            <ion-option *ngFor="let thing of things" [value]=thing.id>
+              {{thing.name}}
+            </ion-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-card [hidden]="!timedTaskForm.value.thing_id" [class.fade-in]="timedTaskForm.value.thing_id">
+          <ion-card-content no-padding>
+            <div #thingStatus></div>
+          </ion-card-content>
+        </ion-card>
+      </ion-list>
+
+      <ion-list *ngSwitchCase="'scenario'">
+        <ion-item>
+          <ion-label>Scenario</ion-label>
+          <ion-select type="text" formControlName="scenario_id">
+            <ion-option *ngFor="let scenario of scenarios" [value]=scenario.id>
+              {{scenario.name}}
+            </ion-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+    </div>
+
+    <button margin-top ion-button full type="submit" [disabled]="!validForm()">SAVE</button>
+  </form>
+</ion-content>

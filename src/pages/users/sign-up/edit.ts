@@ -1,23 +1,24 @@
-import { Storage } from "@ionic/storage";
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { IonicPage, NavController, NavParams } from "ionic-angular";
-import { HomewatchApiService } from "../../../services/homewatch_api";
+import { Storage } from "@ionic/storage";
 import { HomewatchApi } from "homewatch-js";
+import { NavController, NavParams } from "ionic-angular";
+
+import { HomewatchApiService } from "../../../services/homewatch_api";
 import { ListHomesPage } from "../../homes/list/list";
 
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 @Component({
   selector: "page-profile",
-  templateUrl: "sign-up.html",
+  templateUrl: "sign-up.html"
 })
 export class EditProfilePage {
-  pageTitle: string = "Profile";
-  editMode: boolean = true;
+  pageTitle = "Profile";
+  editMode = true;
   signUpForm: FormGroup;
   homewatch: HomewatchApi;
-  submitted: boolean = false;
+  submitted = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, homewatchApi: HomewatchApiService, public storage: Storage, public formBuilder: FormBuilder) {
     this.homewatch = homewatchApi.getApi();
@@ -33,7 +34,7 @@ export class EditProfilePage {
   }
 
   async ionViewWillEnter() {
-    let user = await this.storage.get("HOMEWATCH_USER");
+    const user = await this.storage.get("HOMEWATCH_USER");
     this.signUpForm.setValue({
       name: user.name,
       email: user.email,
@@ -47,8 +48,8 @@ export class EditProfilePage {
   async onSubmit(form: FormGroup) {
     this.submitted = true;
     try {
-      let user = this.convertFormToUser(this.signUpForm);
-      let response = await this.homewatch.users.updateCurrentUser(user);
+      const user = this.convertFormToUser(form);
+      const response = await this.homewatch.users.updateCurrentUser(user);
       this.homewatch.auth = response.data.jwt;
       this.storage.set("HOMEWATCH_USER", response.data);
 
@@ -59,7 +60,7 @@ export class EditProfilePage {
     }
   }
 
-  private convertFormToUser(form: FormGroup) {
+  private convertFormToUser = (form: FormGroup) => {
     return {
       name: form.value.name,
       email: form.value.email,
@@ -68,19 +69,18 @@ export class EditProfilePage {
     };
   }
 
-  private matchPassword(group): any {
-    let password = group.controls.password;
-    let confirm = group.controls.password_confirmation;
+  private matchPassword = (group: FormGroup) => {
+    const password = group.controls.password;
+    const confirm = group.controls.password_confirmation;
 
-    // Don't kick in until user touches both fields
     if (password.pristine || confirm.pristine) {
-      return null;
+      return undefined;
     }
 
     group.markAsTouched();
 
     if (password.value === confirm.value) {
-      return null;
+      return undefined;
     }
 
     return {

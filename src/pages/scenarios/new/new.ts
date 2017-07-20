@@ -1,18 +1,19 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { IonicPage, NavController, NavParams, Events } from "ionic-angular";
-import { HomewatchApiService } from "../../../services/homewatch_api";
 import { HomewatchApi } from "homewatch-js";
+import { Events, NavController, NavParams } from "ionic-angular";
+
+import { HomewatchApiService } from "../../../services/homewatch_api";
 
 @Component({
   selector: "page-new-scenario",
-  templateUrl: "new.html",
+  templateUrl: "new.html"
 })
 export class NewScenarioPage {
-  editMode: boolean = false;
+  editMode = false;
   scenarioForm: FormGroup;
   homewatch: HomewatchApi;
-  submitted: boolean = false;
+  submitted = false;
   home: any;
   scenario: any;
 
@@ -40,7 +41,7 @@ export class NewScenarioPage {
 
   async onSubmit(form: FormGroup) {
     if (this.editMode) {
-      let response = await this.homewatch.scenarios(this.home).updateScenario(form.value.id, form.value);
+      await this.homewatch.scenarios(this.home).updateScenario(form.value.id, form.value);
     } else {
       await this.homewatch.scenarios(this.home).createScenario(form.value);
     }

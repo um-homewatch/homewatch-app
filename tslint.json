@@ -2,74 +2,28 @@
   "rulesDirectory": [
     "node_modules/codelyzer"
   ],
+  "extends": [
+    "angular-tslint-rules",
+    "tslint-ionic-rules"
+  ],
   "rules": {
-    "class-name": true,
-    "curly": false,
-    "eofline": true,
-    "indent": [
-      true,
-      "spaces"
-    ],
-    "member-ordering": [
-      true,
-      "public-before-private",
-      "static-before-instance",
-      "variables-before-functions"
-    ],
-    "no-arg": true,
-    "no-construct": true,
-    "no-duplicate-variable": true,
-    "no-empty": true,
-    "no-eval": true,
-    "no-trailing-whitespace": true,
-    "no-unused-expression": true,
-    "one-line": [
-      true,
-      "check-open-brace",
-      "check-catch",
-      "check-else",
-      "check-whitespace"
-    ],
     "quotemark": [
-      true,
       "double"
     ],
-    "semicolon": [
-      true,
-      "always"
+    "switch-default": false,
+    "typedef": [
+      false
     ],
-    "trailing-comma": [
-      true
+    "curly": false,
+    "max-line-length": [
+      false
     ],
-    "triple-equals": true,
-    "variable-name": false,
-    "directive-selector": [
-      true,
-      [
-        "attribute"
-      ],
-      [],
-      "camelCase"
-    ],
+    "component-class-suffix": false,
     "component-selector": [
-      true,
-      [
-        "element"
-      ],
-      [],
-      "kebab-case"
+      false
     ],
-    "use-input-property-decorator": true,
-    "use-output-property-decorator": true,
-    "use-host-property-decorator": true,
-    "no-input-rename": true,
-    "no-output-rename": true,
-    "use-life-cycle-interface": true,
-    "use-pipe-transform-interface": true,
-    "directive-class-suffix": true,
-    "import-destructuring-spacing": true,
-    "templates-use-public": true,
-    "no-access-missing-member": false,
-    "invoke-injectable": true
+    "no-access-missing-member": [
+      false
+    ]
   }
 }

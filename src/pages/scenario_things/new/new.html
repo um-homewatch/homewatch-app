@@ -11,15 +11,15 @@
 <ion-content padding>
   <form ion-list no-lines padding-bottom [formGroup]="scenarioThingForm" (ngSubmit)="onSubmit(scenarioThingForm)">
     <ion-item>
-      <ion-label>Type</ion-label>
-      <ion-select type="text" formControlName="thing">
-        <ion-option *ngFor="let thing of things" [value]=thing>
+      <ion-label>Thing</ion-label>
+      <ion-select type="text" formControlName="thing_id">
+        <ion-option *ngFor="let thing of things" [value]=thing.id (ionSelect)="onThingTypeChange(thing)">
           {{thing.name}}
         </ion-option>
       </ion-select>
     </ion-item>
 
-    <ion-card [hidden]="!scenarioThingForm.value.thing" [class.fade-in]="scenarioThingForm.value.thing">
+    <ion-card [hidden]="!scenarioThingForm.value.thing_id" [class.fade-in]="scenarioThingForm.value.thing_id">
       <ion-card-content no-padding>
         <div #thingStatus></div>
       </ion-card-content>

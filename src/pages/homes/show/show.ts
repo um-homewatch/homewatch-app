@@ -1,16 +1,17 @@
 import { Component } from "@angular/core";
-import { IonicPage, NavController, NavParams, ViewController, PopoverController } from "ionic-angular";
-import { HomewatchApiService } from "../../../services/homewatch_api";
 import { HomewatchApi } from "homewatch-js";
-import { ListHomesPage } from "../list/list";
+import { NavController, NavParams, PopoverController } from "ionic-angular";
+
+import { ArraySorterHelper } from "../../../helpers/array_sorter";
+import { HomewatchApiService } from "../../../services/homewatch_api";
 import { NewThingPage } from "../../things/new/new";
-import { ShowHomePopoverPage } from "./popover";
 import { ShowThingPage } from "../../things/show/show";
-import { ThingsInfo } from "../../../services/things_info";
+import { ListHomesPage } from "../list/list";
+import { ShowHomePopoverPage } from "./popover";
 
 @Component({
   selector: "show-home-page",
-  templateUrl: "show.html",
+  templateUrl: "show.html"
 })
 export class ShowHomePage {
   homewatch: HomewatchApi;
@@ -23,8 +24,8 @@ export class ShowHomePage {
   }
 
   async ionViewWillEnter() {
-    let response = await this.homewatch.things(this.home).listThings();
-    this.things = response.data;
+    const response = await this.homewatch.things(this.home).listThings();
+    this.things = ArraySorterHelper.sortArrayByID(response.data);
   }
 
   editThing(thing: any) {
@@ -36,9 +37,9 @@ export class ShowHomePage {
   }
 
   async showPopover(myEvent) {
-    let popover = this.popoverCtrl.create(ShowHomePopoverPage, { home: this.home });
+    const popover = this.popoverCtrl.create(ShowHomePopoverPage, { home: this.home });
 
-    popover.onDidDismiss(async (deleted) => {
+    popover.onDidDismiss(async deleted => {
       if (deleted) this.navCtrl.setRoot(ListHomesPage);
     });
 

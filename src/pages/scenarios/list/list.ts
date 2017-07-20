@@ -1,18 +1,20 @@
 import { Component } from "@angular/core";
-import { IonicPage, NavController, NavParams } from "ionic-angular";
-import { HomewatchApiService } from "../../../services/homewatch_api";
 import { HomewatchApi } from "homewatch-js";
+import { NavController, NavParams } from "ionic-angular";
+
+import { ArraySorterHelper } from "../../../helpers/array_sorter";
+import { HomewatchApiService } from "../../../services/homewatch_api";
 import { NewScenarioPage } from "../new/new";
 import { ShowScenarioPage } from "../show/show";
 
 @Component({
   selector: "page-list-scenarios",
-  templateUrl: "list.html",
+  templateUrl: "list.html"
 })
 export class ListScenariosPage {
   homewatch: HomewatchApi;
   home: any;
-  loading: boolean = true;
+  loading = true;
   scenarios: Array<any> = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, homewatchApiService: HomewatchApiService) {
@@ -22,8 +24,8 @@ export class ListScenariosPage {
 
   async ionViewWillEnter() {
     try {
-      let response = await this.homewatch.scenarios(this.home).listScenarios();
-      this.scenarios = response.data;
+      const response = await this.homewatch.scenarios(this.home).listScenarios();
+      this.scenarios = ArraySorterHelper.sortArrayByID(response.data);
       this.loading = false;
     } catch (error) {
       console.error(error);

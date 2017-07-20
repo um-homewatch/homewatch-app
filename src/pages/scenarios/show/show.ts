@@ -1,14 +1,16 @@
 import { Component } from "@angular/core";
-import { IonicPage, NavController, NavParams, ToastController, PopoverController } from "ionic-angular";
-import { HomewatchApiService } from "../../../services/homewatch_api";
 import { HomewatchApi } from "homewatch-js";
+import { NavController, NavParams, PopoverController, ToastController } from "ionic-angular";
+
+import { ArraySorterHelper } from "../../../helpers/array_sorter";
+import { HomewatchApiService } from "../../../services/homewatch_api";
 import { NewScenarioThingPage } from "../../scenario_things/new/new";
 import { ListScenariosPage } from "../list/list";
 import { ShowScenarioPopoverPage } from "./popover";
 
 @Component({
   selector: "show-scenario-page",
-  templateUrl: "show.html",
+  templateUrl: "show.html"
 })
 export class ShowScenarioPage {
   homewatch: HomewatchApi;
@@ -23,8 +25,8 @@ export class ShowScenarioPage {
   }
 
   async ionViewWillEnter() {
-    let response = await this.homewatch.scenarioThings(this.scenario).listScenarioThings();
-    this.scenarioThings = response.data;
+    const response = await this.homewatch.scenarioThings(this.scenario).listScenarioThings();
+    this.scenarioThings = ArraySorterHelper.sortArrayByID(response.data);
   }
 
   async applyScenario() {
@@ -34,7 +36,7 @@ export class ShowScenarioPage {
       this.toastCtrl.create({
         message: "Scenario applied!",
         showCloseButton: true,
-        duration: 2000,
+        duration: 2000
       }).present();
     } catch (error) {
       console.error(error);
@@ -42,7 +44,7 @@ export class ShowScenarioPage {
   }
 
   async editScenarioThing(scenarioThing: any) {
-    //
+    this.navCtrl.push(NewScenarioThingPage, { home: this.home, scenario: this.scenario, scenarioThing });
   }
 
   newScenarioThing() {
@@ -50,9 +52,9 @@ export class ShowScenarioPage {
   }
 
   async showPopover(myEvent) {
-    let popover = this.popoverCtrl.create(ShowScenarioPopoverPage, { scenario: this.scenario, home: this.home });
+    const popover = this.popoverCtrl.create(ShowScenarioPopoverPage, { scenario: this.scenario, home: this.home });
 
-    popover.onDidDismiss(async (info) => {
+    popover.onDidDismiss(async info => {
       if (info && info.deleted) this.navCtrl.setRoot(ListScenariosPage, { home: this.home });
     });
 

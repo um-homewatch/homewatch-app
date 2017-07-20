@@ -1,14 +1,26 @@
-import { Injectable } from "@angular/core";
-import { Page } from "ionic";
 import { ShowLightPage } from "../pages/things/devices/light/show";
 import { ShowLockPage } from "../pages/things/devices/lock/show";
 import { ShowThermostatPage } from "../pages/things/devices/thermostat/show";
 import { ShowWeatherPage } from "../pages/things/devices/weather/show";
 import { ShowMotionSensorPage } from "../pages/things/devices/motion_sensor/show";
 
-@Injectable()
-export class ThingsInfo {
-  things: Object = {
+export class ThingTypeInfo {
+  subTypes: Array<string>;
+  showPage: any;
+  text: string;
+  icon: string;
+  type: string;
+}
+
+export class ThingInfo {
+  subTypes: Array<string>;
+  showPage: any;
+  text: string;
+  icon: string;
+}
+
+export class ThingsInfoHelper {
+  private static things: { [key: string]: ThingInfo } = {
     "Things::Light": {
       subTypes: ["rest", "coap", "hue"],
       showPage: ShowLightPage,
@@ -41,11 +53,13 @@ export class ThingsInfo {
     }
   };
 
-  getTypeOptions(): Array<Object> {
-    return Object.keys(this.things).map(key => Object.assign(this.things[key], { type: key }));
+  static getTypeOptions(): Array<ThingTypeInfo> {
+    return Object.keys(this.things).map(key => {
+      return { ...this.things[key], type: key };
+    });
   }
 
-  getThingInfo(type: string): { subTypes: Array<string>, showPage: any, text: string, icon: string } {
+  static getThingInfo(type: string): { subTypes: Array<string>, showPage: any, text: string, icon: string } {
     return this.things[type];
   }
 }

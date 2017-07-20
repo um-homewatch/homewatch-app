@@ -1,8 +1,9 @@
 import { Component } from "@angular/core";
-import { NavController, NavParams, LoadingController } from "ionic-angular";
-import { HomewatchApiService } from "../../../services/homewatch_api";
 import { HomewatchApi } from "homewatch-js";
-import { AuthVerifier } from "../../../providers/auth-verifier/auth-verifier";
+import { LoadingController, NavController, NavParams } from "ionic-angular";
+
+import { ArraySorterHelper } from "../../../helpers/array_sorter";
+import { HomewatchApiService } from "../../../services/homewatch_api";
 import { NewHomePage } from "../new/new";
 import { HomeTabsPage } from "../tabs/tabs";
 
@@ -13,7 +14,7 @@ import { HomeTabsPage } from "../tabs/tabs";
 export class ListHomesPage {
   homewatch: HomewatchApi;
   user: any;
-  loading: boolean = true;
+  loading = true;
   homes: Array<any> = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController, homewatchApiService: HomewatchApiService) {
@@ -23,8 +24,8 @@ export class ListHomesPage {
   async ionViewWillEnter() {
     try {
       this.user = this.navParams.get("user");
-      let response = await this.homewatch.homes.listHomes();
-      this.homes = response.data;
+      const response = await this.homewatch.homes.listHomes();
+      this.homes = ArraySorterHelper.sortArrayByID(response.data);
       this.loading = false;
     } catch (error) {
       //

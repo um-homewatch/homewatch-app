@@ -1,49 +1,39 @@
-import { Component, OnInit } from "@angular/core";
-import { NavController, NavParams, LoadingController } from "ionic-angular";
-import { HomewatchApiService } from "../../../../services/homewatch_api";
+import { Component, Input, OnChanges } from "@angular/core";
 import { HomewatchApi } from "homewatch-js";
-import { AuthVerifier } from "../../../providers/auth-verifier/auth-verifier";
-import { NewHomePage } from "../new/new";
-import { HomeTabsPage } from "../tabs/tabs";
+import { LoadingController, NavController, NavParams } from "ionic-angular";
+
+import { HomewatchApiService } from "../../../../services/homewatch_api";
+import { NewTimedTaskPage } from "../new/new";
 
 @Component({
   selector: "list-timed-tasks-page",
   templateUrl: "list.html"
 })
-export class ListTimedTasksPage implements OnInit {
+export class ListTimedTasksPage implements OnChanges {
+  @Input() tasks: Array<any>;
+  timed_tasks: Array<any> = [];
   homewatch: HomewatchApi;
   user: any;
-  loading: boolean = true;
   home: any;
-  timed_tasks: Array<any> = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController, homewatchApiService: HomewatchApiService) {
     this.homewatch = homewatchApiService.getApi();
     this.home = this.navParams.get("home");
-    console.log(this.home);
   }
 
-  async ngOnInit() {
-    try {
-      let response = await this.homewatch.timedTasks(this.home).listTimedTasks();
-      console.log(response.data);
-      this.timed_tasks = response.data;
-      this.loading = false;
-    } catch (error) {
-      //
+  ngOnChanges(changes: any): void {
+    if (changes.tasks.currentValue) {
+      this.timed_tasks = changes.tasks.currentValue;
     }
   }
 
-  showTimedTask(timed_task: any) {
-    //this.navCtrl.push(ShowTimedTaskPage);
-  }
-
-  newTimedTask() {
-    //this.navCtrl.push(NewTimedTaskPage);
+  async deleteTimedTask(timed_task: any, index: number) {
+    await this.homewatch.timedTasks(this.home).deleteTimedTask(timed_task.id);
+    this.timed_tasks.splice(index, 1);
   }
 
   editTimedTask(timed_task: any) {
-    //this.navCtrl.push(NewTimedTaskPage, { home, timed_task });
+    this.navCtrl.push(NewTimedTaskPage, { home: this.home, timed_task });
   }
 
   formatDate(date_string: string) {

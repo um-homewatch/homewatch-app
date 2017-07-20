@@ -1,5 +1,6 @@
 import { Component, Input } from "@angular/core";
-import { ThingsInfo } from "../../services/things_info";
+
+import { ThingsInfoHelper } from "../../helpers/things_info";
 
 @Component({
   selector: "thing-name",
@@ -13,9 +14,7 @@ import { ThingsInfo } from "../../services/things_info";
 export class ThingNameComponent {
   @Input() thing: any;
 
-  constructor(public thingsInfo: ThingsInfo) { }
-
   getIconFromType(type: string) {
-    return this.thingsInfo.getThingInfo(type).icon;
+    return ThingsInfoHelper.getThingInfo(type).icon;
   }
 }

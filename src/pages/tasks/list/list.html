@@ -9,7 +9,7 @@
 
 <ion-content padding-left padding-right padding-bottom>
   <div padding>
-    <ion-segment [(ngModel)]="tasks_type">
+    <ion-segment [(ngModel)]="tasks_type" (ngModelChange)="onTypeChange($event)">
       <ion-segment-button value="timed">
         Timed
       </ion-segment-button>
@@ -20,13 +20,17 @@
   </div>
 
   <div [ngSwitch]="tasks_type">
-    <div *ngSwitchCase="'timed'">
-      <list-timed-tasks-page></list-timed-tasks-page>
+    <div class="task-list" *ngSwitchCase="'timed'">
+      <list-timed-tasks-page [tasks]="timed_tasks"></list-timed-tasks-page>
     </div>
 
 
-    <div *ngSwitchCase="'triggered'">
-      <list-triggered-tasks-page></list-triggered-tasks-page>
+    <div class="task-list" *ngSwitchCase="'triggered'">
+      <list-triggered-tasks-page [tasks]="triggered_tasks"></list-triggered-tasks-page>
     </div>
   </div>
+
+  <ion-fab bottom right>
+    <button (click)="newTask()" ion-fab mini><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
 </ion-content>

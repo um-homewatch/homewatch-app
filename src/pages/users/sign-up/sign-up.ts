@@ -1,7 +1,7 @@
 import { Storage } from "@ionic/storage";
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { IonicPage, NavController, NavParams } from "ionic-angular";
+import { NavController, NavParams } from "ionic-angular";
 import { HomewatchApiService } from "../../../services/homewatch_api";
 import { HomewatchApi } from "homewatch-js";
 import { ListHomesPage } from "../../homes/list/list";
@@ -10,13 +10,13 @@ const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"
 
 @Component({
   selector: "page-sign-up",
-  templateUrl: "sign-up.html",
+  templateUrl: "sign-up.html"
 })
 export class SignUpPage {
-  pageTitle: string = "Sign Up";
+  pageTitle = "Sign Up";
   signUpForm: FormGroup;
   homewatch: HomewatchApi;
-  submitted: boolean = false;
+  submitted = false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, homewatchApi: HomewatchApiService, public storage: Storage, public formBuilder: FormBuilder) {
     this.homewatch = homewatchApi.getApi();
@@ -34,8 +34,8 @@ export class SignUpPage {
   async onSubmit(form: FormGroup) {
     this.submitted = true;
     try {
-      let user = this.convertFormToUser(this.signUpForm);
-      let response = await this.homewatch.users.register(user);
+      const user = this.convertFormToUser(form);
+      const response = await this.homewatch.users.register(user);
       this.homewatch.auth = response.data.jwt;
       this.storage.set("HOMEWATCH_USER", response.data);
 
@@ -46,7 +46,7 @@ export class SignUpPage {
     }
   }
 
-  private convertFormToUser(form: FormGroup) {
+  private convertFormToUser = (form: FormGroup) => {
     return {
       name: form.value.name,
       email: form.value.email,
@@ -55,18 +55,18 @@ export class SignUpPage {
     };
   }
 
-  private matchPassword(group): any {
-    let password = group.controls.password;
-    let confirm = group.controls.password_confirmation;
+  private matchPassword = (group: FormGroup) => {
+    const password = group.controls.password;
+    const confirm = group.controls.password_confirmation;
 
     if (password.pristine || confirm.pristine) {
-      return null;
+      return undefined;
     }
 
     group.markAsTouched();
 
     if (password.value === confirm.value) {
-      return null;
+      return undefined;
     }
 
     return {

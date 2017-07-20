@@ -1,21 +1,22 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { IonicPage, NavController, NavParams, PopoverController } from "ionic-angular";
-import { HomewatchApiService } from "../../../services/homewatch_api";
 import { HomewatchApi } from "homewatch-js";
+import { NavController, NavParams, PopoverController } from "ionic-angular";
+
+import { HomewatchApiService } from "../../../services/homewatch_api";
 import { NewHomePopoverPage } from "./popover";
 
 const URL_REGEX = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)/;
 
 @Component({
   selector: "new-home-page",
-  templateUrl: "new.html",
+  templateUrl: "new.html"
 })
 export class NewHomePage {
-  editMode: boolean = false;
+  editMode = false;
   homeForm: FormGroup;
   homewatch: HomewatchApi;
-  submitted: boolean = false;
+  submitted = false;
   home: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, homewatchApi: HomewatchApiService, public formBuilder: FormBuilder, public popoverCtrl: PopoverController) {
@@ -52,7 +53,7 @@ export class NewHomePage {
   }
 
   async showPopover(myEvent) {
-    let popover = this.popoverCtrl.create(NewHomePopoverPage, { callback: this.popoverCallback });
+    const popover = this.popoverCtrl.create(NewHomePopoverPage, { callback: this.popoverCallback });
 
     popover.present({
       ev: myEvent
@@ -61,5 +62,6 @@ export class NewHomePage {
 
   private popoverCallback = (data, error) => {
     if (data) this.homeForm.get("tunnel").setValue(data.url);
+    if (error) console.error(error);
   }
 }
