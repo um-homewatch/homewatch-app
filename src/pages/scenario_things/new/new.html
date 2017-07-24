@@ -13,7 +13,7 @@
     <ion-item>
       <ion-label>Thing</ion-label>
       <ion-select type="text" formControlName="thing_id">
-        <ion-option *ngFor="let thing of things" [value]=thing.id (ionSelect)="onThingTypeChange(thing)">
+        <ion-option *ngFor="let thing of things" [value]=thing.id (ionSelect)="onThingChange(thing)">
           {{thing.name}}
         </ion-option>
       </ion-select>

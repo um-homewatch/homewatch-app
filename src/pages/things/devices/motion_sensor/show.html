@@ -1,4 +1,4 @@
 <ion-item>
   <ion-label>Movement</ion-label>
-  <ion-toggle [(ngModel)]="status.movement"></ion-toggle>
+  <ion-toggle [disabled]="readOnly" [(ngModel)]="status.movement"></ion-toggle>
 </ion-item>

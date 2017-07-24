@@ -68,7 +68,7 @@ export class NewScenarioThingPage {
     this.scenarioThingForm.patchValue({ status });
   }
 
-  onThingTypeChange(thing) {
+  onThingChange(thing) {
     this.loadThingStatus(thing);
   }
 

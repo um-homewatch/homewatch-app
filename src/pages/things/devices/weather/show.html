@@ -1,24 +1,19 @@
-<ion-item>
-  <ion-grid>
-    <ion-row>
-      <ion-col col-6>
-        <h3>Cloudy</h3>
-        <p>{{status.cloudy}}</p>
-      </ion-col>
-      <ion-col col-6>
-        <h3>Raining</h3>
-        <p>{{status.raining}}</p>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col col-6>
-        <h3>Temperature</h3>
-        <p>{{status.temperature.toFixed(2)}} ºC</p>
-      </ion-col>
-      <ion-col col-6>
-        <h3>Windspeed</h3>
-        <p>{{status.windSpeed.toFixed(2)}} Km/h</p>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
+<ion-item no-lines>
+  <ion-label>Cloudy?</ion-label>
+  <ion-checkbox [disabled]="readOnly" [(ngModel)]="status.cloudy"></ion-checkbox>
+</ion-item>
+
+<ion-item no-lines>
+  <ion-label>Raining?</ion-label>
+  <ion-checkbox [disabled]="readOnly" [(ngModel)]="status.raining"></ion-checkbox>
+</ion-item>
+
+<ion-item no-lines>
+  <ion-label>Temperature (ºC)</ion-label>
+  <ion-input [disabled]="readOnly" type="number" [(ngModel)]="status.temperature"></ion-input>
+</ion-item>
+
+<ion-item no-lines>
+  <ion-label>Windspeed (km/h)</ion-label>
+  <ion-input [disabled]="readOnly" type="number" [(ngModel)]="status.windSpeed"></ion-input>
 </ion-item>

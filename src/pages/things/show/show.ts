@@ -48,7 +48,8 @@ export class ShowThingPage {
 
       this.thingStatus.clear();
       const compFactory = this.compFactoryResolver.resolveComponentFactory(ThingsInfoHelper.getThingInfo(this.thing.type).showPage);
-      this.thingStatus.createComponent(compFactory);
+      const instance = this.thingStatus.createComponent(compFactory).instance;
+      instance["readOnly"] = true;
     } catch (error) {
       this.status = undefined;
     }

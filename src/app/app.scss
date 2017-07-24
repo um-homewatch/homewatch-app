@@ -65,3 +65,41 @@
   -moz-animation-duration: 0.5s;
   animation-duration: 0.5s;
 }
+
+.item-md.item-input.input-has-focus .item-inner {
+  border-bottom-color: #dedede !important;
+  box-shadow: none !important;
+}
+
+.list-md .item-input.input-has-focus:last-child {
+  border-bottom-color: #dedede !important;
+  box-shadow: none !important;
+}
+
+.list-md .item-input.input-has-focus:last-child .item-inner {
+  box-shadow: none;
+}
+
+.item-md.item-input.ng-valid.input-has-value:not(.input-has-focus) .item-inner {
+  border-bottom-color: #dedede !important;
+  box-shadow: none !important;
+}
+
+.list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):last-child {
+  border-bottom-color: #dedede !important;
+  box-shadow: none !important;
+}
+
+.list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):last-child .item-inner {
+  box-shadow: none;
+}
+
+.item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus) .item-inner {
+  border-bottom-color: #dedede !important;
+  box-shadow: none !important;
+}
+
+.list-md .item-input.ng-invalid.ng-touched:not(.input-has-focus):last-child {
+  border-bottom-color: #dedede !important;
+  box-shadow: none !important;
+}

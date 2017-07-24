@@ -23,6 +23,7 @@ import { ListTasksPage } from "../pages/tasks/list/list";
 import { ListTimedTasksPage } from "../pages/tasks/timed/list/list";
 import { NewTimedTaskPage } from "../pages/tasks/timed/new/new";
 import { ListTriggeredTasksPage } from "../pages/tasks/triggered/list/list";
+import { NewTriggeredTaskPage } from "../pages/tasks/triggered/new/new";
 import { ShowLightPage } from "../pages/things/devices/light/show";
 import { ShowLockPage } from "../pages/things/devices/lock/show";
 import { ShowMotionSensorPage } from "../pages/things/devices/motion_sensor/show";
@@ -73,7 +74,8 @@ const cloudSettings: any = {
     ListTimedTasksPage,
     NewTimedTaskPage,
     ListTriggeredTasksPage,
-    ThingNameComponent
+    ThingNameComponent,
+    NewTriggeredTaskPage
   ],
   imports: [
     BrowserModule,
@@ -113,7 +115,8 @@ const cloudSettings: any = {
     ListTasksPage,
     ListTimedTasksPage,
     NewTimedTaskPage,
-    ListTriggeredTasksPage
+    ListTriggeredTasksPage,
+    NewTriggeredTaskPage
   ],
   providers: [
     StatusBar,

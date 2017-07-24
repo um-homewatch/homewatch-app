@@ -1,7 +1,7 @@
 <div>
   <div *ngIf="!loading">
-    <ion-card *ngFor="let triggered_task of triggered_tasks">
-      <ion-card-content no-padding (tap)="showTriggeredTask(triggered_task)">
+    <ion-card *ngFor="let triggered_task of triggered_tasks; let index = index">
+      <ion-card-content no-padding>
         <ion-item>
 
           <div *ngIf="triggered_task.thing">
@@ -60,17 +60,13 @@
               <ion-icon name="create"></ion-icon> EDIT
             </a>
           </ion-col>
-          <ion-col (click)="showTriggeredTask(triggered_task)" col-10 text-right no-padding no-margin>
-            <a item-right>
-              <ion-icon name="arrow-forward"></ion-icon>
+          <ion-col col-10 text-right no-padding no-margin>
+            <a (click)="deleteTriggeredTask(triggered_task, index)" item-right>
+              <ion-icon name="trash"></ion-icon>
             </a>
           </ion-col>
         </ion-row>
       </ion-item>
     </ion-card>
-
-    <ion-fab bottom right>
-      <button (click)="newTriggeredTask()" ion-fab mini><ion-icon name="add"></ion-icon></button>
-    </ion-fab>
   </div>
 </div>

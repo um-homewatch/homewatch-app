@@ -3,10 +3,12 @@ import { Events, NavParams } from "ionic-angular";
 export abstract class DevicePage {
   thing: any;
   status: any;
+  readOnly: false;
 
   constructor(public navParams: NavParams, public events: Events) {
     this.thing = this.navParams.get("thing");
     this.status = this.navParams.data.status;
+
     if (this.status === undefined) {
       this.defaultStatus();
       this.onStatusChange();

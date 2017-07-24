@@ -1,10 +1,11 @@
-import { ArraySorterHelper } from "../../../helpers/array_sorter";
 import { Component } from "@angular/core";
 import { HomewatchApi } from "homewatch-js";
 import { NavController, NavParams } from "ionic-angular";
 
+import { ArraySorterHelper } from "../../../helpers/array_sorter";
 import { HomewatchApiService } from "../../../services/homewatch_api";
 import { NewTimedTaskPage } from "../timed/new/new";
+import { NewTriggeredTaskPage } from "../triggered/new/new";
 
 @Component({
   selector: "list-tasks-page",
@@ -62,7 +63,7 @@ export class ListTasksPage {
         this.navCtrl.push(NewTimedTaskPage, { home: this.home });
         break;
       case "triggered":
-        // this.navCtrl.push(NewTriggeredTaskPage, { home: this.home });
+        this.navCtrl.push(NewTriggeredTaskPage, { home: this.home });
         break;
     }
   }

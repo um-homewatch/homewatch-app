@@ -27,12 +27,13 @@ export class ListTriggeredTasksPage implements OnChanges {
     }
   }
 
-  newTriggeredTask() {
-    // this.navCtrl.push(NewTriggeredTaskPage);
-  }
-
   editTriggeredTask(_triggered_task: any) {
     // this.navCtrl.push(NewTriggeredTaskPage, { home, triggered_task });
+  }
+
+  async deleteTriggeredTask(triggered_task: any, index: number) {
+    await this.homewatch.triggeredTasks(this.home).deleteTriggeredTask(triggered_task.id);
+    this.triggered_tasks.splice(index, 1);
   }
 
   formatDate(date_string: string) {
