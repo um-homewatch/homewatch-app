@@ -46,6 +46,7 @@ export class NewScenarioThingPage {
   async loadThings() {
     const response = await this.homewatch.things(this.home).listThings();
     this.things = ArraySorterHelper.sortArrayByID(response.data);
+    this.things = ArraySorterHelper.filterAssignableThings(this.things);
   }
 
   async ionViewWillEnter() {

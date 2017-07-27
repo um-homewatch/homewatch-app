@@ -66,9 +66,13 @@ export class ShowThingPage {
   }
 
   refreshStatus = async () => {
-    const response = await this.cleanHomewatch.status(this.thing).getStatus();
-    this.status = response.data;
-    this.events.publish(`thing:status:update:in${this.thing.id}`, this.status);
+    try {
+      const response = await this.cleanHomewatch.status(this.thing).getStatus();
+      this.status = response.data;
+      this.events.publish(`thing:status:update:in${this.thing.id}`, this.status);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   async onStatusChange(newStatus) {

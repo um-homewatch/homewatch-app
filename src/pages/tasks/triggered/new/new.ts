@@ -21,6 +21,7 @@ export class NewTriggeredTaskPage {
   homewatch: HomewatchApi;
   home: any;
   things: Array<any>;
+  assignableThings: Array<any>;
   scenarios: Array<any>;
   thing: any;
 
@@ -34,6 +35,7 @@ export class NewTriggeredTaskPage {
       status_to_apply: [""],
       scenario_id: [""],
       thing_to_compare_id: ["", Validators.required],
+      comparator: ["", Validators.required],
       status_to_compare: ["", Validators.compose([Validators.required, this.JSONValidator])]
     });
   }
@@ -54,6 +56,7 @@ export class NewTriggeredTaskPage {
   async loadThings() {
     const response = await this.homewatch.things(this.home).listThings();
     this.things = ArraySorterHelper.sortArrayByID(response.data);
+    this.assignableThings = ArraySorterHelper.filterAssignableThings(this.things);
   }
 
   async loadScenarios() {
@@ -118,7 +121,7 @@ export class NewTriggeredTaskPage {
     try {
       const status_to_compare = JSON.parse(form.value.status_to_compare);
 
-      const triggered_task = { status_to_apply: undefined, thing_id: undefined, scenario_id: undefined, thing_to_compare_id: form.value.thing_to_compare_id, status_to_compare, comparator: "==" };
+      const triggered_task = { status_to_apply: undefined, thing_id: undefined, scenario_id: undefined, thing_to_compare_id: form.value.thing_to_compare_id, status_to_compare, comparator: form.value.comparator };
 
       if (this.toApply === "thing") {
         triggered_task.thing_id = form.value.thing_id;

@@ -26,7 +26,7 @@
         <ion-item>
           <ion-label>Thing</ion-label>
           <ion-select type="text" formControlName="thing_id">
-            <ion-option *ngFor="let thing of things" [value]=thing.id (ionSelect)="onThingToApplyChange(thing)">
+            <ion-option *ngFor="let thing of assignableThings" [value]=thing.id (ionSelect)="onThingToApplyChange(thing)">
               {{thing.name}}
             </ion-option>
           </ion-select>
@@ -62,7 +62,17 @@
       </ion-select>
     </ion-item>
 
-    <ion-item [hidden]="!triggeredTaskForm.value.thing_to_compare_id" [class.fade-in]="triggeredTaskForm.value.thing_to_compare_id">
+    <ion-item>
+      <ion-label>Comparator</ion-label>
+      <ion-select type="text" formControlName="comparator">
+        <ion-option *ngFor="let comparator of comparators">
+          {{comparator}}
+        </ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Status to Compare</ion-label>
       <ion-textarea type="text" formControlName="status_to_compare"></ion-textarea>
     </ion-item>
 

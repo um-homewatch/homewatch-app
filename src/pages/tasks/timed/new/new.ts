@@ -20,6 +20,7 @@ export class NewTimedTaskPage {
   homewatch: HomewatchApi;
   home: any;
   things: Array<any>;
+  assignableThings: Array<any>;
   scenarios: Array<any>;
   thing: any;
 
@@ -50,6 +51,7 @@ export class NewTimedTaskPage {
   async loadThings() {
     const response = await this.homewatch.things(this.home).listThings();
     this.things = ArraySorterHelper.sortArrayByID(response.data);
+    this.assignableThings = ArraySorterHelper.filterAssignableThings(this.things);
   }
 
   async loadScenarios() {
