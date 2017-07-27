@@ -32,7 +32,8 @@ export class NewThingPage {
       connection_info: formBuilder.group({
         address: ["", Validators.required],
         port: [""]
-      })
+      }),
+      extra_info: [""]
     });
 
     this.thingForm.valueChanges.subscribe(data => {
@@ -43,8 +44,12 @@ export class NewThingPage {
   ionViewWillEnter() {
     this.home = this.navParams.get("home");
     this.thing = this.navParams.get("thing");
+
     if (this.thing) {
       this.editMode = true;
+      const extraInfo = Object.assign({}, this.thing.connection_info);
+      delete extraInfo["address"];
+      delete extraInfo["port"];
 
       this.thingForm.setValue({
         id: this.thing.id,
@@ -54,12 +59,14 @@ export class NewThingPage {
         connection_info: {
           address: this.thing.connection_info.address,
           port: this.thing.connection_info.port || ""
-        }
+        },
+        extra_info: JSON.stringify(extraInfo)
       });
     }
   }
 
   async onSubmit(form: FormGroup) {
+    Object.assign(form.value.connection_info, JSON.parse(form.value.extra_info));
     if (this.editMode) {
       const response = await this.homewatch.things(this.home).updateThing(form.value.id, form.value);
       this.events.publish("things:updated", response.data);

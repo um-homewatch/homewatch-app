@@ -16,33 +16,23 @@
   <ion-card>
     <ion-card-content no-padding>
       <ion-item>
-        <ion-grid>
-          <ion-row>
-            <ion-col col-6>
-              <h3>Type</h3>
-              <p>{{thing.type}}</p>
-            </ion-col>
-            <ion-col col-6>
-              <h3>Subtype</h3>
-              <p>{{thing.subtype}}</p>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col col-12>
-              <h2> Connection Info </h2>
-            </ion-col>
-          </ion-row>
-          <ion-row>
-            <ion-col col-6>
-              <h3>Address</h3>
-              <p>{{thing.connection_info.address}}</p>
-            </ion-col>
-            <ion-col col-6>
-              <h3>Port</h3>
-              <p>{{thing.connection_info.port}}</p>
-            </ion-col>
-          </ion-row>
-        </ion-grid>
+        <h3>Type</h3>
+        <p>{{thing.type}}</p>
+      </ion-item>
+      <ion-item>
+        <h3>Subtype</h3>
+        <p>{{thing.subtype}}</p>
+      </ion-item>
+
+      <h2 padding-left> Connection Info </h2>
+
+      <ion-item>
+        <h3>Address</h3>
+        <p>{{thing.connection_info.address}}</p>
+      </ion-item>
+      <ion-item>
+        <h3>Port</h3>
+        <p>{{thing.connection_info.port}}</p>
       </ion-item>
     </ion-card-content>
   </ion-card>

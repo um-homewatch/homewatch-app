@@ -3,6 +3,7 @@ import { HomewatchApi } from "homewatch-js";
 import { LoadingController, NavController, NavParams } from "ionic-angular";
 
 import { HomewatchApiService } from "../../../../services/homewatch_api";
+import { NewTriggeredTaskPage } from "../new/new";
 
 @Component({
   selector: "list-triggered-tasks-page",
@@ -27,8 +28,8 @@ export class ListTriggeredTasksPage implements OnChanges {
     }
   }
 
-  editTriggeredTask(_triggered_task: any) {
-    // this.navCtrl.push(NewTriggeredTaskPage, { home, triggered_task });
+  editTriggeredTask(triggered_task: any) {
+    this.navCtrl.push(NewTriggeredTaskPage, { home: this.home, triggered_task });
   }
 
   async deleteTriggeredTask(triggered_task: any, index: number) {

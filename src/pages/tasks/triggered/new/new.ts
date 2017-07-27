@@ -65,8 +65,6 @@ export class NewTriggeredTaskPage {
   }
 
   async ionViewWillEnter() {
-    await Promise.all([this.loadThings(), this.loadScenarios()]);
-
     this.triggeredTask = this.navParams.get("triggered_task");
 
     if (this.triggeredTask) {
@@ -81,8 +79,13 @@ export class NewTriggeredTaskPage {
         this.triggeredTask.scenario_id = this.triggeredTask.scenario.id;
       }
 
+      this.triggeredTask.status_to_compare = JSON.stringify(this.triggeredTask.status_to_compare);
+      this.triggeredTask.thing_to_compare_id = this.triggeredTask.thing_to_compare.id;
+
       this.triggeredTaskForm.patchValue(this.triggeredTask);
     }
+
+    await Promise.all([this.loadThings(), this.loadScenarios()]);
   }
 
   onStatusToApplyChange(status_to_apply) {

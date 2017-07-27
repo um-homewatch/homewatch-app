@@ -62,6 +62,11 @@
       </ion-item>
     </div>
 
+    <ion-item>
+      <ion-label>Extra Params</ion-label>
+      <ion-textarea formControlName="extra_info"></ion-textarea>
+    </ion-item>
+
     <button margin-top ion-button full type="submit" [disabled]="!thingForm.valid">SAVE</button>
   </form>
 </ion-content>

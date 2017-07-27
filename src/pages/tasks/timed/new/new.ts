@@ -60,8 +60,6 @@ export class NewTimedTaskPage {
   }
 
   async ionViewWillEnter() {
-    await Promise.all([this.loadThings(), this.loadScenarios()]);
-
     this.timedTask = this.navParams.get("timed_task");
 
     if (this.timedTask) {
@@ -83,6 +81,8 @@ export class NewTimedTaskPage {
       const thing = this.things.find(t => t.id === thing_id);
       if (thing) this.loadThingStatus(thing);
     });
+
+    await Promise.all([this.loadThings(), this.loadScenarios()]);
   }
 
   onStatusChange(status) {
