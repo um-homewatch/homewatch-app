@@ -34,7 +34,7 @@ export class NewScenarioThingPage {
   }
 
   async loadThingStatus(thing) {
-    this.events.subscribe(`thing:status:update:${thing.id}`, (status => { this.onStatusChange(status); }));
+    this.events.subscribe(`thing:status:update:out${thing.id}`, (status => { this.onStatusChange(status); }));
     this.navParams.data.thing = thing;
     if (this.editMode) this.navParams.data.status = this.scenarioThing.status;
 

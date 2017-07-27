@@ -2,7 +2,6 @@ import { Component, ViewChild } from "@angular/core";
 import { SplashScreen } from "@ionic-native/splash-screen";
 import { StatusBar } from "@ionic-native/status-bar";
 import { Storage } from "@ionic/storage";
-import { HomewatchApi } from "homewatch-js";
 import { Loading, LoadingController, Nav, Platform, ToastController } from "ionic-angular";
 
 import { ListHomesPage } from "../pages/homes/list/list";
@@ -16,14 +15,12 @@ import { HomewatchApiService } from "../services/homewatch_api";
 export class MyAppComponent {
   @ViewChild(Nav) nav: Nav;
 
-  homewatch: HomewatchApi;
   rootPage: any = LoginPage;
   loading: Loading;
 
   pages: Array<{ title: string, component: any, icon: string, method: string }>;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public storage: Storage, homewatchApiService: HomewatchApiService, public toastCtrl: ToastController, public loadingCtrl: LoadingController) {
-    this.homewatch = homewatchApiService.getApi();
+  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen, public storage: Storage, public homewatchApiService: HomewatchApiService, public toastCtrl: ToastController, public loadingCtrl: LoadingController) {
     this.setInterceptors();
     this.initializeApp();
 
@@ -35,14 +32,14 @@ export class MyAppComponent {
   }
 
   setInterceptors() {
-    this.homewatch.axios.interceptors.request.use(async config => {
+    this.homewatchApiService.registerRequestInterceptors(async config => {
       this.dismissLoadingSpinner();
       this.presentLoadingSpinner();
 
       return config;
     });
 
-    this.homewatch.axios.interceptors.response.use(response => {
+    this.homewatchApiService.registerResponseInterceptors(response => {
       this.dismissLoadingSpinner();
 
       return response;

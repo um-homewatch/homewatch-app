@@ -1,5 +1,5 @@
 import { Component, ComponentFactoryResolver, ViewChild, ViewContainerRef } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { HomewatchApi } from "homewatch-js";
 import { Events, NavController, NavParams, PopoverController } from "ionic-angular";
 
@@ -13,7 +13,6 @@ import { HomewatchApiService } from "../../../../services/homewatch_api";
 })
 export class NewTriggeredTaskPage {
   @ViewChild("thingStatus", { read: ViewContainerRef }) thingStatus: ViewContainerRef;
-  @ViewChild("thingStatusToCompare", { read: ViewContainerRef }) thingStatusToCompare: ViewContainerRef;
   comparators: Array<string> = ["==", "<", ">", ">=", "<="];
   toApply = "thing";
   editMode = false;
@@ -35,23 +34,21 @@ export class NewTriggeredTaskPage {
       status_to_apply: [""],
       scenario_id: [""],
       thing_to_compare_id: ["", Validators.required],
-      status_to_compare: ["", Validators.required]
+      status_to_compare: ["", Validators.compose([Validators.required, this.JSONValidator])]
     });
   }
 
-  async loadThingStatus(viewChild: ViewContainerRef, thing, status?) {
+  async loadThingStatus(thing, status?) {
     this.thing = thing;
-    this.events.subscribe(`thing:status:update:${thing.id}`, newStatus => {
-      if (viewChild === this.thingStatus) this.onStatusToApplyChange(newStatus);
-      if (viewChild === this.thingStatusToCompare) this.onStatusToCompareChange(newStatus);
-      console.log(this.triggeredTaskForm.value);
+    this.events.subscribe(`thing:status:update:out${thing.id}`, newStatus => {
+      this.onStatusToApplyChange(newStatus);
     });
     this.navParams.data.thing = thing;
     this.navParams.data.status = status;
 
-    viewChild.clear();
+    this.thingStatus.clear();
     const compFactory = this.compFactoryResolver.resolveComponentFactory(ThingsInfoHelper.getThingInfo(thing.type).showPage);
-    viewChild.createComponent(compFactory);
+    this.thingStatus.createComponent(compFactory);
   }
 
   async loadThings() {
@@ -75,7 +72,7 @@ export class NewTriggeredTaskPage {
       if (this.triggeredTask.thing) {
         this.toApply = "thing";
         this.triggeredTask.thing_id = this.triggeredTask.thing.id;
-        this.loadThingStatus(this.thingStatus, this.triggeredTask.thing, this.triggeredTask.status_to_apply);
+        this.loadThingStatus(this.triggeredTask.thing, this.triggeredTask.status_to_apply);
       } else {
         this.toApply = "scenario";
         this.triggeredTask.scenario_id = this.triggeredTask.scenario.id;
@@ -89,16 +86,8 @@ export class NewTriggeredTaskPage {
     this.triggeredTaskForm.patchValue({ status_to_apply });
   }
 
-  onStatusToCompareChange(status_to_compare) {
-    this.triggeredTaskForm.patchValue({ status_to_compare });
-  }
-
   onThingToApplyChange(thing) {
-    this.loadThingStatus(this.thingStatus, thing);
-  }
-
-  onThingToCompareChange(thing) {
-    this.loadThingStatus(this.thingStatusToCompare, thing);
+    this.loadThingStatus(thing);
   }
 
   onToApplyChange(toApply) {
@@ -116,7 +105,6 @@ export class NewTriggeredTaskPage {
 
   async onSubmit(form: FormGroup) {
     const triggered_task = this.buildTriggeredTask(form);
-    console.log(triggered_task);
 
     if (this.editMode)
       await this.homewatch.triggeredTasks(this.home).updateTriggeredTask(form.value.id, triggered_task);
@@ -127,15 +115,32 @@ export class NewTriggeredTaskPage {
   }
 
   private buildTriggeredTask(form: FormGroup) {
-    const triggered_task = { status_to_apply: undefined, thing_id: undefined, scenario_id: undefined, thing_to_compare_id: form.value.thing_to_compare_id, status_to_compare: form.value.status_to_compare, comparator: "=="};
+    try {
+      const status_to_compare = JSON.parse(form.value.status_to_compare);
 
-    if (this.toApply === "thing") {
-      triggered_task.thing_id = form.value.thing_id;
-      triggered_task.status_to_apply = form.value.status_to_apply;
-    } else if (this.toApply === "scenario") {
-      triggered_task.scenario_id = form.value.scenario_id;
+      const triggered_task = { status_to_apply: undefined, thing_id: undefined, scenario_id: undefined, thing_to_compare_id: form.value.thing_to_compare_id, status_to_compare, comparator: "==" };
+
+      if (this.toApply === "thing") {
+        triggered_task.thing_id = form.value.thing_id;
+        triggered_task.status_to_apply = form.value.status_to_apply;
+      } else if (this.toApply === "scenario") {
+        triggered_task.scenario_id = form.value.scenario_id;
+      }
+
+      return triggered_task;
+    } catch (e) { }
+  }
+
+  private JSONValidator = (control: FormControl) => {
+    try {
+      const json = control.value;
+      if (json !== undefined) {
+        JSON.parse(json);
+      }
+    } catch (e) {
+      return { json: "invalid" };
     }
 
-    return triggered_task;
+    return undefined;
   }
 }

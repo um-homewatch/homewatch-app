@@ -14,12 +14,16 @@ import { ShowThingPopoverPage } from "../show/popover";
 export class ShowThingPage {
   @ViewChild("thingStatus", { read: ViewContainerRef }) thingStatus: ViewContainerRef;
   homewatch: HomewatchApi;
+  cleanHomewatch: HomewatchApi;
   home: any;
   thing: any;
   status: any;
+  interval: NodeJS.Timer;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController, homewatchApiService: HomewatchApiService, public compFactoryResolver: ComponentFactoryResolver, public popoverCtrl: PopoverController, public events: Events) {
     this.homewatch = homewatchApiService.getApi();
+    this.cleanHomewatch = homewatchApiService.getCleanApi();
+
     this.thing = this.navParams.data.thing;
     this.home = this.navParams.data.home;
 
@@ -30,21 +34,21 @@ export class ShowThingPage {
   }
 
   ionViewWillEnter() {
-    this.events.subscribe(`thing:status:update:${this.thing.id}`, status => { this.onStatusChange(status); });
+    this.events.subscribe(`thing:status:update:out${this.thing.id}`, status => { this.onStatusChange(status); });
 
     this.loadThingStatus();
   }
 
   ionViewWillLeave() {
-    this.events.unsubscribe(`thing:status:update:${this.thing.id}`);
+    this.events.unsubscribe(`thing:status:update:out${this.thing.id}`);
     this.events.unsubscribe("things:updated");
+    clearInterval(this.interval);
   }
 
   async loadThingStatus() {
     try {
-      const response = await this.homewatch.status(this.thing).getStatus();
-      this.status = response.data;
-      this.navParams.data.status = this.status;
+      await this.preloadThingStatus();
+      this.interval = setInterval(this.refreshStatus, 2500);
 
       this.thingStatus.clear();
       const compFactory = this.compFactoryResolver.resolveComponentFactory(ThingsInfoHelper.getThingInfo(this.thing.type).showPage);
@@ -53,6 +57,18 @@ export class ShowThingPage {
     } catch (error) {
       this.status = undefined;
     }
+  }
+
+  async preloadThingStatus() {
+    const response = await this.homewatch.status(this.thing).getStatus();
+    this.status = response.data;
+    this.navParams.data.status = this.status;
+  }
+
+  refreshStatus = async () => {
+    const response = await this.cleanHomewatch.status(this.thing).getStatus();
+    this.status = response.data;
+    this.events.publish(`thing:status:update:in${this.thing.id}`, this.status);
   }
 
   async onStatusChange(newStatus) {

@@ -56,17 +56,19 @@
     <ion-item>
       <ion-label>Thing</ion-label>
       <ion-select type="text" formControlName="thing_to_compare_id">
-        <ion-option *ngFor="let thing of things" [value]=thing.id (ionSelect)="onThingToCompareChange(thing)">
+        <ion-option *ngFor="let thing of things" [value]=thing.id>
           {{thing.name}}
         </ion-option>
       </ion-select>
     </ion-item>
 
-    <ion-card [hidden]="!triggeredTaskForm.value.thing_to_compare_id" [class.fade-in]="triggeredTaskForm.value.thing_to_compare_id">
-      <ion-card-content no-padding>
-        <div #thingStatusToCompare></div>
-      </ion-card-content>
-    </ion-card>
+    <ion-item [hidden]="!triggeredTaskForm.value.thing_to_compare_id" [class.fade-in]="triggeredTaskForm.value.thing_to_compare_id">
+      <ion-textarea type="text" formControlName="status_to_compare"></ion-textarea>
+    </ion-item>
+
+    <ion-item no-lines *ngIf="!triggeredTaskForm.controls.thing_to_compare_id.valid && triggeredTaskForm.controls.thing_to_compare_id.touched">
+      <p>You must provide a valid json object</p>
+    </ion-item>
 
     <button margin-top ion-button full type="submit" [disabled]="!validForm()">SAVE</button>
   </form>

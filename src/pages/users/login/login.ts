@@ -1,7 +1,6 @@
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Storage } from "@ionic/storage";
-import { HomewatchApi } from "homewatch-js";
 import { NavController, NavParams, ToastController } from "ionic-angular";
 
 import { HomewatchApiService } from "../../../services/homewatch_api";
@@ -15,13 +14,10 @@ const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"
   templateUrl: "login.html"
 })
 export class LoginPage {
-  homewatch: HomewatchApi;
   loginForm: FormGroup;
   submitted = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, homewatchApi: HomewatchApiService, public storage: Storage, public formBuilder: FormBuilder, public toastController: ToastController) {
-    this.homewatch = homewatchApi.getApi();
-
+  constructor(public navCtrl: NavController, public navParams: NavParams, public homewatchApi: HomewatchApiService, public storage: Storage, public formBuilder: FormBuilder, public toastController: ToastController) {
     this.loginForm = formBuilder.group({
       email: ["", Validators.compose([Validators.pattern(EMAIL_REGEX), Validators.required])],
       password: ["", Validators.required]
@@ -31,7 +27,7 @@ export class LoginPage {
   async ionViewDidLoad() {
     const user = await this.storage.get("HOMEWATCH_USER");
     if (user) {
-      this.homewatch.auth = user.jwt;
+      this.homewatchApi.setAuth(user.jwt);
       this.navCtrl.setRoot(ListHomesPage, { user });
     }
   }
@@ -39,8 +35,8 @@ export class LoginPage {
   async onSubmit(form: FormGroup) {
     try {
       this.submitted = true;
-      const response = await this.homewatch.users.login(form.value);
-      this.homewatch.auth = response.data.jwt;
+      const response = await this.homewatchApi.getApi().users.login(form.value);
+      this.homewatchApi.setAuth(response.data.jwt);
       this.storage.set("HOMEWATCH_USER", response.data);
       this.navCtrl.setRoot(ListHomesPage, { user: response.data });
     } catch (error) {
