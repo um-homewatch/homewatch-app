@@ -83,6 +83,7 @@ export class NewTriggeredTaskPage {
       this.triggeredTask.thing_to_compare_id = this.triggeredTask.thing_to_compare.id;
 
       this.triggeredTaskForm.patchValue(this.triggeredTask);
+      console.log(this.triggeredTaskForm)
     }
 
     await Promise.all([this.loadThings(), this.loadScenarios()]);
@@ -124,7 +125,7 @@ export class NewTriggeredTaskPage {
     try {
       const status_to_compare = JSON.parse(form.value.status_to_compare);
 
-      const triggered_task = { status_to_apply: undefined, thing_id: undefined, scenario_id: undefined, thing_to_compare_id: form.value.thing_to_compare_id, status_to_compare, comparator: form.value.comparator };
+      const triggered_task = { status_to_apply: undefined, thing_id: undefined, scenario_id: undefined, thing_to_compare_id: form.value.thing_to_compare_id, status_to_compare, comparator: form.value.comparator.trim() };
 
       if (this.toApply === "thing") {
         triggered_task.thing_id = form.value.thing_id;

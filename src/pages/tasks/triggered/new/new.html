@@ -65,7 +65,7 @@
     <ion-item>
       <ion-label>Comparator</ion-label>
       <ion-select type="text" formControlName="comparator">
-        <ion-option *ngFor="let comparator of comparators">
+        <ion-option *ngFor="let comparator of comparators" [value]="comparator">
           {{comparator}}
         </ion-option>
       </ion-select>
