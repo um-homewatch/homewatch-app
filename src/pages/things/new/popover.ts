@@ -44,13 +44,13 @@ export class NewThingPopoverPage {
       title: "Discovered Things"
     });
 
-    devices.forEach((device) => {
+    devices.forEach(device => {
       alert.addInput({
         type: 'radio',
         label: `${device.type} ${device.subtype}`,
         value: device
-      })
-    })
+      });
+    });
 
     alert.addButton('Cancel');
     alert.addButton({
@@ -69,7 +69,7 @@ export class NewThingPopoverPage {
     try {
       const response = await this.homewatch.things(this.home).discoverThings(this.discoveryParams);
 
-      if (response.data.length == 0)
+      if (response.data.length === 0)
         this.showAlert("Error", "Couldn't find any device on your network!");
       else
         this.showRadioAlert(response.data);

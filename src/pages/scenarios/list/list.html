@@ -11,7 +11,7 @@
   <div *ngIf="!loading">
     <ion-card *ngFor="let scenario of scenarios">
       <ion-card-content no-padding>
-        <ion-item>
+        <ion-item (click)="showScenario(scenario)">
           <h2 class="inline">{{scenario.name}}</h2>
         </ion-item>
 

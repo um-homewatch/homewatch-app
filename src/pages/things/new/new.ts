@@ -48,7 +48,7 @@ export class NewThingPage {
 
     if (this.thing) {
       this.editMode = true;
-      const extraInfo = Object.assign({}, this.thing.connection_info);
+      const extraInfo = {... this.thing.connection_info};
       delete extraInfo["address"];
       delete extraInfo["port"];
 
@@ -78,10 +78,10 @@ export class NewThingPage {
   }
 
   async showPopover(myEvent) {
-    const popover = this.popoverCtrl.create(NewThingPopoverPage, { 
+    const popover = this.popoverCtrl.create(NewThingPopoverPage, {
       callback: this.popoverCallback,
       home: this.home,
-      discoveryParams: this.buildDiscoveryParams() 
+      discoveryParams: this.buildDiscoveryParams()
     });
 
     popover.present({
@@ -89,24 +89,24 @@ export class NewThingPage {
     });
   }
 
-  private buildDiscoveryParams(){
+  private buildDiscoveryParams() {
     return {
       type: this.thingForm.value.type,
       subtype: this.thingForm.value.subtype,
       port: this.thingForm.value.connection_info.port
-    }
+    };
   }
 
-  private popoverCallback = async (data) => {    
+  private popoverCallback = async data => {
     const connection_info = (({ address, port }) => ({ address, port }))(data);
-    delete data.address
-    delete data.port
-    delete data.type
-    delete data.subtype
+    delete data.address;
+    delete data.port;
+    delete data.type;
+    delete data.subtype;
 
     this.thingForm.patchValue({
       connection_info,
       extra_info: JSON.stringify(data)
-    })
+    });
   }
 }

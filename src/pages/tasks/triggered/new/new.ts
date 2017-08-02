@@ -83,7 +83,6 @@ export class NewTriggeredTaskPage {
       this.triggeredTask.thing_to_compare_id = this.triggeredTask.thing_to_compare.id;
 
       this.triggeredTaskForm.patchValue(this.triggeredTask);
-      console.log(this.triggeredTaskForm)
     }
 
     await Promise.all([this.loadThings(), this.loadScenarios()]);
@@ -135,7 +134,9 @@ export class NewTriggeredTaskPage {
       }
 
       return triggered_task;
-    } catch (e) { }
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   private JSONValidator = (control: FormControl) => {
