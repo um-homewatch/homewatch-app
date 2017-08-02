@@ -114,7 +114,7 @@ export class NewTimedTaskPage {
   }
 
   private buildTimedTask(form: FormGroup) {
-    const timed_task = { cron: form.value.cron, status: undefined, thing_id: undefined, scenario_id: undefined };
+    const timed_task = { cron: form.value.cron, status: undefined, thing_id: null, scenario_id: null };
 
     if (this.toApply === "thing") {
       timed_task.thing_id = form.value.thing_id;

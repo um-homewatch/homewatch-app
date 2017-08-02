@@ -24,6 +24,9 @@
     ],
     "no-access-missing-member": [
       false
+    ],
+    "no-null": [
+      false
     ]
   }
 }

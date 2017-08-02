@@ -1,10 +1,11 @@
-import { Component } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { HomewatchApi } from "homewatch-js";
-import { Events, NavController, NavParams } from "ionic-angular";
+import { NewThingPopoverPage } from './popover';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HomewatchApi } from 'homewatch-js';
+import { Events, NavController, NavParams, PopoverController } from 'ionic-angular';
 
-import { ThingsInfoHelper } from "../../../helpers/things_info";
-import { HomewatchApiService } from "../../../services/homewatch_api";
+import { ThingsInfoHelper } from '../../../helpers/things_info';
+import { HomewatchApiService } from '../../../services/homewatch_api';
 
 @Component({
   selector: "page-new-thing",
@@ -20,7 +21,7 @@ export class NewThingPage {
   home: any;
   thing: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, homewatchApi: HomewatchApiService, public formBuilder: FormBuilder, public events: Events) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, homewatchApi: HomewatchApiService, public formBuilder: FormBuilder, public events: Events, public popoverCtrl: PopoverController) {
     this.homewatch = homewatchApi.getApi();
     this.typeOptions = ThingsInfoHelper.getTypeOptions();
 
@@ -74,5 +75,38 @@ export class NewThingPage {
       await this.homewatch.things(this.home).createThing(form.value);
     }
     this.navCtrl.pop();
+  }
+
+  async showPopover(myEvent) {
+    const popover = this.popoverCtrl.create(NewThingPopoverPage, { 
+      callback: this.popoverCallback,
+      home: this.home,
+      discoveryParams: this.buildDiscoveryParams() 
+    });
+
+    popover.present({
+      ev: myEvent
+    });
+  }
+
+  private buildDiscoveryParams(){
+    return {
+      type: this.thingForm.value.type,
+      subtype: this.thingForm.value.subtype,
+      port: this.thingForm.value.connection_info.port
+    }
+  }
+
+  private popoverCallback = async (data) => {    
+    const connection_info = (({ address, port }) => ({ address, port }))(data);
+    delete data.address
+    delete data.port
+    delete data.type
+    delete data.subtype
+
+    this.thingForm.patchValue({
+      connection_info,
+      extra_info: JSON.stringify(data)
+    })
   }
 }
