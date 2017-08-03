@@ -43,12 +43,21 @@ export class ShowScenarioPage {
     }
   }
 
-  async editScenarioThing(scenarioThing: any) {
-    this.navCtrl.push(NewScenarioThingPage, { home: this.home, scenario: this.scenario, scenarioThing });
+  newScenarioThing() {
+    this.navCtrl.push(NewScenarioThingPage, {
+      home: this.home,
+      scenario: this.scenario,
+      selectedThings: this.scenarioThings
+    });
   }
 
-  newScenarioThing() {
-    this.navCtrl.push(NewScenarioThingPage, { home: this.home, scenario: this.scenario });
+  editScenarioThing(scenarioThing: any) {
+    this.navCtrl.push(NewScenarioThingPage, {
+      home: this.home,
+      scenario: this.scenario,
+      selectedThings: this.scenarioThings,
+      scenarioThing
+    });
   }
 
   async showPopover(myEvent) {

@@ -19,12 +19,14 @@ export class NewScenarioThingPage {
   homewatch: HomewatchApi;
   scenario: any;
   home: any;
+  selectedScenarioThings: Array<any>;
   things: Array<any>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, homewatchApi: HomewatchApiService, public formBuilder: FormBuilder, public popoverCtrl: PopoverController, public compFactoryResolver: ComponentFactoryResolver, public events: Events) {
     this.homewatch = homewatchApi.getApi();
     this.scenario = this.navParams.get("scenario");
     this.home = this.navParams.get("home");
+    this.selectedScenarioThings = this.navParams.get("selectedThings");
 
     this.scenarioThingForm = formBuilder.group({
       id: [""],
@@ -45,8 +47,10 @@ export class NewScenarioThingPage {
 
   async loadThings() {
     const response = await this.homewatch.things(this.home).listThings();
-    this.things = ArraySorterHelper.sortArrayByID(response.data);
-    this.things = ArraySorterHelper.filterAssignableThings(this.things);
+    response.data = ArraySorterHelper.sortArrayByID(response.data);
+    response.data = ArraySorterHelper.filterAssignableThings(response.data);
+    response.data = this.filterBySelectedThings(response.data);
+    this.things = response.data;
   }
 
   async ionViewWillEnter() {
@@ -79,5 +83,13 @@ export class NewScenarioThingPage {
     else
       await this.homewatch.scenarioThings(this.scenario).createScenarioThing({ thing_id: form.value.thing_id, status: form.value.status });
     this.navCtrl.pop();
+  }
+
+  private filterBySelectedThings(things: Array<any>) {
+    return things.filter(el => this.findScenarioThingByThingID(el.id) === undefined);
+  }
+
+  private findScenarioThingByThingID(id: number) {
+    return this.selectedScenarioThings.find(scenarioThing => scenarioThing.thing.id === id);
   }
 }
