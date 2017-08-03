@@ -2,7 +2,6 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-import { CloudModule } from '@ionic/cloud-angular';
 import { IonicStorageModule } from '@ionic/storage';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 
@@ -38,12 +37,6 @@ import { EditProfilePage } from '../pages/users/sign-up/edit';
 import { SignUpPage } from '../pages/users/sign-up/sign-up';
 import { HomewatchApiService } from '../services/homewatch_api';
 import { MyAppComponent } from './app.component';
-
-const cloudSettings: any = {
-  core: {
-    app_id: "b14588ff"
-  }
-};
 
 @NgModule({
   declarations: [
@@ -85,8 +78,7 @@ const cloudSettings: any = {
     IonicStorageModule.forRoot({
       name: "__homewatchdb",
       driverOrder: ["sqlite", "indexeddb", "websql"]
-    }),
-    CloudModule.forRoot(cloudSettings)
+    })
   ],
   bootstrap: [IonicApp],
   entryComponents: [
