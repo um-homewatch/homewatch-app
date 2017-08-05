@@ -4,6 +4,7 @@ import { Events, NavController, NavParams, PopoverController, ToastController } 
 
 import { ThingsInfoHelper } from "../../../helpers/things_info";
 import { HomewatchApiService } from "../../../services/homewatch_api";
+import { HomewatchSockets } from "../../../services/homewatch_sockets";
 import { ShowHomePage } from "../../homes/show/show";
 import { ShowThingPopoverPage } from "../show/popover";
 
@@ -20,7 +21,7 @@ export class ShowThingPage {
   status: any;
   interval: NodeJS.Timer;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController, homewatchApiService: HomewatchApiService, public compFactoryResolver: ComponentFactoryResolver, public popoverCtrl: PopoverController, public events: Events) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public toastCtrl: ToastController, homewatchApiService: HomewatchApiService, public compFactoryResolver: ComponentFactoryResolver, public popoverCtrl: PopoverController, public events: Events, public homewatchSockets: HomewatchSockets) {
     this.homewatch = homewatchApiService.getApi();
     this.cleanHomewatch = homewatchApiService.getCleanApi();
 
@@ -31,6 +32,8 @@ export class ShowThingPage {
       this.thing = thing;
       this.loadThingStatus();
     });
+
+    this.homewatchSockets.subscribeToThing(this.thing, this.refreshStatus);
   }
 
   ionViewWillEnter() {
@@ -43,18 +46,20 @@ export class ShowThingPage {
     this.events.unsubscribe(`thing:status:update:out${this.thing.id}`);
     this.events.unsubscribe("things:updated");
     clearInterval(this.interval);
+    this.homewatchSockets.removeSubscription();
   }
 
   async loadThingStatus() {
     try {
       await this.preloadThingStatus();
-      this.interval = setInterval(this.refreshStatus, 2500);
+      this.initRealtimeUpdates();
 
       this.thingStatus.clear();
       const compFactory = this.compFactoryResolver.resolveComponentFactory(ThingsInfoHelper.getThingInfo(this.thing.type).showPage);
       const instance = this.thingStatus.createComponent(compFactory).instance;
       instance["readOnly"] = true;
     } catch (error) {
+      this.showErrorToast("Couldn't reach the device");
       this.status = undefined;
     }
   }
@@ -65,24 +70,21 @@ export class ShowThingPage {
     this.navParams.data.status = this.status;
   }
 
-  refreshStatus = async () => {
-    try {
-      const response = await this.cleanHomewatch.status(this.thing).getStatus();
-      this.status = response.data;
-      this.events.publish(`thing:status:update:in${this.thing.id}`, this.status);
-    } catch (error) {
-      console.error(error);
-    }
+  initRealtimeUpdates() {
+    this.interval = setInterval(() => this.homewatchSockets.requestThingUpdate(this.thing), 2500);
   }
 
   async onStatusChange(newStatus) {
+    clearInterval(this.interval);
+
     try {
       const response = await this.homewatch.status(this.thing).putStatus(newStatus);
       this.status = response.data;
     } catch (error) {
-      this.status.locked = !this.status.locked;
       this.showErrorToast("Couldn't change the device status");
     }
+
+    this.initRealtimeUpdates();
   }
 
   showErrorToast(message: string) {
@@ -101,5 +103,10 @@ export class ShowThingPage {
     });
 
     popover.present({ ev: myEvent });
+  }
+
+  private refreshStatus = (status: any) => {
+    this.status = status;
+    this.events.publish(`thing:status:update:in${this.thing.id}`, this.status);
   }
 }

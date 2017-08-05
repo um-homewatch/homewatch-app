@@ -3,13 +3,15 @@ import { HomewatchApi } from "homewatch-js";
 
 @Injectable()
 export class HomewatchApiService {
+  static url = "https://homewatch-api.herokuapp.com";
+
   homewatch: HomewatchApi;
   auth: string;
   requestInterceptor: any;
   responseInterceptor: any;
 
   constructor() {
-    this.homewatch = new HomewatchApi("https://homewatch-api.herokuapp.com", false);
+    this.homewatch = new HomewatchApi(HomewatchApiService.url, false);
   }
 
   getApi(): HomewatchApi {
@@ -17,7 +19,7 @@ export class HomewatchApiService {
   }
 
   getCleanApi(): HomewatchApi {
-    const api = new HomewatchApi("https://homewatch-api.herokuapp.com", false);
+    const api = new HomewatchApi(HomewatchApiService.url, false);
     api.auth = this.auth;
     api.axios.interceptors.request.eject(this.requestInterceptor);
     api.axios.interceptors.response.eject(this.responseInterceptor);
