@@ -10,7 +10,7 @@ log.txt
 *.sublime-project
 *.sublime-workspace
 npm-debug.log*
-
+.sourcemaps
 .idea/
 .sass-cache/
 .tmp/
