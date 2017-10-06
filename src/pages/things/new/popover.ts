@@ -47,7 +47,7 @@ export class NewThingPopoverPage {
     devices.forEach(device => {
       alert.addInput({
         type: 'radio',
-        label: `${device.type} ${device.subtype}`,
+        label: `${device.address}`,
         value: device
       });
     });

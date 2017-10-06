@@ -12,7 +12,7 @@
 
 <ion-content padding>
   <ion-list class="scenario-things-list">
-    <button ion-button full (click)="applyScenario()">
+    <button ion-button full (click)="applyScenario()" disabled="scenarioThings.length == 0">
       <ion-icon name="checkmark"></ion-icon> Apply Scenario
     </button>
 

@@ -13,6 +13,6 @@ export class ThingStatusComponent {
   @Input() status: Object;
 
   statusKeys(status: Object) {
-    return Object.keys(status);
+    if (status) return Object.keys(status);
   }
 }
